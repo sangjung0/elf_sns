@@ -1,24 +1,30 @@
-import logo from './logo.svg';
-import './App.css';
+import { Route, Routes, Navigate } from 'react-router-dom';
 
-function App() {
+import SignUp from './components/SignUp';
+import SignIn from './components/SignIn';
+import Main from './components/Main';
+import Layout from './components/Layout';
+
+const Loading = () => {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div>
+      <h1>Loading...</h1>
     </div>
+  )
+}
+
+const App = ({userInfo}) => {
+
+  if (userInfo.loading){
+    return Loading();
+  }
+  return (
+      <Routes>
+        <Route path="/" element={<Navigate to={userInfo.info.data ? `/post/${userInfo.info.data.id}` : "signIn"}/>} />
+        <Route path="/signUp" element={<Layout><SignUp/></Layout>} />
+        <Route path="/signIn" element={<Layout><SignIn/></Layout>} />
+        <Route path="/post/:id" element={userInfo.info.data ? <Main/>:<Navigate to={`/signIn`}/>} />
+      </Routes>
   );
 }
 
