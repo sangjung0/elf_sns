@@ -1,3 +1,13 @@
+#사용 라이브러리
+react-router-dom
+classNames
+@reduxjs/toolkit
+redux
+react-redux
+redux-logger
+redux-saga
+sass
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
