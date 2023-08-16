@@ -1,43 +1,82 @@
 import {Button, Form} from 'react-bootstrap';
+import { Link, Navigate, useNavigate } from 'react-router-dom';
 import classNames from 'classnames/bind';
+import { useState } from 'react';
 
-import signInScss from '../styles/signIn.scss';
+import signInScss from '../styles/signIn.module.scss';
 const style = classNames.bind(signInScss);
 
 const SignIn = () => {
+    const [accountInfo, setAccountInfo] = useState({email:"", password: "", rememberChecked: false});
+    const [submit, setSubmit] = useState(false);
+    const navigate = useNavigate();
+
+    const onChange = (({target}) =>{
+        switch(target.name){
+            case "email":
+                setAccountInfo({...accountInfo, email: target.value})
+                break;
+            case "password":
+                setAccountInfo({...accountInfo, password: target.value})
+                break;
+            case "rememberChecked":
+                setAccountInfo({...accountInfo, rememberChecked: target.checked})
+                break;
+            default:
+                break;
+        }
+    })
+
+    const onSubmit = (e) => {
+        e.preventDefault();
+        navigate('/login',{state:{accountInfo}})
+        setSubmit(true);        
+    }
+
+    if(submit){ 
+        return <Navigate to={'/login'} />;
+    }
+
+
     return(
         <div className={style("form-container")}>
             <div className={style("logo")}>
                 <h1>ELVIS PRESLEY</h1>
             </div>
             <Form>
-                <Form.Group className="mb-3" controlId="formBasicEmail">
-                    <Form.Control type="email" placeholder="Enter email" />
+                <Form.Group className="mb-3" controlId="email">
+                    <Form.Control 
+                        type="email" 
+                        onChange={onChange} 
+                        name="email" 
+                        placeholder="Enter email" 
+                        value={accountInfo.email}
+                    />
                     <Form.Text className="text-muted">
                         이메일 똑바로 적으라우
                     </Form.Text>
-                    <Form.Text className="text-muted right-text">
+                    <Form.Text className={style("right-text")+" text-muted"}>
                         이메일 찾기
                     </Form.Text>
                 </Form.Group>
             
-                <Form.Group className="mb-3" controlId="formBasicPassword">
-                    <Form.Control type="password" placeholder="Password" />
+                <Form.Group className="mb-3" controlId="password">
+                    <Form.Control type="password" onChange={onChange} name="password" placeholder="Password" />
                     <Form.Text className="text-muted">
                         제대로 된 비밀번호 쓰라우
                     </Form.Text>
-                    <Form.Text className="text-muted right-text">
+                    <Form.Text className={style("right-text")+" text-muted"}>
                         비밀번호 찾기
                     </Form.Text>
                 </Form.Group>
-                <Form.Group className="mb-3" controlId="formBasicCheckbox">
-                    <Form.Check type="checkbox" label="Check me out" />
+                <Form.Group className="mb-3" controlId="remeberCheck">
+                    <Form.Check type="checkbox" onChange={onChange} name="rememberChecked" label="Remember me" />
                 </Form.Group>
-                <Button variant="primary" type="submit">
-                    Submit
+                <Button variant="primary" onClick={onSubmit} className={style("btn")} type="submit">
+                    Login
                 </Button>
-                <Form.Text className="text-muted sing-Up">
-                    회원가입
+                <Form.Text className={style("sing-Up")+" text-muted"}>
+                    <Link to="/signUp">회원가입</Link>
                 </Form.Text>
             </Form>
         </div>
