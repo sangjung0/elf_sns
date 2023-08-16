@@ -9,11 +9,9 @@
     .left{
         margin: 0px;
         padding: 0px;
-        width: 60vw;
+        width: 55vw;
         height: 100vh;
-        border-right: 2vh solid  rgba(92,225,230,0.6);
         padding-top: 15vh;
-        padding-right: 3vh;
 
         .logo-Container {
             margin:0;
@@ -21,6 +19,8 @@
             width:50%;
             height:50vh;
             float:right;
+            padding-right: 3vh;
+            border-right: 5px solid  rgba(92,225,230,0.6);
         
             .logo-Img {
                 border-radius: 20%;
@@ -32,7 +32,7 @@
     .right{
         margin: 0px;
         padding: 0px;
-        width: 40vw;
+        width: 45vw;
         height: 100vh;
         padding-top: 15vh;
         padding-left: 20px;

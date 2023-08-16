@@ -1,0 +1,32 @@
+.form-container {
+    margin-top: 1vh;
+    width: 50%;
+    height: 40vh;
+    .logo{
+        width:100%;
+        text-align: center;
+        padding-bottom: 5vh;
+        h1{
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            color: rgba(92,225,230,1);
+        }
+    }
+    .col{
+        padding: 0px;
+    }
+    .btn{
+        background-color:rgba(92,225,230,0.8);
+        border-color: rgba(92,225,230,1);
+        width: 100%;
+    }
+    .right-text{
+        float: right;
+        cursor:pointer;
+        top:1px;
+    }
+    .sing-Up{
+        float:right;
+        cursor: pointer;
+    }
+
+}
