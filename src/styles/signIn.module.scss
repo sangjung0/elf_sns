@@ -1,11 +1,54 @@
+@media (min-width: 1200px){
+    .form-container {
+        margin-top:10px;
+        font-size:18px;
+        width: 450px;
+        height:460px;
+        .logo{
+            padding-bottom: 60px;
+        }
+    }
+
+}
+@media (max-width:1199px){
+    .form-container {
+        margin-top:10px;
+        font-size:10px;
+        width: 100px;
+        height:166px;
+        .logo{
+            padding-bottom: 6px;
+            h1{
+                font-size:10px;
+            }
+        }        
+        :global .form-control{
+            padding: 5px 3px 7px 3px;
+            height:10px;
+            font-size:7px;
+            border-radius: 3px;
+            font-weight: 200;
+        }
+        .left-text{
+            display: none;
+        }
+        .right-text{
+            display: none;
+        }
+        .btn{
+            width:50px;
+            height:0px;
+            font-size:10px;
+            padding:0px 0px 18px 0px;
+        }
+    }
+
+
+}
 .form-container {
-    margin-top: 1vh;
-    width: 50%;
-    height: 40vh;
     .logo{
         width:100%;
         text-align: center;
-        padding-bottom: 5vh;
         h1{
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             color: rgba(92,225,230,1);

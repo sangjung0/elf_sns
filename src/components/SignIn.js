@@ -46,7 +46,7 @@ const SignIn = ({signInAccountInfo}) => {
                         placeholder="Enter email" 
                         value={accountInfo.email}
                     />
-                    <Form.Text className="text-muted">
+                    <Form.Text className={style("left-text")+" text-muted"}>
                         이메일 똑바로 적으라우
                     </Form.Text>
                     <Form.Text className={style("right-text")+" text-muted"}>
@@ -55,8 +55,13 @@ const SignIn = ({signInAccountInfo}) => {
                 </Form.Group>
             
                 <Form.Group className="mb-3" controlId="password">
-                    <Form.Control type="password" onChange={onChange} name="password" placeholder="Password" />
-                    <Form.Text className="text-muted">
+                    <Form.Control 
+                        type="password" 
+                        onChange={onChange} 
+                        name="password" 
+                        placeholder="Password" 
+                    />
+                    <Form.Text className={style("left-text")+" text-muted"}>
                         제대로 된 비밀번호 쓰라우
                     </Form.Text>
                     <Form.Text className={style("right-text")+" text-muted"}>
