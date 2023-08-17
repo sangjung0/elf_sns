@@ -5,6 +5,7 @@ import App from '../App';
 import { getUserInfo } from "../lib/modules/userInfo";
 import { getSessionId } from '../lib/sessionId';
 
+//세션 확인 컨테이너
 const AppContainer = () => {
     const sessionId = getSessionId();
     const userInfo = useSelector(state => state.userInfo);

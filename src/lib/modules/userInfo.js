@@ -3,21 +3,26 @@ import {produce} from "immer";
 
 import gUI from "../getUserInfo";
 
-const GET_USER_INFO = 'userInfo/GET_USER_INFO';
-const GET_USER_INFO_SUCCESS = 'userInfo/GET_USER_INFO_SUCCESS';
-const GET_USER_INFO_FAILURE = 'userInfo/GET_USER_INFO_FAILURE';
+const GET_USER_INFO = 'userInfo/GET_USER_INFO'; //유저 정보 가져오기 실행
+const GET_USER_INFO_SUCCESS = 'userInfo/GET_USER_INFO_SUCCESS'; //유저 정보 가져오기 성공
+const GET_USER_INFO_FAILURE = 'userInfo/GET_USER_INFO_FAILURE'; //유저 정보 가져오기 실패
 
+//액션
+//유저 정보를 가져오기 실행 액션
 export const getUserInfo = (sessionId) => ({
     type: GET_USER_INFO,
     sessionId
 });
 
+//리덕스 사가 함수
+//유저 정보 가져와서 성공 실패에 따라 디스패치
 const getUserInfoSaga = function* (action) {
     try{
         const userInfo = yield call(gUI, action.sessionId);
         yield put({
             type: GET_USER_INFO_SUCCESS,
-            info: userInfo,
+            payload: {...userInfo},
+            error: false,
         });
     }catch(e){
         yield put({
@@ -29,26 +34,36 @@ const getUserInfoSaga = function* (action) {
     delay(1000);
 }
 
+//리덕스 사가 호출 세팅
 export const userInfoSaga = function* () {
     yield takeLeading(GET_USER_INFO, getUserInfoSaga);
 }
 
+//초기상태
 const initialState = {
     loading: true,
-    info: null
+    payload: null,
+    error: false,
 }
 
+//리듀서
 const userInfo = (state= initialState, action) => {
     switch(action.type){
-        case GET_USER_INFO_FAILURE:
         case GET_USER_INFO:
             return produce(state, draft => {
-                draft.loading = true;
+                draft.loading = true; //유저 정보 가져오기 실행할때 로딩 true 끝나면 false
             })
         case GET_USER_INFO_SUCCESS:
             return produce(state, draft => {
-                draft.info = action.info;
+                draft.payload = action.payload;
                 draft.loading = false;
+            })
+        case GET_USER_INFO_FAILURE:
+            //에러처리 해야함
+            return produce(state, draft => {
+                draft.payload = action.payload;
+                draft.loading = false;
+                draft.error = true;
             })
         default:
             return state;
