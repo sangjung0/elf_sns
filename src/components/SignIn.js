@@ -1,15 +1,14 @@
 import {Button, Form} from 'react-bootstrap';
-import { Link, Navigate, useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import classNames from 'classnames/bind';
 import { useState } from 'react';
 
 import signInScss from '../styles/signIn.module.scss';
 const style = classNames.bind(signInScss);
 
-const SignIn = () => {
+
+const SignIn = ({signInAccountInfo}) => {
     const [accountInfo, setAccountInfo] = useState({email:"", password: "", rememberChecked: false});
-    const [submit, setSubmit] = useState(false);
-    const navigate = useNavigate();
 
     const onChange = (({target}) =>{
         switch(target.name){
@@ -29,12 +28,7 @@ const SignIn = () => {
 
     const onSubmit = (e) => {
         e.preventDefault();
-        navigate('/login',{state:{accountInfo}})
-        setSubmit(true);        
-    }
-
-    if(submit){ 
-        return <Navigate to={'/login'} />;
+        signInAccountInfo(accountInfo);
     }
 
 

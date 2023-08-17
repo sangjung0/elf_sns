@@ -1,15 +1,13 @@
 import {Button, Form, Col, Row} from 'react-bootstrap';
-import { Link, Navigate, useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import classNames from 'classnames/bind';
 import { useState } from 'react';
 
 import singUpScss from '../styles/singUp.module.scss';
 const style = classNames.bind(singUpScss);
 
-const SingUp = () => {
+const SingUp = ({registerAccountInfo}) => {
     const [accountInfo, setAccountInfo] = useState({email:"", password: "", name: "", phoneNumber:""});
-    const [submit, setSubmit] = useState(false);
-    const navigate = useNavigate();
 
     const onChange = (({target}) =>{
         switch(target.name){
@@ -31,12 +29,7 @@ const SingUp = () => {
     })
     const onSubmit = (e) => {
         e.preventDefault();
-        navigate('/register',{state:{accountInfo}})
-        setSubmit(true);        
-    }
-
-    if(submit){ 
-        return <Navigate to={'/register'} />;
+        registerAccountInfo(accountInfo);        
     }
 
     return(
