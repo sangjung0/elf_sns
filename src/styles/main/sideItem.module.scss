@@ -1,0 +1,48 @@
+.sideitem-container{
+    width:18vw;
+    height:8vh;
+    padding-bottom:5px;
+    margin-top:5px;
+    border-bottom: 1px solid gray;
+    .allam{
+        display:flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        float:left;
+        width:1.8vw;
+        height:8vh;
+    }
+    .user-card{
+        float:right;
+        width:16.2vw;
+        display:flex;
+        flex-direction: row;
+        justify-content: center;
+        align-items:center;
+        .img-container{
+            padding:0;
+            overflow:hidden;
+            width:6vmin;
+            height:6vmin;
+            border-radius: 50%;
+            float:left;
+        }
+        .user-info{
+            float:right;
+            width:12.2vw;
+            height:8vh;
+            display:flex;
+            flex-direction: row;
+            justify-content: center;
+            align-items:center;
+        }
+        .user-settings{
+            margin-left:2vw;
+            display:flex;
+            font-size: 1vh;
+            flex-direction: column;
+
+        }
+    }
+}
