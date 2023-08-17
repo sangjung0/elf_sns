@@ -1,12 +1,10 @@
 import { Route, Routes, Navigate } from 'react-router-dom';
 
-import SignUp from './components/SignUp';
-import SignIn from './components/SignIn';
-import Main from './components/Main';
+import SignUpContainer from './containers/SignUpContainer';
+import SignInContainer from './containers/SignInContainer';
+import Main from './components/main/Main';
 import Layout from './components/Layout';
-import Login from './components/Login';
 import Loading from './components/Loading';
-import Register from './components/Register';
 
 const App = ({userInfo}) => {
 
@@ -17,11 +15,9 @@ const App = ({userInfo}) => {
   return (
       <Routes>
         <Route path="/" element={<Navigate to={userInfo.payload.data ? `/post/${userInfo.payload.id}` : "signIn"}/>} />
-        <Route path="/signUp" element={<Layout><SignUp/></Layout>} />
-        <Route path="/signIn" element={<Layout><SignIn/></Layout>} />
-        <Route path="/login" element={<Login/>} />
-        <Route path="/register" element={<Register/>} />
-        <Route path="/post/:id" element={userInfo.payload.data ? <Main/>:<Navigate to={`/signIn`}/>} />
+        <Route path="/signUp" element={<Layout><SignUpContainer/></Layout>} />
+        <Route path="/signIn" element={<Layout><SignInContainer/></Layout>} />
+        <Route path="/post/:id" element={userInfo.payload.data ? <Main userInfo={userInfo}/>:<Navigate to={`/signIn`}/>} />
       </Routes>
   );
 }
