@@ -1,4 +1,4 @@
-//import axios from 'axios';
+import axios from 'axios';
 
 //유저 정보 가져오기
 const getUserInfo = async (sessionId) => {
@@ -11,12 +11,20 @@ const getUserInfo = async (sessionId) => {
             }
         }
         //axios로 유저 정보 서버에 요청
-        // const response = await axios.post(process.env.REACT_APP_SERVER_URL+"/sessionCheck",{
-        //     body:{
-        //         sessionId
-        //     }
-        // })
-        // console.log(response);
+        const response = await axios.post(
+            process.env.REACT_APP_SERVER_URL+"/sessionCheck",
+            {
+                body:{
+                    sessionId
+                }
+            },{
+                headers:{
+                    'Access-Control-Allow-Origin': '*',
+                    'Access-Control-Allow-Methods': 'GET,PUT,POST,DELETE,PATCH,OPTIONS',
+                }    
+            }
+        )
+        console.log(response);
         return {
             state: "SUCCESS",
             data: {
