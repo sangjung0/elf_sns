@@ -1,11 +1,38 @@
+@media (min-width: 1200px){
+    .form-container {
+        margin-top:10px;
+        font-size:18px;
+        width: 450px;
+        height:460px;
+        .logo{
+            padding-bottom: 60px;
+        }
+    }
+}
+@media (max-width:1199px){
+    :global html{
+        font-size: 6px;
+    }
+    .form-container {
+        margin-top:10px;
+        font-size:10px;
+        width: 100px;
+        height:166px;
+        .logo{
+            padding-bottom: 6px;
+            h1{
+                font-size:10px;
+            }
+        }
+    }
+
+
+}
+
 .form-container {
-    margin-top: 1vh;
-    width: 50%;
-    height: 40vh;
     .logo{
         width:100%;
         text-align: center;
-        padding-bottom: 5vh;
         h1{
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             color: rgba(92,225,230,1);
