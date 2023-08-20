@@ -1,46 +1,99 @@
+@media (max-width:767px){
+}
+@media (min-width:768px) and (max-width:991px){
+    .sideitem-container{
+        width:362px;
+        height:70px;
+        .allam{
+            width:15.2px;
+        }
+        .user-card{
+            width:346.8px;
+            .box{
+                width:60px;
+                height:60px;
+            }
+            .user-info{
+                width:265.9px;
+                .user-name{
+                    width:190px;
+                }
+                .user-settings{
+                    width:30px;
+                }
+
+            }
+            .user-settings{
+                margin-left:19px;
+            }
+        }
+    }
+}
+@media (min-width:992px){
+    .sideitem-container{
+        width:362px;
+        height:70px;
+        .allam{
+            width:15.2px;
+        }
+        .user-card{
+            width:346.8px;
+            .box{
+                width:60px;
+                height:60px;
+            }
+            .user-info{
+                width:265.9px;
+                .user-name{
+                    width:190px;
+                }
+                .user-settings{
+                    width:30px;
+                }
+
+            }
+            .user-settings{
+                margin-left:19px;
+            }
+        }
+    }
+}
+@media (min-width:1200px){
+}
+@media (min-width:1400px){
+}
+
+
 .sideitem-container{
-    width:18vw;
-    height:8vh;
     padding-bottom:5px;
     margin-top:5px;
-    border-bottom: 1px solid gray;
+    border-bottom: 1px solid #cccccc;
     .allam{
         display:flex;
         flex-direction: column;
         justify-content: center;
         align-items: center;
         float:left;
-        width:1.8vw;
-        height:8vh;
+        height:100%;
     }
     .user-card{
         float:right;
-        width:16.2vw;
         display:flex;
         flex-direction: row;
         justify-content: center;
         align-items:center;
-        .img-container{
-            padding:0;
-            overflow:hidden;
-            width:6vmin;
-            height:6vmin;
-            border-radius: 50%;
-            float:left;
-        }
+        height:100%;
         .user-info{
             float:right;
-            width:12.2vw;
-            height:8vh;
+            height:100%;
             display:flex;
             flex-direction: row;
             justify-content: center;
             align-items:center;
         }
         .user-settings{
-            margin-left:2vw;
             display:flex;
-            font-size: 1vh;
+            font-size: 18px;
             flex-direction: column;
 
         }

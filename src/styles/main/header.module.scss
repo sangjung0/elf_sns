@@ -1,59 +1,204 @@
+@media (max-width:767px){
+    .nav-container{
+        height:60px;
+        top: 0px;
+        .item-container{
+            height:50px;
+            padding: 10px 10px 0px 30px;
+            .logo-container{
+                width: 40px;
+                height:40px;
+                border-radius: 5px;
+                .logo-img{
+                    width: 300%;
+                    height: 300%;
+                    transform: translate(-33%, -33%);
+                }
+            }
+            
+            .user-info-container{
+                div{
+                    margin-left:30px;
+                }
+                .text{
+                    top:3px;
+                }
+            }
+        }
+        .message-container{
+            display:none;
+        }
+    }
+}
+@media (min-width:768px) and (max-width:991px){
+    .nav-container{
+        height:60px;
+        top: 0px;
+        .item-container{
+            height:50px;
+            padding: 10px 10px 0px 30px;
+            .logo-container{
+                width: 40px;
+                height:40px;
+                border-radius: 5px;
+                .logo-img{
+                    width: 300%;
+                    height: 300%;
+                    transform: translate(-33%, -33%);
+                }
+            }
+            
+            .user-info-container{
+                div{
+                    margin-left:30px;
+                }
+                .text{
+                    top:3px;
+                }
+            }
+        }
+        .message-container{
+            display:none;
+        }
+    }
+}
+@media (min-width:992px){
+    .nav-container{
+        height:80px;
+        top:-60px;
+        .item-container{
+            height:60px;
+            padding: 10px 10px 0px 30px;
+            .logo-container{
+                width: 120px;
+                height:50px;
+                border-radius: 5px;
+                .logo-img{
+                    width: 250%;
+                    height: 300%;
+                    transform: translate(-90px, -50px);
+                }
+            }
+            
+            .user-info-container{
+                div{
+                    margin-left:30px;
+                }
+                .text{
+                    top:3px;
+                }
+                .small-info{
+                    font-size:14px;
+                    transform: translate(-100%,185%);
+                }
+            }
+        }
+        .message-container{
+            height:20px;
+            .mouse-message{
+                top:-1px;
+                font-size:13px;
+                font-weight: 600;
+            }
+        }
+    }
+    
+}
+@media (min-width:1200px){
+    .nav-container{
+        .item-container{
+            .user-info-container{
+                .text{
+                    top:5px;
+                }
+                .small-info{
+                    transform: translate(-180%,170%);
+                }
+            }
+        }
+        .message-container{
+            .mouse-message{
+                top:-2px;
+            }
+        }
+    }
+}
+@media (min-width:1400px){
+    .nav-container{
+        height:90px;
+        top:-70px;
+        .item-container{
+            height:70px;
+            .logo-container{
+                width: 120px;
+                height:60px;
+                .logo-img{
+                    width: 300%;
+                    height: 300%;
+                    transform: translate(-120px, -60px);
+                }
+            }
+            
+            .user-info-container{
+                .small-info{
+                    transform: translate(-250%,205%);
+                }
+            }
+        }
+        .message-container{
+            .mouse-message{
+                top:-5px;
+            }
+        }
+    }
+}
+
+
 .nav-container{
+    z-index: 10000;
     position:fixed;
     width:100%;
-    height:8vh;
-    top:-6vh;
     background-color: rgb(255, 255, 255);
     outline: 1px solid rgba(92,225,230,1);
     transition: 100ms;
-
     &:hover{
-        top:0vh;
-        .mouse-message{
-            transition: 100ms;
-            display:none;
-        }
+        top: 0px;
         .item-container{
             .user-info-container{
                 .small-info{
-                    font-size:3vh;
-                    top:6vh;
+                    font-size:2rem;
                     transform: translate(0%,0%);
                 }
             }
         }
+        .mouse-message{
+            transition: 100ms;
+            display:none;
+        }
     }
     .item-container{
         width:100%;
-        height:6vh;
-        //background-color:rgba(92,225,230,1);
-        padding: 1vh 1vh 0px 6vh;
         .logo-container{
             float:left;
-            width: 10vh;
-            height:5vh;
             padding:0;
             margin:0;
-            border-radius: 10%;
             overflow:hidden;
             .logo-img{
-                width: 28vh;
-                height: 21vh;
                 overflow: hidden;
-                transform: translate(-9vh, -7.7vh);
             }
         }
         
         .user-info-container{
-            float:right;
+            font-size:2rem;
             display:flex;
+            justify-content: center;
+            align-items: center;
+            float:right;
             div{
-                font-size:3vh;
-                margin-left:10px;
+                cursor: pointer;
             }
-            .small-info{
-                font-size:1vh;
-                transform: translate(0%,115%);
+            .text{
+                position:relative;
             }
         }
     }
@@ -62,15 +207,11 @@
         text-align: center;
         margin:0;
         padding:0;
-        height:2vh;
         .mouse-message{
             position:relative;
-            top:-0.5vh;
-            font-size:1vh;
             transition: 100ms;
             color:rgb(73, 181, 185);
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            font-weight: 600;
         }
     }
 }

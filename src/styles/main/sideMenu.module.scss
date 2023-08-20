@@ -1,35 +1,62 @@
-.side-container{
-    position:fixed;
-    width:20vw;
-    border-left: 2px solid rgb(199, 198, 198);
-    height: 90vh;
-    top:8vh;
-    left:80vw;
-    .close-container{
-        height:2vh;
-        margin-left: 5%;
-        span{
-            font-size: 1.5vh;
+
+@media (max-width:767px){
+}
+@media (min-width:768px) and (max-width:991px){
+    .side-container{
+        width:400px;
+        .item-container{
+            width:381px;
+        }
+        .button-container{
+            width:381px;
         }
     }
+}
+@media (min-width:992px){
+    .side-container{
+        width:400px;
+        .item-container{
+            width:381px;
+        }
+        .button-container{
+            width:381px;
+        }
+    }
+}
+@media (min-width:1200px){
+}
+@media (min-width:1400px){
+}
+
+.side-container{
+    z-index: 99999;
+    background-color: white;
+    position:fixed;
+    border-left: 2px solid rgb(199, 198, 198);
+    height: 86vh;
+    top:90px;
+    right:0px;
+    .close-container{
+        font-size:25px;
+        height:2vh;
+        margin-left: 10px;
+    }
     .item-container{
-        margin-left:1vw;
+        margin-left:10px;
         margin-top:2vh;
         //outline: 1px solid black;
-        width:18vw;
         height:75vh;
         overflow-y: scroll;
         overflow-x:hidden;
     }
     .button-container{
-        width:18vw;
         margin-top:2vh;
-        margin-left:1vw;
+        margin-left:10px;
         .friend-add-button{
-            width:18vw;
+            width:100%;
             border-radius:10px;
             border:0px solid black;
-            height:6vh;
+            height:30px;
             color:white;
             background-color:rgb(92,225,230);
         }

@@ -1,9 +1,13 @@
 import classNames from 'classnames/bind';
+import { BsBell } from 'react-icons/bs';
+import { SlUserFollow, SlUserFollowing } from 'react-icons/sl';
+import {GiHamburgerMenu} from 'react-icons/gi';
+import { memo } from 'react';
 
 import headerStyle from '../../styles/main/header.module.scss';
 const style = classNames.bind(headerStyle);
 
-const Header = () => {
+const Header = ({onClickHamburger}) => {
 
 
     return (
@@ -13,21 +17,20 @@ const Header = () => {
                     <img className={style("logo-img")} alt="logo" src="../img/logo.png" />
                 </div>
                 <div className={style('user-info-container')}>
-                    {/* 아이콘 대체 필요 */}
                     <div className={style('small-info')}>
-                        <span>알림 <span>5</span></span>
+                        <span><BsBell/> <span className={style('text')}>5</span></span>
                     </div>
                     <div className={style('small-info')}>
-                        <span>팔로잉 <span>5</span></span>
+                        <span><SlUserFollowing/> <span className={style('text')}>5</span></span>
                     </div>
                     <div className={style('small-info')}>
-                        <span>팔로우 <span>5</span></span>
+                        <span><SlUserFollow/> <span className={style('text')}>5</span></span>
                     </div>
                     <div>
-                        <span>마이페이지</span>   
+                        <span className={style('text')}>마이페이지</span>   
                     </div>
                     <div>
-                        <span>햄버거버튼</span>
+                        <span onClick={onClickHamburger}><GiHamburgerMenu/></span>
                     </div>
                 </div>
             </div>
@@ -38,4 +41,4 @@ const Header = () => {
     )
 }
 
-export default Header;
+export default memo(Header);
