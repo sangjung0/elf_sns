@@ -20,10 +20,11 @@ const SignInContainer = () => {
             );
 
         if(result.status !== "SUCCESS"){
-            alert("로그인 실패");
+            alert("회원정보가 다름");
+            console.error("로그인 실패 code:", result.state);
+            console.error("Error:", result.payload );
             setRedirect(<SignIn signInAccountInfo={signInAccountInfo}/>);
         }else{
-            alert("로그인 성공");
             navigate('/');
             _getUserInfo(getSessionId());
         }
@@ -31,7 +32,6 @@ const SignInContainer = () => {
 
     const [redirect, setRedirect] = useState(<SignIn signInAccountInfo={signInAccountInfo}/>);
 
-    console.log("redirect",redirect);
     return(
         redirect 
     )

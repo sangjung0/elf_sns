@@ -19,11 +19,19 @@ export const getUserInfo = (sessionId) => ({
 const getUserInfoSaga = function* (action) {
     try{
         const userInfo = yield call(gUI, action.sessionId);
-        yield put({
-            type: GET_USER_INFO_SUCCESS,
-            payload: {...userInfo},
-            error: false,
-        });
+        if(userInfo.state === "SUCCESS"){
+            yield put({
+                type: GET_USER_INFO_SUCCESS,
+                payload: {...userInfo},
+                error: false,
+            });
+        }else{
+            yield put({
+                type: GET_USER_INFO_FAILURE,
+                payload: "not found sessionId",
+                error: false,
+            })
+        }
     }catch(e){
         yield put({
             type: GET_USER_INFO_FAILURE,
@@ -63,7 +71,7 @@ const userInfo = (state= initialState, action) => {
             return produce(state, draft => {
                 draft.payload = action.payload;
                 draft.loading = false;
-                draft.error = true;
+                draft.error = action.error;
             })
         default:
             return state;

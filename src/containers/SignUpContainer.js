@@ -14,11 +14,13 @@ const SignUpContainer = () => {
             accountInfo.password,
             accountInfo.phoneNumber, 
             accountInfo.name);
-        if(result.status !== "SUCCESS"){
+        if(result.state !== "SUCCESS"){
             alert("회원가입 실패");
+            console.error("회원가입 실패 code:", result.state);
+            console.error("Error:", result.payload );
             setRedirect(<SignUp registerAccountInfo={registerAccountInfo}/>);
         }else{
-            alert("회원가입 성공");
+            alert("회원가입 성공 로그인 하셈");
             navigate('/SignIn');
         }
     }
