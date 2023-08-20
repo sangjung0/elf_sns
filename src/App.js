@@ -14,7 +14,7 @@ const App = ({userInfo}) => {
   }
   return (
       <Routes>
-        <Route path="/" element={<Navigate to={userInfo.payload.data ? `/post/${userInfo.payload.id}` : "signIn"}/>} />
+        <Route path="/" element={<Navigate to={userInfo.payload.data ? `/post/${userInfo.payload.data.id}` : "signIn"}/>} />
         <Route path="/signUp" element={<Layout><SignUpContainer/></Layout>} />
         <Route path="/signIn" element={<Layout><SignInContainer/></Layout>} />
         <Route path="/post/:id" element={userInfo.payload.data ? <Main userInfo={userInfo}/>:<Navigate to={`/signIn`}/>} />
