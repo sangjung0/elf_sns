@@ -18,12 +18,15 @@ export const setSessionId = async(email, password) => {
         //         }    
         //     }
         // )
+        // console.group("login");
+        // console.log(response);
         // console.log(response.data.state);
-        // console.lpg(response.data.payload);
+        // console.log(response.data.payload);
         // console.log(response.data.payload.sessionId);
         // console.log(response.data.payload.userId);
-        // Cookies.set("session_id",response.data.sessionId);
-        // return {sessionId: response.data.payload.sessionId, userId:response.data.payload.userId, status:response.data.state};
+        // console.groupEnd();
+        // Cookies.set("SESSION",response.data.sessionId);
+        // return {sessionId: response.data.payload.sessionId, userId:response.data.payload.userId, state:response.data.state};
         // // {
         //     // state: "SUCCESS", or "FAILURE", "ERROR"
         //     // payload: {
@@ -34,16 +37,16 @@ export const setSessionId = async(email, password) => {
 
         const sessionId = "1234";
         const userId = "userId_1234";
-        Cookies.set("session_id",sessionId);
-        return {sessionId, userId, status:"SUCCESS"};
+        Cookies.set("SESSION",sessionId);
+        return {sessionId, userId, state:"SUCCESS"};
     }catch(e){
         console.error(e);
-        return {error:e, status:"ERROR"};
+        return {error:e, state:"ERROR"};
     }
 
 }
 
 //세션 id 가져오기
 export const getSessionId = () => {
-    return Cookies.get("session_id");
+    return Cookies.get("SESSION");
 }
