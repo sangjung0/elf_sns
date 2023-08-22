@@ -14,7 +14,6 @@ const AppContainer = () => {
     useEffect(()=>{
         _getUserInfo(sessionId);
     },[_getUserInfo,sessionId]);
-    console.log(userInfo);
     return <App userInfo={userInfo}/>
 }
 
