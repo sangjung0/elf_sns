@@ -25,7 +25,7 @@ export const setSessionId = async (email, password) => {
         // console.log(response.data.payload.sessionId);
         // console.log(response.data.payload.userId);
         // console.groupEnd();
-        // Cookies.set("SESSION",response.data.sessionId);
+        // Cookies.set("SESSION",response.data.payload.sessionId,{ expires: 1, path: '/' });
         // return {sessionId: response.data.payload.sessionId, userId:response.data.payload.userId, state:response.data.state};
         // // {
         //     // state: "SUCCESS", or "FAILURE", "ERROR"

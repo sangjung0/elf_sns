@@ -8,7 +8,6 @@ import SignUp from "../components/SignUp";
 const SignUpContainer = () => {
     const navigate = useNavigate();
 
-    const [redirect, setRedirect] = useState(<SignUp registerAccountInfo={registerAccountInfo} />);
 
     const registerAccountInfo = async (accountInfo) => {
         setRedirect(<Loading />);
@@ -27,6 +26,7 @@ const SignUpContainer = () => {
             navigate('/SignIn');
         }
     }
+    const [redirect, setRedirect] = useState(<SignUp registerAccountInfo={registerAccountInfo} />);
 
     return (
         redirect

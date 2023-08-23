@@ -46,11 +46,29 @@ const getContentsInfo = async(sessionId, currentPage, pageValue) => {
         // }
 
         /*
-            처음에 총 컨텐츠 값의 대략적인 값을 준다. 약 50~100정도
-            그리고 10장에 한버씩 로딩을 한다. 10개의 정보를 한번에 들고오고
-            없는 부분이 있으면 서스펜스를 작동시켜 비동기로 들고온다.
-            만약 100부분에 도달한다면, 100장에 도달한다면 또다시 얼마나 줄 수 있는지 파악한다.
-
+        state: "SUCCESS",
+        payload:{
+                id: "contentId_"+(currentPage+(index+1)*additionalValue), //콘텐츠 아이디
+                author: { //저자
+                    id: "userId_12312", //저자 아이디
+                    imgUrl: "../img/test_img/사람_1.jpg" //저자 프로필 사진
+                },
+                createAt: 1692706863808, //숫자로 
+                imgUrl: ["../img/test_img/사람_5.jpg","../img/test_img/사람_6.jpg","../img/test_img/사람_7.jpg","../img/test_img/사람_8.jpg"], // 이미지 url
+                content: "하루 죙일 버튜얼라이즈 인피니티로드를 만졌다. 메인 컨텐츠 크기를 동적으로 만들었다. 동적으로 안만들었으면 이렇게 고생할 일 없었을 텐데, 하 진짜 너무 짜증난다. 예시로 넣어놓은 저작권 없는 사진 이제 꼴도 보기 싫다. 이게 sns? 하 대학원은 어떻게가고 취직은 어떻게 하냐", //내용
+                comments: [{
+                    commentId:"commentId_123412",
+                    userId:"userId_123123",
+                    createAt:1698469752808,
+                    comment:"와 진짜 개공감 ㅇㅈ"
+                },{
+                    commentId:"commentId_123412",
+                    userId:"userId_123123",
+                    createAt:1698469752808,
+                    comment:"와 진짜 개공감 ㅇㅈ"
+                }], //댓글 답글 많은것들 중 최근거 두개
+                tags: ["사람","css","뒤져","망할","리액트","버튜얼라이즈","사라져"]
+        }
         */
 
         //test 영역
