@@ -1,16 +1,16 @@
 import { AutoSizer, CellMeasurer, CellMeasurerCache, InfiniteLoader, List, WindowScroller } from 'react-virtualized';
-import { useCallback, useState } from 'react';
+import { useCallback, useState, cloneElement } from 'react';
 
-import Content from './Content';
 
-const InfiniteScroll = ({contentsData, loadPage}) => {
+const InfiniteScroll = ({contentsData, loadPage, defaultHeight, defaultLoadPage, children}) => {
+    //콘텐츠 데이터, 콘텐츠 페이지 로드 함수, 콘텐츠 기본 높이, 한번에 로드할 페이지 수
     const [cache, setCache] = useState(
         new CellMeasurerCache({
             fixedWidth: true,
-            defaultHeight: 885,
+            defaultHeight: defaultHeight,
         })
     );
-    const rowCount = contentsData.length + (contentsData.length >= 100 ? 0 : 10);
+    const rowCount = contentsData.length + (contentsData.length >= contentsData.totalPage ? 0 : defaultLoadPage);
 
     const handleResize = useCallback(
         ({ width }) => {
@@ -30,8 +30,8 @@ const InfiniteScroll = ({contentsData, loadPage}) => {
     },[contentsData])
       
     const loadMoreRows = useCallback(() => {
-        loadPage();
-    },[loadPage]);
+        loadPage(defaultLoadPage);
+    },[loadPage,defaultLoadPage]);
       
     const rowRenderer = useCallback(({ index, key, parent, style }) => {
         const content = contentsData[index];
@@ -43,12 +43,10 @@ const InfiniteScroll = ({contentsData, loadPage}) => {
             parent={parent}
             rowIndex={index}
           >
-            {({ measure }) => (
-                <Content data={content} onLoad={()=>measure} parentStyle={style}/>
-            )}
+            {({ measure }) => cloneElement(children, {data:content, onLoad:()=>measure, parentStyle:style})}
           </CellMeasurer>
         );
-    },[contentsData, cache]);
+    },[contentsData, cache, children]);
 
     return (
         <InfiniteLoader 

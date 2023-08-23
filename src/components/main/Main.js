@@ -7,9 +7,9 @@ import Header from './Header';
 import SideMenuContainer from '../../containers/SideMenuContainer';
 
 // import { getFriend } from '../../lib/modules/friendInfo';
-// import Content from './Content';
 // import SideMenu from './SideMenu';
 import InfiniteScroll from './InfiniteScroll';
+import Content from './Content';
 
 import mainStyle from '../../styles/main/main.module.scss';
 import { useState } from 'react';
@@ -27,7 +27,14 @@ const Main = ({ userInfo, contentsData, loadPage }) => {
             <Header onClickHamburger={onClickHamburger} follower={userInfo.follower} following={userInfo.following} />
             {showSideMenu && <SideMenuContainer onClickHamburger={onClickHamburger} />}
             <Container className={style('wrap')}>
-                <InfiniteScroll contentsData={contentsData} loadPage={loadPage} />
+                <InfiniteScroll 
+                    contentsData={contentsData} 
+                    loadPage={loadPage}
+                    defaultHeight={885}
+                    defaultLoadPage={10}
+                >
+                    <Content/>
+                </InfiniteScroll>
             </Container>
         </>
     )
