@@ -16,7 +16,7 @@ import mainStyle from '../../styles/main/main.module.scss';
 import { useState } from 'react';
 const style = classNames.bind(mainStyle);
 
-const Main = ({ userInfo, contentsData, loadPage }) => {
+const Main = ({ userInfo, contentsInfo, loadPage }) => {
     const [showSideMenu, setShowSideMenu] = useState(false);
     const [modalContent, setModalContent] = useState(null);
 
@@ -31,7 +31,8 @@ const Main = ({ userInfo, contentsData, loadPage }) => {
             {modalContent && <ContentModal modalContent={modalContent} setModalContent={setModalContent} />}
             <Container className={style('wrap')}>
                 <InfiniteScroll 
-                    contentsData={contentsData} 
+                    contentsData={contentsInfo.data}
+                    totalPage={contentsInfo.totalPage}
                     loadPage={loadPage}
                     defaultHeight={885}
                     defaultLoadPage={10}

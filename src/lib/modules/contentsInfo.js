@@ -54,7 +54,7 @@ const initialState = {
     loading: true,
     payload: null,
     data: [],
-    totalPage: 0,
+    totalPage: 1,
     lastLoadPage: 0,
     error: false,
 }
