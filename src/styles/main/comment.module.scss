@@ -35,10 +35,10 @@
         height:15px;
         font-size:16px;
         float:right;
-        span{
-            &:first-child{
-                margin-right:10px;
-            }
+        button{
+            margin-right:10px;
+            border:0px;
+            background-color: transparent;
         }
     }
     .comment{
@@ -48,5 +48,12 @@
         height:15px;
         font-size:11px;
         border-bottom: 1px solid #cccccc;
+        button{
+            position:relative;
+            margin-right:10px;
+            border:0px;
+            background-color: transparent;
+            top:-2px;
+        }
     }
 }

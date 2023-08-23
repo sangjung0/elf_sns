@@ -10,6 +10,7 @@ import SideMenuContainer from '../../containers/SideMenuContainer';
 // import SideMenu from './SideMenu';
 import InfiniteScroll from './InfiniteScroll';
 import Content from './Content';
+import ContentModal from './ContentModal';
 
 import mainStyle from '../../styles/main/main.module.scss';
 import { useState } from 'react';
@@ -17,6 +18,7 @@ const style = classNames.bind(mainStyle);
 
 const Main = ({ userInfo, contentsData, loadPage }) => {
     const [showSideMenu, setShowSideMenu] = useState(false);
+    const [modalContent, setModalContent] = useState(null);
 
     const onClickHamburger = () => {
         setShowSideMenu(state => !state);
@@ -26,6 +28,7 @@ const Main = ({ userInfo, contentsData, loadPage }) => {
         <>
             <Header onClickHamburger={onClickHamburger} follower={userInfo.follower} following={userInfo.following} />
             {showSideMenu && <SideMenuContainer onClickHamburger={onClickHamburger} />}
+            {modalContent && <ContentModal modalContent={modalContent} setModalContent={setModalContent} />}
             <Container className={style('wrap')}>
                 <InfiniteScroll 
                     contentsData={contentsData} 
@@ -33,7 +36,7 @@ const Main = ({ userInfo, contentsData, loadPage }) => {
                     defaultHeight={885}
                     defaultLoadPage={10}
                 >
-                    <Content/>
+                    <Content setModalContent={setModalContent}/>
                 </InfiniteScroll>
             </Container>
         </>

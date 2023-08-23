@@ -7,7 +7,7 @@ import ProfileImage from './ProfileImage';
 import contentStyle from '../../styles/main/content.module.scss';
 const style = classNames.bind(contentStyle);
 
-const Content = ({data}) => {
+const Content = ({data,setModalContent}) => {
     const id = data?.author.id ?? null;
     const src = data?.author.imgUrl ?? null;
     const createAt = new Date(data?.createAt ?? 0);
@@ -49,10 +49,12 @@ const Content = ({data}) => {
     }
     const handleClick = (e)=>{
         e.stopPropagation();
-        console.log("컨테이너");
+        setModalContent(data);
     }
+
+    //모달과 중복된 부분 합쳐야 함.
     return (
-        <div className={style("container")} onClick={handleClick}>
+        <div className={style("container")}>
             <Row className={style("user-info")}>
                 <Col md={"1"}>
                     <div className={style("box")}>
@@ -77,7 +79,7 @@ const Content = ({data}) => {
                     </Carousel>
                 </div>
             </Row>
-            <Row>
+            <Row onClick={handleClick}>
                 <div className={style('contents-box')}>
                     <div className={style('contents')}>
                         <div className={style('text')}>

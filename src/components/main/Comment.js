@@ -1,11 +1,36 @@
 import classNames from 'classnames/bind';
 import { Col, Row } from 'react-bootstrap';
+import { memo, useCallback } from 'react';
 
 import ProfileImage from './ProfileImage';
 import commentStyle from '../../styles/main/comment.module.scss';
 const style = classNames.bind(commentStyle);
 
-const Comment = () => {
+const Comment = ({commentId, userId, comment, createAt}) => {
+    const date = new Date(createAt);
+    const dateString = `${date.getFullYear()}-${(date.getMonth()+1).toString().padStart(2,"0")}-${date.getDate().toString().padStart(2,"0")}`;
+    const handleButton = useCallback(({target})=>{
+        switch(target.name){
+            case "remove":
+                console.group("Comment");
+                console.log("Removing:",commentId);
+                console.groupEnd();
+                return;
+            case "modify":
+                console.group("Comment");
+                console.log("Modify:",commentId);
+                console.groupEnd();
+                return;
+            case "reply":
+                console.group("Comment");
+                console.log("Reply:",commentId);
+                console.groupEnd();
+                return;
+            default:
+                return;
+        }
+    },[commentId])
+
     return (
         <div className={style('comment-container')}>
             <Col md={1}>
@@ -17,33 +42,29 @@ const Comment = () => {
                 <Row>
                     <Col md={1}>
                         <div className={style('user-id')}>
-                            <span>userId_123</span>
+                            <span>{userId}</span>
                         </div>
                     </Col>
                     <Col md={2}>
                         <div className={style('date')}>
-                            <span>2023-08-12</span>
+                            <span>{dateString}</span>
                         </div>
                     </Col>
                     <Col md={9}>
                         <div className={style('setting')}>
-                            <span>
-                                삭제
-                            </span>
-                            <span>
-                                수정
-                            </span>
+                            <button type="button" onClick={handleButton} name="remove">삭제</button>
+                            <button type='button' onClick={handleButton} name="modify">수정</button>
                         </div>
                     </Col>
                 </Row>
                 <Row>
                     <div className={style('comment')}>
-                        내용ㅁㄴ믱러;ㅣㅁ낭러;ㅣㅁㄴ아ㅓㄹ;ㅁㄴ아ㅣㄻ넝ㄹ
+                        {comment}
                     </div>
                 </Row>
                 <Row>
                     <div className={style('bottom-box')}>
-                        <span>답글 달기</span>
+                        <button type='button' onClick={handleButton} name="reply">답글달기</button>
                     </div>
                 </Row>
             </Col>
@@ -51,4 +72,4 @@ const Comment = () => {
     )
 }
 
-export default Comment;
+export default memo(Comment);
