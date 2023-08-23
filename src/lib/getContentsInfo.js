@@ -46,8 +46,16 @@ const getContentsInfo = async(sessionId, currentPage, pageValue) => {
         // }
 
         /*
+        요청:
+        sessionId: "String",
+        contentId: "String",
+        requiredPage: Number, => 음수 또는 양수
+
+        응답:
         state: "SUCCESS",
         payload:{
+            totalPage: totalPage,
+            data: [{
                 id: "contentId_"+(currentPage+(index+1)*additionalValue), //콘텐츠 아이디
                 author: { //저자
                     id: "userId_12312", //저자 아이디
@@ -68,6 +76,9 @@ const getContentsInfo = async(sessionId, currentPage, pageValue) => {
                     comment:"와 진짜 개공감 ㅇㅈ"
                 }], //댓글 답글 많은것들 중 최근거 두개
                 tags: ["사람","css","뒤져","망할","리액트","버튜얼라이즈","사라져"]
+            },{
+                ...
+            }]
         }
         */
 
