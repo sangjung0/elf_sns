@@ -12,17 +12,20 @@ const SideMenuContainer = ({ onClickHamburger }) => {
     const onUnfollow = useCallback(() => dispatch(unfollow()), [dispatch])
     const onBlock = useCallback(() => dispatch(block()), [dispatch])
 
-    const [friend, setFriend] = useState(info)
+    // const [friend, setFriend] = useState(info)
 
-    useEffect(() => {
-        getFriendInfo();
-        setFriend(info)
-    }, [])
+    // useEffect(() => {
+    //     getFriendInfo();
+    //     setFriend(info)
+    // }, [])
+
+    getFriendInfo();
+    // const friend = info
 
     return (
         <SideMenu
             onClickHamburger={onClickHamburger}
-            friend={friend}
+            info={info}
             getFriendInfo={getFriendInfo}
             onAllam={onAllam}
             onUnfollow={onUnfollow}
