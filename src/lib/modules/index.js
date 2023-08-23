@@ -9,7 +9,7 @@ import contentsInfo, { contentsInfoSaga } from "./contentsInfo";
 
 //리듀서 합치기
 const rootReducer = combineReducers({
-    userInfo, friendInfocontentsInfo,
+    userInfo, friendInfo, contentsInfo,
 });
 
 //리덕스 사가 합치기

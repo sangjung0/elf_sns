@@ -22,10 +22,11 @@ export const block = createAction(SET_FRIEND_BLOCK)
 
 const getMyFriendsSaga = function* (action) {
     try {
-        console.log('action: ', action)
+        console.log('friendInfo action: ', action)
         const info = yield call(getFriendInfo, action.payload.userId)
-        console.log('info: ', info)
+        console.log('friendInfo info: ', info)
         if (info.state === "SUCCESS") {
+            console.log('friendInfo Success')
             yield put({
                 type: GET_FRIEND_SUCCESS,
                 payload: info.data,
@@ -46,7 +47,6 @@ const getMyFriendsSaga = function* (action) {
             error: true
         })
     }
-    delay(1000)
 }
 
 export const friendInfoSaga = function* () {
@@ -56,6 +56,9 @@ export const friendInfoSaga = function* () {
 const initialState = {
     loading: true,
     payload: null,
+    data: [],
+    totalFriend: 0,
+    lastLoadFriend: 0,
     error: false
 }
 
@@ -68,6 +71,8 @@ const friendInfo = handleActions(
         [GET_FRIEND_SUCCESS]: (state, action) => produce(state, draft => {
             draft.loading = false;
             draft.payload = action.payload;
+            draft.totalFriend = action.payload.totalFriend;
+            draft.lastLoadFriend = action.payload.lastLoadFriend;
         }),
         [GET_FRIEND_FAILURE]: (state, action) => produce(state, draft => {
             draft.loading = false;

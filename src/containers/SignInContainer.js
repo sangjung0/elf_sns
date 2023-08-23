@@ -19,7 +19,7 @@ const SignInContainer = () => {
             accountInfo.password,
         );
 
-        if (result.status !== "SUCCESS") {
+        if (result.state !== "SUCCESS") {
             alert("회원정보가 다름");
             console.error("로그인 실패 code:", result.state);
             console.error("Error:", result.payload);

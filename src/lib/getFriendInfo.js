@@ -2,7 +2,7 @@
 import randomName from './faker';
 
 // 친구 정보 가져오기
-const getFriendInfo = async (userId) => {
+const getFriendInfo = (userId) => {
     try {
         console.log("request server by ", userId);
 
