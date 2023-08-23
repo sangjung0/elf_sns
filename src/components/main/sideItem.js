@@ -8,28 +8,35 @@ import ProfileImage from './ProfileImage';
 import sideItemStyle from '../../styles/main/sideItem.module.scss';
 const style = classNames.bind(sideItemStyle);
 
-const SideItem = ({ friendInfo, onAllam, onUnfollow, onBlock }) => {
-
+const SideItem = ({ data, onAllam, onUnfollow, onBlock }) => {
+    const friendInfo = data
+    console.log('sideItem', friendInfo)
     return (
-        <div className={style('sideitem-container')}>
-            <div className={style('allam')}>
-                <span onClick={onAllam}><BsBell /></span>
-            </div>
-            <div className={style('user-card')}>
-                <div className={style('box')}>
-                    <ProfileImage />
-                </div>
-                <div className={style('user-info')}>
-                    <div className={style('user-name')}>
-                        <span>{friendInfo.name}</span>
+        <>
+            {
+                friendInfo === null ?
+                    <div></div> :
+                    <div className={style('sideitem-container')}>
+                        <div className={style('allam')}>
+                            <span onClick={onAllam}><BsBell /></span>
+                        </div>
+                        <div className={style('user-card')}>
+                            <div className={style('box')}>
+                                <ProfileImage />
+                            </div>
+                            <div className={style('user-info')}>
+                                <div className={style('user-name')}>
+                                    <span>{friendInfo.name}</span>
+                                </div>
+                                <div className={style('user-settings')}>
+                                    <span onClick={onUnfollow}><SlUserUnfollow /></span>
+                                    <span onClick={onBlock}><BiBlock /></span>
+                                </div>
+                            </div>
+                        </div>
                     </div>
-                    <div className={style('user-settings')}>
-                        <span onClick={onUnfollow}><SlUserUnfollow /></span>
-                        <span onClick={onBlock}><BiBlock /></span>
-                    </div>
-                </div>
-            </div>
-        </div>
+            }
+        </>
     )
 }
 

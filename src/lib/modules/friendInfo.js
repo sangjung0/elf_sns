@@ -56,7 +56,6 @@ export const friendInfoSaga = function* () {
 const initialState = {
     loading: true,
     payload: null,
-    data: [],
     totalFriend: 0,
     lastLoadFriend: 0,
     error: false

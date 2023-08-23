@@ -14,7 +14,7 @@ const getFriendInfo = (userId) => {
 
         // test data
         const arr = []
-        for (let i = 0; i < 10; i++) arr.push({ name: randomName() })
+        for (let i = 0; i < 100; i++) arr.push({ name: randomName() })
         console.log('arr: ', arr)
 
         return {

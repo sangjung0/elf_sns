@@ -20,16 +20,17 @@ const SideMenuContainer = ({ onClickHamburger }) => {
         console.log('siedmenuContainer info', info)
     }, [])
 
-    // const loadPage = (type = "BACK") => {
-    //     const [startPoint, loadPageValue] = type === "BACK" ? [lastLoadPage, LOAD_PAGE_VALUE] : [0, -LOAD_PAGE_VALUE];
-    //     _getContentsInfo(sessionId, startPoint, loadPageValue);
-    // }
+    const loadFriend = (type = "BACK") => {
+        // const [startPoint, loadFriendValue] = type === "BACK" ? [lastLoadPage, LOAD_PAGE_VALUE] : [0, -LOAD_PAGE_VALUE];
+        // _getContentsInfo(startPoint, loadFriendValue);
+        getFriendInfo();
+    }
 
     return (
         <SideMenu
             onClickHamburger={onClickHamburger}
             info={info}
-            // getFriendInfo={getFriendInfo}
+            loadFriend={loadFriend}
             onAllam={onAllam}
             onUnfollow={onUnfollow}
             onBlock={onBlock}
