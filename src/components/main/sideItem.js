@@ -8,24 +8,24 @@ import ProfileImage from './ProfileImage';
 import sideItemStyle from '../../styles/main/sideItem.module.scss';
 const style = classNames.bind(sideItemStyle);
 
-const SideBlock = () => {
+const SideItem = ({ friendInfo, onAllam, onUnfollow, onBlock }) => {
 
     return (
         <div className={style('sideitem-container')}>
             <div className={style('allam')}>
-                <span><BsBell/></span>
+                <span onClick={onAllam}><BsBell /></span>
             </div>
             <div className={style('user-card')}>
                 <div className={style('box')}>
-                    <ProfileImage/>
+                    <ProfileImage />
                 </div>
                 <div className={style('user-info')}>
                     <div className={style('user-name')}>
-                        <span>유저 이름</span>
+                        <span>{friendInfo.name}</span>
                     </div>
                     <div className={style('user-settings')}>
-                        <span><SlUserUnfollow/></span>
-                        <span><BiBlock/></span>
+                        <span onClick={onUnfollow}><SlUserUnfollow /></span>
+                        <span onClick={onBlock}><BiBlock /></span>
                     </div>
                 </div>
             </div>
@@ -33,4 +33,4 @@ const SideBlock = () => {
     )
 }
 
-export default memo(SideBlock);
+export default memo(SideItem);

@@ -1,5 +1,5 @@
 import { call, delay, put, takeLeading } from "redux-saga/effects";
-import {produce} from "immer";
+import { produce } from "immer";
 
 import gUI from "../getUserInfo";
 
@@ -23,22 +23,22 @@ export const getUserInfo = (sessionId) => ({
 //리덕스 사가 함수
 //유저 정보 가져와서 성공 실패에 따라 디스패치
 const getUserInfoSaga = function* (action) {
-    try{
+    try {
         const userInfo = yield call(gUI, action.sessionId);
-        if(userInfo.state === "SUCCESS"){
+        if (userInfo.state === "SUCCESS") {
             yield put({
                 type: GET_USER_INFO_SUCCESS,
-                payload: userInfo,
+                payload: { ...userInfo },
                 error: false,
             });
-        }else{
+        } else {
             yield put({
                 type: GET_USER_INFO_FAILURE,
                 payload: "not found sessionId",
                 error: false,
             })
         }
-    }catch(e){
+    } catch (e) {
         yield put({
             type: GET_USER_INFO_FAILURE,
             payload: e,
@@ -61,8 +61,8 @@ const initialState = {
 }
 
 //리듀서
-const userInfo = (state= initialState, action) => {
-    switch(action.type){
+const userInfo = (state = initialState, action) => {
+    switch (action.type) {
         case GET_USER_INFO:
             return produce(state, draft => {
                 draft.loading = true; //유저 정보 가져오기 실행할때 로딩 true 끝나면 false
