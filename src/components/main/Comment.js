@@ -40,7 +40,7 @@ const Comment = ({commentId, userId, comment, createAt}) => {
             </Col>
             <Col md={11}>
                 <Row>
-                    <Col md={1}>
+                    <Col md={2}>
                         <div className={style('user-id')}>
                             <span>{userId}</span>
                         </div>
@@ -50,7 +50,7 @@ const Comment = ({commentId, userId, comment, createAt}) => {
                             <span>{dateString}</span>
                         </div>
                     </Col>
-                    <Col md={9}>
+                    <Col md={8}>
                         <div className={style('setting')}>
                             <button type="button" onClick={handleButton} name="remove">삭제</button>
                             <button type='button' onClick={handleButton} name="modify">수정</button>
