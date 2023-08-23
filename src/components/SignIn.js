@@ -1,4 +1,4 @@
-import {Button, Form} from 'react-bootstrap';
+import { Button, Form } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import classNames from 'classnames/bind';
 import { useState } from 'react';
@@ -6,20 +6,19 @@ import { useState } from 'react';
 import signInScss from '../styles/signIn.module.scss';
 const style = classNames.bind(signInScss);
 
+const SignIn = ({ signInAccountInfo }) => {
+    const [accountInfo, setAccountInfo] = useState({ email: "", password: "", rememberChecked: false });
 
-const SignIn = ({signInAccountInfo}) => {
-    const [accountInfo, setAccountInfo] = useState({email:"", password: "", rememberChecked: false});
-
-    const onChange = (({target}) =>{
-        switch(target.name){
+    const onChange = (({ target }) => {
+        switch (target.name) {
             case "email":
-                setAccountInfo({...accountInfo, email: target.value})
+                setAccountInfo({ ...accountInfo, email: target.value })
                 break;
             case "password":
-                setAccountInfo({...accountInfo, password: target.value})
+                setAccountInfo({ ...accountInfo, password: target.value })
                 break;
             case "rememberChecked":
-                setAccountInfo({...accountInfo, rememberChecked: target.checked})
+                setAccountInfo({ ...accountInfo, rememberChecked: target.checked })
                 break;
             default:
                 break;
@@ -32,39 +31,39 @@ const SignIn = ({signInAccountInfo}) => {
     }
 
 
-    return(
+    return (
         <div className={style("form-container")}>
             <div className={style("logo")}>
                 <h1>ELVIS PRESLEY</h1>
             </div>
             <Form>
                 <Form.Group className="mb-3" controlId="email">
-                    <Form.Control 
-                        type="email" 
-                        onChange={onChange} 
-                        name="email" 
-                        placeholder="Enter email" 
+                    <Form.Control
+                        type="email"
+                        onChange={onChange}
+                        name="email"
+                        placeholder="Enter email"
                         value={accountInfo.email}
                     />
-                    <Form.Text className={style("left-text")+" text-muted"}>
+                    <Form.Text className={style("left-text") + " text-muted"}>
                         이메일 똑바로 적으라우
                     </Form.Text>
-                    <Form.Text className={style("right-text")+" text-muted"}>
+                    <Form.Text className={style("right-text") + " text-muted"}>
                         이메일 찾기
                     </Form.Text>
                 </Form.Group>
-            
+
                 <Form.Group className="mb-3" controlId="password">
-                    <Form.Control 
-                        type="password" 
-                        onChange={onChange} 
-                        name="password" 
-                        placeholder="Password" 
+                    <Form.Control
+                        type="password"
+                        onChange={onChange}
+                        name="password"
+                        placeholder="Password"
                     />
-                    <Form.Text className={style("left-text")+" text-muted"}>
+                    <Form.Text className={style("left-text") + " text-muted"}>
                         제대로 된 비밀번호 쓰라우
                     </Form.Text>
-                    <Form.Text className={style("right-text")+" text-muted"}>
+                    <Form.Text className={style("right-text") + " text-muted"}>
                         비밀번호 찾기
                     </Form.Text>
                 </Form.Group>
@@ -74,7 +73,7 @@ const SignIn = ({signInAccountInfo}) => {
                 <Button variant="primary" onClick={onSubmit} className={style("btn")} type="submit">
                     Login
                 </Button>
-                <Form.Text className={style("sing-Up")+" text-muted"}>
+                <Form.Text className={style("sing-Up") + " text-muted"}>
                     <Link to="/signUp">회원가입</Link>
                 </Form.Text>
             </Form>

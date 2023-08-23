@@ -16,6 +16,7 @@ const getUserInfo = async (sessionId) => {
         //     {
         //         sessionId
         //     },{
+        //         withCredentials: true,
         //         headers:{
         //             "Content-Type": `application/json`,
         //             'Access-Control-Allow-Origin': '*',
@@ -23,9 +24,11 @@ const getUserInfo = async (sessionId) => {
         //         }    
         //     }
         // )
+        // console.group("getUserInfo");
         // console.log(response.data.state);
         // console.log(response.data.payload);
         // console.log(response.data.payload.userId);
+        // console.groupEnd();
         // return {
         //     state: response.data.state,
         //     data: {
@@ -33,17 +36,20 @@ const getUserInfo = async (sessionId) => {
         //     }
         // }
 
-        // {
-        //     state: "SUCCESS", or "FAILURE", "ERROR"
-        //     payload: {
-        //         userId: "string",
-        //     }
-        // }
+        // // {
+        // //     state: "SUCCESS", or "FAILURE", "ERROR"
+        // //     payload: {
+        // //         userId: "string",
+        // //     }
+        // // }
         
         return {
             state: "SUCCESS",
-            data: {
+            data: { //일단 유저 데이터에 었는데 알람 리덕스하고 친구 리덕스 있으면 괜찮을지도
                 id: "userId_1234",
+                alarm: 12,
+                follwer: 213,
+                following: 123
             }
         }
     }catch(e){

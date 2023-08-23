@@ -6,26 +6,27 @@ import Header from './Header';
 // import SideMenu from './SideMenu';
 import SideMenuContainer from '../../containers/SideMenuContainer';
 import Content from './Content';
+import SideMenu from './SideMenu';
+import InfiniteScroll from './InfiniteScroll';
 
 import mainStyle from '../../styles/main/main.module.scss';
 import { useCallback, useState } from 'react';
 const style = classNames.bind(mainStyle);
 
-const Main = () => {
+const Main = ({ userInfo, contentsData, loadPage }) => {
     const [showSideMenu, setShowSideMenu] = useState(false);
 
     const onClickHamburger = useCallback(() => {
         setShowSideMenu(state => !state);
     }, [])
 
+
     return (
         <>
-            <Header onClickHamburger={onClickHamburger} />
-            {showSideMenu && <SideMenuContainer onClickHamburger={onClickHamburger} />}
+            <Header onClickHamburger={onClickHamburger} follower={userInfo.follower} following={userInfo.following} />
+            {showSideMenu && <SideMenu onClickHamburger={onClickHamburger} />}
             <Container className={style('wrap')}>
-                <Content />
-                <Content />
-                <Content />
+                <InfiniteScroll contentsData={contentsData} loadPage={loadPage} />
             </Container>
         </>
     )

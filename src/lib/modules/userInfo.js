@@ -6,6 +6,7 @@ import gUI from "../getUserInfo";
 const GET_USER_INFO = 'userInfo/GET_USER_INFO'; //유저 정보 가져오기 실행
 const GET_USER_INFO_SUCCESS = 'userInfo/GET_USER_INFO_SUCCESS'; //유저 정보 가져오기 성공
 const GET_USER_INFO_FAILURE = 'userInfo/GET_USER_INFO_FAILURE'; //유저 정보 가져오기 실패
+// const SET_USER_INFO_TOTAL_CONTENTS_PAGE = 'userInfo/SET_USER_INFO_TOTAL_CONTENTS_PAGE'; //totalContents 업데이트
 
 //액션
 //유저 정보를 가져오기 실행 액션
@@ -13,6 +14,11 @@ export const getUserInfo = (sessionId) => ({
     type: GET_USER_INFO,
     sessionId
 });
+// //총 페이지 업데이트 함수
+// export const setUserInfoTotalContentsPage = (totalPage) => ({
+//     type: SET_USER_INFO_TOTAL_CONTENTS_PAGE,
+//     totalPage
+// });
 
 //리덕스 사가 함수
 //유저 정보 가져와서 성공 실패에 따라 디스패치
@@ -73,6 +79,10 @@ const userInfo = (state = initialState, action) => {
                 draft.loading = false;
                 draft.error = action.error;
             })
+        // case SET_USER_INFO_TOTAL_CONTENTS_PAGE:
+        //     return produce(state, draft => {
+        //         draft.payload.data.pages.totalContent = action.totalContent;
+        //     })
         default:
             return state;
     }

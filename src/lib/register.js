@@ -20,7 +20,9 @@ const register = async(email, password, phoneNumber, name) => {
         //         }    
         //     }
         // )
+        // console.group("register");
         // console.log(response.data.state);
+        // console.groupEnd();
         // return {state: response.data.state};
         // {
         //     state: "SUCCESS", or "FAILURE", "ERROR"
