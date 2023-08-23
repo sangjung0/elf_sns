@@ -43,7 +43,7 @@ const InfiniteScroll = ({contentsData, loadPage, defaultHeight, defaultLoadPage,
             parent={parent}
             rowIndex={index}
           >
-            {({ measure }) => cloneElement(children, {data:content, onLoad:()=>measure, parentStyle:style})}
+            {({ measure }) => <div onLoad={()=>measure} style={style}>{cloneElement(children, {data:content})}</div>}
           </CellMeasurer>
         );
     },[contentsData, cache, children]);

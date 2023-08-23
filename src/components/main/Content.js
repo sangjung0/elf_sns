@@ -7,7 +7,7 @@ import ProfileImage from './ProfileImage';
 import contentStyle from '../../styles/main/content.module.scss';
 const style = classNames.bind(contentStyle);
 
-const Content = ({data, onLoad, parentStyle}) => {
+const Content = ({data}) => {
     const id = data?.author.id ?? null;
     const src = data?.author.imgUrl ?? null;
     const createAt = new Date(data?.createAt ?? 0);
@@ -30,7 +30,8 @@ const Content = ({data, onLoad, parentStyle}) => {
         <Comment 
             //key={comment.commentId}
             key={index} //임시로 index 값 했음.
-            id={comment.userId} 
+            commentId={comment.commentId}
+            userId={comment.userId} 
             comment={comment.comment} 
             createAt={comment.createAt}
         />
@@ -42,12 +43,16 @@ const Content = ({data, onLoad, parentStyle}) => {
     }
 
     //댓글 입력 처리
-    const handleClick = (e)=>{
+    const handleButton = (e)=>{
         console.log(inputComment);
         setInputComment("");
     }
+    const handleClick = (e)=>{
+        e.stopPropagation();
+        console.log("컨테이너");
+    }
     return (
-        <div className={style("container")} style={parentStyle} onLoad={onLoad}>
+        <div className={style("container")} onClick={handleClick}>
             <Row className={style("user-info")}>
                 <Col md={"1"}>
                     <div className={style("box")}>
@@ -99,7 +104,7 @@ const Content = ({data, onLoad, parentStyle}) => {
                         onChange={handleInput}
                         value={inputComment}
                         />
-                        <Button variant="outline-secondary" onClick={handleClick} id="button-addon2">
+                        <Button variant="outline-secondary" onClick={handleButton} id="button-addon2">
                         입력
                         </Button>
                     </InputGroup>
