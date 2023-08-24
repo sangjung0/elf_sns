@@ -3,14 +3,12 @@ import {Button, Carousel, Col, Container, Form, InputGroup, Modal, Row} from 're
 import classNames from 'classnames/bind';
 
 import ProfileImage from './ProfileImage';
-import InfiniteScroll from './InfiniteScroll';
-import ModalContentAndComments from './ModalContentAndComments';
 
 import contentModalStyle from '../../styles/main/contentModal.module.scss';
-import Comment from './Comment';
+import CommentModalContainer from '../../containers/CommentModalContainer';
 const style = classNames.bind(contentModalStyle);
 const ContentModal = ({setModalContent, modalContent}) => {
-    console.log(modalContent);
+    const contentId = modalContent.id;
     const src= modalContent.author.imgUrl;
     const id = modalContent.author.id;
     const createAt = new Date(modalContent.createAt );
@@ -28,17 +26,7 @@ const ContentModal = ({setModalContent, modalContent}) => {
         <span key={tag}>#{tag}</span>
     ))
     const content = modalContent.content ?? "";
-    const comments = modalContent.comments ?? [];
-    const comment = comments.map((comment,index) => (
-        <Comment 
-            //key={comment.commentId}
-            key={index} //임시로 index 값 했음.
-            commentId={comment.commentId}
-            userId={comment.userId} 
-            comment={comment.comment} 
-            createAt={comment.createAt}
-        />
-    ))
+
 
 
     const [inputComment,setInputComment] = useState("");
@@ -92,9 +80,19 @@ const ContentModal = ({setModalContent, modalContent}) => {
                         </Row>
                         <Row onClick={handleClick}>
                             <div className={style('contents-box')}>
-                                {/* <InfiniteScroll>
-                                    <ModalContentAndComments />
-                                </InfiniteScroll> */}
+                                <div className={style('text')}>
+                                    <div className={style('tags')}>
+                                        {tag}
+                                    </div>
+                                    {content}
+                                </div>
+                            </div>
+                        </Row>
+                        <Row onClick={handleClick}>
+                            <div className={style('comments-box')}>
+                                <div className={style('contents')}>
+                                    <CommentModalContainer id={contentId} />
+                                </div>
                             </div>
                         </Row>
                         <Row>
