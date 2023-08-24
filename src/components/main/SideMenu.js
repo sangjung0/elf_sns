@@ -1,6 +1,6 @@
 import classNames from 'classnames/bind';
 import { AiOutlineCloseCircle } from 'react-icons/ai';
-import { memo, useEffect, useState, Suspense } from 'react';
+import { memo, useEffect, useState } from 'react';
 
 import SideItem from './SideItem';
 import Loading from '../Loading';
@@ -25,18 +25,19 @@ const SideMenu = ({ onClickHamburger, info, loadFriend, onAllam, onUnfollow, onB
                 </div>
                 <div className={style('item-container')}>
                     <InfiniteScroll
-                        contentsData={info === null ? [] : info}
+                        contentsData={info.payload === null ? [] : info.payload}
+                        totalPage={info.totalFriend}
                         loadPage={loadFriend}
                         defaultHeight={700}
                         defaultLoadPage={10}
                     >
                         {/* {
                             (friend === null) ?
-                                <Loading /> :
-                                friend.map((i, index) => (
-                                    <SideItem key={index} friendInfo={i} onAllam={onAllam} onUnfollow={onUnfollow} onBlock={onBlock} />
+                            <Loading /> :
+                            friend.map((i, index) => (
+                                <SideItem key={index} friendInfo={i} onAllam={onAllam} onUnfollow={onUnfollow} onBlock={onBlock} />
                                 ))
-                        } */}
+                            } */}
                         <SideItem onAllam={onAllam} onUnfollow={onUnfollow} onBlock={onBlock} />
                     </InfiniteScroll>
                 </div>

@@ -12,8 +12,12 @@ const SET_FRIEND_ALLAM = 'friendInfo/SET_FRIEND_ALLAM'
 const SET_FRIEND_UNFOLLOW = 'friendInfo/SET_FRIEND_UNFOLLOW'
 const SET_FRIEND_BLOCK = 'friendInfo/SET_FRIEND_BLOCK'
 
-export const getFriend = createAction(GET_FRIEND_INFO, (userId) => {
-    return { userId: userId }
+export const getFriend = createAction(GET_FRIEND_INFO, (userId, currentFriend, friendValue) => {
+    return {
+        userId: userId,
+        currentFriend,
+        friendValue
+    }
 })
 
 export const allam = createAction(SET_FRIEND_ALLAM)
@@ -56,7 +60,7 @@ export const friendInfoSaga = function* () {
 const initialState = {
     loading: true,
     payload: null,
-    totalFriend: 0,
+    totalFriend: 1,
     lastLoadFriend: 0,
     error: false
 }
