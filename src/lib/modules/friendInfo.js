@@ -13,7 +13,7 @@ const SET_FRIEND_UNFOLLOW = 'friendInfo/SET_FRIEND_UNFOLLOW'
 const SET_FRIEND_BLOCK = 'friendInfo/SET_FRIEND_BLOCK'
 
 export const getFriend = createAction(GET_FRIEND_INFO, (sessionId, currentPage, loadValue) => {
-    return {sessionId, currentPage, loadValue}
+    return { sessionId, currentPage, loadValue }
 })
 
 export const allam = createAction(SET_FRIEND_ALLAM)
