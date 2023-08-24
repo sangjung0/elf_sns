@@ -1,35 +1,31 @@
-import { useCallback, useEffect, useState } from 'react';
+import { useCallback } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
 import SideMenu from '../components/main/SideMenu';
 import { getFriend, allam, unfollow, block } from '../lib/modules/friendInfo';
+import { getSessionId } from '../lib/sessionId';
 
 const SideMenuContainer = ({ onClickHamburger }) => {
-    const info = useSelector(state => state.friendInfo.payload);
+    const sessionId = getSessionId();
+    const friendInfo = useSelector(state => state.friendInfo);
     // const lastLooadFriend = useSelector(state => state.friendInfo.lastLoadFriend)
 
     const dispatch = useDispatch();
-    const getFriendInfo = useCallback(() => dispatch(getFriend(1)), [dispatch])
+    const getFriendInfo = useCallback((sessionId, startPoint, loadFriendValue) => dispatch(getFriend(sessionId, startPoint, loadFriendValue)), [dispatch])
 
     const onAllam = useCallback(() => dispatch(allam()), [dispatch])
     const onUnfollow = useCallback(() => dispatch(unfollow()), [dispatch])
     const onBlock = useCallback(() => dispatch(block()), [dispatch])
 
-    useEffect(() => {
-        getFriendInfo()
-        console.log('siedmenuContainer info', info)
-    }, [])
-
-    const loadFriend = (type = "BACK") => {
-        // const [startPoint, loadFriendValue] = type === "BACK" ? [lastLoadPage, LOAD_PAGE_VALUE] : [0, -LOAD_PAGE_VALUE];
-        // _getContentsInfo(startPoint, loadFriendValue);
-        getFriendInfo();
+    const loadFriend = (value, type = "BACK") => {
+        const [startPoint, loadFriendValue] = type === "BACK" ? [friendInfo.lastLoadPage, value] : [0, -value];
+        getFriendInfo(sessionId, startPoint, loadFriendValue);
     }
 
     return (
         <SideMenu
             onClickHamburger={onClickHamburger}
-            info={info}
+            info={friendInfo}
             loadFriend={loadFriend}
             onAllam={onAllam}
             onUnfollow={onUnfollow}

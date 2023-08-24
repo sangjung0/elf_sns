@@ -1,5 +1,5 @@
 import { createAction, handleActions } from 'redux-actions';
-import { call, delay, put, takeLeading } from "redux-saga/effects";
+import { call, put, takeLeading } from "redux-saga/effects";
 import { produce } from "immer";
 
 import getFriendInfo from '../getFriendInfo';
@@ -12,8 +12,8 @@ const SET_FRIEND_ALLAM = 'friendInfo/SET_FRIEND_ALLAM'
 const SET_FRIEND_UNFOLLOW = 'friendInfo/SET_FRIEND_UNFOLLOW'
 const SET_FRIEND_BLOCK = 'friendInfo/SET_FRIEND_BLOCK'
 
-export const getFriend = createAction(GET_FRIEND_INFO, (userId) => {
-    return { userId: userId }
+export const getFriend = createAction(GET_FRIEND_INFO, (sessionId, currentPage, loadValue) => {
+    return {sessionId, currentPage, loadValue}
 })
 
 export const allam = createAction(SET_FRIEND_ALLAM)
@@ -22,14 +22,11 @@ export const block = createAction(SET_FRIEND_BLOCK)
 
 const getMyFriendsSaga = function* (action) {
     try {
-        console.log('friendInfo action: ', action)
-        const info = yield call(getFriendInfo, action.payload.userId)
-        console.log('friendInfo info: ', info)
+        const info = yield call(getFriendInfo, action.payload.sessionId, action.payload.currentPage, action.payload.loadValue)
         if (info.state === "SUCCESS") {
-            console.log('friendInfo Success')
             yield put({
                 type: GET_FRIEND_SUCCESS,
-                payload: info.data,
+                payload: info,
                 error: false
             })
         }
@@ -56,8 +53,9 @@ export const friendInfoSaga = function* () {
 const initialState = {
     loading: true,
     payload: null,
-    totalFriend: 0,
-    lastLoadFriend: 0,
+    data: [],
+    totalPage: 1,
+    lastLoadPage: 0, //테스트를 위해 만든 키값.
     error: false
 }
 
@@ -70,8 +68,9 @@ const friendInfo = handleActions(
         [GET_FRIEND_SUCCESS]: (state, action) => produce(state, draft => {
             draft.loading = false;
             draft.payload = action.payload;
-            draft.totalFriend = action.payload.totalFriend;
-            draft.lastLoadFriend = action.payload.lastLoadFriend;
+            draft.data = [...draft.data, ...action.payload.data];
+            draft.totalPage = action.payload.totalPage;
+            draft.lastLoadPage = action.payload.lastLoadPage;
         }),
         [GET_FRIEND_FAILURE]: (state, action) => produce(state, draft => {
             draft.loading = false;
