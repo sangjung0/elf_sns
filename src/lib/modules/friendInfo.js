@@ -14,7 +14,7 @@ const SET_FRIEND_BLOCK = 'friendInfo/SET_FRIEND_BLOCK'
 
 export const getFriend = createAction(GET_FRIEND_INFO, (userId, currentFriend, friendValue) => {
     return {
-        userId: userId,
+        userId,
         currentFriend,
         friendValue
     }
@@ -27,7 +27,7 @@ export const block = createAction(SET_FRIEND_BLOCK)
 const getMyFriendsSaga = function* (action) {
     try {
         console.log('friendInfo action: ', action)
-        const info = yield call(getFriendInfo, action.payload.userId)
+        const info = yield call(getFriendInfo, action.payload.userId, action.payload.currentFriend, action.payload.friendValue)
         console.log('friendInfo info: ', info)
         if (info.state === "SUCCESS") {
             console.log('friendInfo Success')
