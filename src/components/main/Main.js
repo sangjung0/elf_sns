@@ -8,7 +8,7 @@ import SideMenuContainer from '../../containers/SideMenuContainer';
 
 // import { getFriend } from '../../lib/modules/friendInfo';
 // import SideMenu from './SideMenu';
-import InfiniteScroll from './InfiniteScroll';
+import WindowInfiniteScroll from './WindowInfiniteScroll';
 import Content from './Content';
 import ContentModal from './ContentModal';
 
@@ -30,7 +30,7 @@ const Main = ({ userInfo, contentsInfo, loadPage }) => {
             {showSideMenu && <SideMenuContainer onClickHamburger={onClickHamburger} />}
             {modalContent && <ContentModal modalContent={modalContent} setModalContent={setModalContent} />}
             <Container className={style('wrap')}>
-                <InfiniteScroll 
+                <WindowInfiniteScroll 
                     contentsData={contentsInfo.data}
                     totalPage={contentsInfo.totalPage}
                     loadPage={loadPage}
@@ -38,7 +38,7 @@ const Main = ({ userInfo, contentsInfo, loadPage }) => {
                     defaultLoadPage={10}
                 >
                     <Content setModalContent={setModalContent}/>
-                </InfiniteScroll>
+                </WindowInfiniteScroll>
             </Container>
         </>
     )

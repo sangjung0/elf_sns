@@ -10,12 +10,12 @@ import sideMenuStyle from '../../styles/main/sideMenu.module.scss';
 const style = classNames.bind(sideMenuStyle);
 
 const SideMenu = ({ onClickHamburger, info, loadFriend, onAllam, onUnfollow, onBlock }) => {
-    const [friend, setFriend] = useState(info)
-    console.log('sidemenu friend', friend)
+    // const [friend, setFriend] = useState(info)
+    // console.log('sidemenu friend', friend)
 
-    useEffect(() => {
-        setFriend(info)
-    }, [info])
+    // useEffect(() => {
+    //     setFriend(info)
+    // }, [info])
 
     return (
         <>
@@ -25,10 +25,10 @@ const SideMenu = ({ onClickHamburger, info, loadFriend, onAllam, onUnfollow, onB
                 </div>
                 <div className={style('item-container')}>
                     <InfiniteScroll
-                        contentsData={info.payload === null ? [] : info.payload}
-                        totalPage={info.totalFriend}
+                        contentsData={info.data}
+                        totalPage={info.totalPage}
                         loadPage={loadFriend}
-                        defaultHeight={700}
+                        defaultHeight={75}
                         defaultLoadPage={10}
                     >
                         {/* {

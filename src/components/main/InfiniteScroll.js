@@ -1,8 +1,8 @@
-import { AutoSizer, CellMeasurer, CellMeasurerCache, InfiniteLoader, List, WindowScroller } from 'react-virtualized';
+import { AutoSizer, CellMeasurer, CellMeasurerCache, InfiniteLoader, List } from 'react-virtualized';
 import { useCallback, useState, cloneElement } from 'react';
 
 
-const InfiniteScroll = ({contentsData, loadPage, defaultHeight, defaultLoadPage, totalPage, children}) => {
+const InfiniteScroll = ({contentsData, loadPage, defaultHeight, defaultLoadPage, totalPage, children, windowScrollerProps}) => {
     //콘텐츠 데이터, 콘텐츠 페이지 로드 함수, 콘텐츠 기본 높이, 한번에 로드할 페이지 수, 총 페이지 수
     const [cache, setCache] = useState(
         new CellMeasurerCache({
@@ -11,7 +11,7 @@ const InfiniteScroll = ({contentsData, loadPage, defaultHeight, defaultLoadPage,
         })
     );
     const rowCount = contentsData.length + (contentsData.length >= totalPage ? 0 : defaultLoadPage);
-
+    
     const handleResize = useCallback(
         ({ width }) => {
             setCache((prevCache) => {
@@ -49,36 +49,30 @@ const InfiniteScroll = ({contentsData, loadPage, defaultHeight, defaultLoadPage,
     },[contentsData, cache, children]);
 
     return (
-        <WindowScroller>
-            {({ height, isScrolling, onChildScroll, scrollTop }) => (
-                <InfiniteLoader 
-                    isRowLoaded={isRowLoaded}
-                    loadMoreRows={loadMoreRows}
-                    rowCount={rowCount}
-                >
-                    {({ onRowsRendered, registerChild }) => (
-                                <AutoSizer disableHeight onResize={handleResize}>
-                                    {({width}) => (
-                                        <List
-                                            autoHeight={true}
-                                            height={height}
-                                            width= {width}
-                                            isScrolling={isScrolling}
-                                            onScroll={onChildScroll}
-                                            scrollTop={scrollTop}
-                                            deferredMeasurementCache={cache}
-                                            rowHeight={cache.rowHeight}
-                                            rowRenderer={rowRenderer}
-                                            rowCount={rowCount}
-                                            ref={registerChild}
-                                            onRowsRendered={onRowsRendered}
-                                        />
-                                    )}
-                                </AutoSizer>
+        <InfiniteLoader 
+            isRowLoaded={isRowLoaded}
+            loadMoreRows={loadMoreRows}
+            rowCount={rowCount}
+        >
+            {({ onRowsRendered, registerChild }) => (
+                <AutoSizer onResize={handleResize}>
+                    {({width, height}) => (
+                        <List
+                            height={height}
+                            width= {width}
+                            deferredMeasurementCache={cache}
+                            rowHeight={cache.rowHeight}
+                            rowRenderer={rowRenderer}
+                            rowCount={rowCount}
+                            ref={registerChild}
+                            onRowsRendered={onRowsRendered}
+                            {...windowScrollerProps}
+                        />
+
                     )}
-                </InfiniteLoader>
+                </AutoSizer>
             )}
-        </WindowScroller>
+        </InfiniteLoader>
     )
 }
 

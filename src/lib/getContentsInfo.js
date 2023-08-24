@@ -1,6 +1,6 @@
 //import axios from 'axios';
 
-const getContentsInfo = async(sessionId, currentPage, pageValue) => {
+const getContentsInfo = async(sessionId, currentPage, loadValue) => {
     //세션아이디, 현재페이지, 가져오고싶은 페이지 양
     try{
         console.log("get contents by ",sessionId);
@@ -84,7 +84,7 @@ const getContentsInfo = async(sessionId, currentPage, pageValue) => {
 
         //test 영역
         const totalPage = 100;
-        const requiredPage = currentPage + pageValue <= 0 ? 0: currentPage + pageValue > totalPage ? totalPage:currentPage+pageValue;
+        const requiredPage = currentPage + loadValue <= 0 ? 0: currentPage + loadValue > totalPage ? totalPage:currentPage+loadValue;
         const loadingValue = Math.abs(requiredPage-currentPage);
         const additionalValue = requiredPage >= currentPage ? 1: -1;
         const data = Array.from({length:loadingValue}).map((_,index)=>({
