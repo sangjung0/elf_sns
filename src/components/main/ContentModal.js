@@ -3,14 +3,12 @@ import { Button, Carousel, Col, Container, Form, InputGroup, Modal, Row } from '
 import classNames from 'classnames/bind';
 
 import ProfileImage from './ProfileImage';
-import InfiniteScroll from './InfiniteScroll';  // 더 보기로 사용
-import ModalContentAndComments from './ModalContentAndComments';
 
 import contentModalStyle from '../../styles/main/contentModal.module.scss';
-import Comment from './Comment';
+import CommentModalContainer from '../../containers/CommentModalContainer';
 const style = classNames.bind(contentModalStyle);
 const ContentModal = ({ setModalContent, modalContent }) => {
-    console.log(modalContent);
+    const contentId = modalContent.id;
     const src = modalContent.author.imgUrl;
     const id = modalContent.author.id;
     const createAt = new Date(modalContent.createAt);
@@ -28,17 +26,6 @@ const ContentModal = ({ setModalContent, modalContent }) => {
         <span key={tag}>#{tag}</span>
     ))
     const content = modalContent.content ?? "";
-    const comments = modalContent.comments ?? [];
-    const comment = comments.map((comment, index) => (
-        <Comment
-            //key={comment.commentId}
-            key={index} //임시로 index 값 했음.
-            commentId={comment.commentId}
-            userId={comment.userId}
-            comment={comment.comment}
-            createAt={comment.createAt}
-        />
-    ))
 
 
     const [inputComment, setInputComment] = useState("");
@@ -54,16 +41,25 @@ const ContentModal = ({ setModalContent, modalContent }) => {
 
     }
 
+    // const [maxHeight, setMaxHeight] = useState(900)
+    const maxHeightBody = 1000
+    const maxHeightComment = 800
+    const [height, setHeight] = useState(51)
+    const handleClose = () => {
+        setModalContent(null)
+
+    }
+
     //중복된 부분 수정 필요.
     return (
         <Modal
             show={modalContent ? true : false}
-            onHide={() => setModalContent(null)}
+            onHide={handleClose}
             dialogClassName={style("modal-container")}
         >
             <Modal.Header closeButton>
             </Modal.Header>
-            <Modal.Body>
+            <Modal.Body style={{ maxHeight: maxHeightBody, overflowY: 'auto' }}>
                 <Container>
                     <div className={style("container")}>
                         <Row className={style("user-info")}>
@@ -92,15 +88,22 @@ const ContentModal = ({ setModalContent, modalContent }) => {
                         </Row>
                         <Row onClick={handleClick}>
                             <div className={style('contents-box')}>
-                                {/* <InfiniteScroll>
-                                    <ModalContentAndComments />
-                                </InfiniteScroll> */}
+                                <div className={style('text')}>
+                                    <div className={style('tags')}>
+                                        {tag}
+                                    </div>
+                                    {content}
+                                </div>
+                            </div>
+                        </Row>
+                        <Row onClick={handleClick} style={{ maxHeight: maxHeightComment, height: height, overflow: 'auto' }}>
+                            <div className={style('comments-box')}>
+                                <div className={style('contents')}>
+                                    <CommentModalContainer id={contentId} setHeight={setHeight} />
+                                </div>
                             </div>
                         </Row>
                         <Row>
-                            <div className={style('comment-box')}>
-                                {comment}
-                            </div>
                             <div className={style('input-box')}>
                                 <InputGroup className="mb-3">
                                     <Form.Control

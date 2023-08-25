@@ -105,9 +105,6 @@
             .date-box{
                 padding-top:40px;
             }
-            .contents-box{
-                height:500px;
-            }
             .imgs-box{
                 .img-box{
                     height:500px;
@@ -147,10 +144,15 @@
     }
     .contents-box{
         width:100%;
-        padding:0;
+        padding:10px;
+        border-bottom: 1px solid #cccccc;
+    }
+    .comments-box{
+        width:100%;
+        padding:10px;
+        border-bottom: 1px solid #cccccc;
     }
     .input-box{
         padding:10px;
-        border-bottom: 1px solid #cccccc;
     }
 }
