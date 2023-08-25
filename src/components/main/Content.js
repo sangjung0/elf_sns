@@ -1,5 +1,5 @@
 import { memo, useState } from 'react';
-import {Button, Form, Col, Row, Carousel, InputGroup} from 'react-bootstrap';
+import { Button, Form, Col, Row, Carousel, InputGroup } from 'react-bootstrap';
 import classNames from 'classnames/bind';
 
 import Comment from './Comment';
@@ -7,11 +7,11 @@ import ProfileImage from './ProfileImage';
 import contentStyle from '../../styles/main/content.module.scss';
 const style = classNames.bind(contentStyle);
 
-const Content = ({data,setModalContent}) => {
+const Content = ({ data, setModalContent }) => {
     const id = data?.author.id ?? null;
     const src = data?.author.imgUrl ?? null;
     const createAt = new Date(data?.createAt ?? 0);
-    const dateString = `${createAt.getFullYear()}-${(createAt.getMonth()+1).toString().padStart(2,"0")}-${createAt.getDate().toString().padStart(2,"0")}`;
+    const dateString = `${createAt.getFullYear()}-${(createAt.getMonth() + 1).toString().padStart(2, "0")}-${createAt.getDate().toString().padStart(2, "0")}`;
     const imgUrl = data?.imgUrl ?? [];
     const imgs = imgUrl.map((img) => (
         <Carousel.Item key={img}>
@@ -26,28 +26,28 @@ const Content = ({data,setModalContent}) => {
     ))
     const content = data?.content ?? "";
     const comments = data?.comments ?? [];
-    const comment = comments.map((comment,index) => (
-        <Comment 
+    const comment = comments.map((comment, index) => (
+        <Comment
             //key={comment.commentId}
             key={index} //임시로 index 값 했음.
             commentId={comment.commentId}
-            userId={comment.userId} 
-            comment={comment.comment} 
+            userId={comment.userId}
+            comment={comment.comment}
             createAt={comment.createAt}
         />
     ))
 
-    const [inputComment,setInputComment] = useState("");
-    const handleInput = ({target}) => {
+    const [inputComment, setInputComment] = useState("");
+    const handleInput = ({ target }) => {
         setInputComment(target.value);
     }
 
     //댓글 입력 처리
-    const handleButton = (e)=>{
+    const handleButton = (e) => {
         console.log(inputComment);
         setInputComment("");
     }
-    const handleClick = (e)=>{
+    const handleClick = (e) => {
         e.stopPropagation();
         setModalContent(data);
     }
@@ -58,7 +58,7 @@ const Content = ({data,setModalContent}) => {
             <Row className={style("user-info")}>
                 <Col md={"1"}>
                     <div className={style("box")}>
-                        <ProfileImage src={src}/>
+                        <ProfileImage src={src} />
                     </div>
                 </Col>
                 <Col md={"8"}>
@@ -102,12 +102,12 @@ const Content = ({data,setModalContent}) => {
                 <div className={style('input-box')}>
                     <InputGroup className="mb-3">
                         <Form.Control
-                        placeholder="댓글 달기"
-                        onChange={handleInput}
-                        value={inputComment}
+                            placeholder="댓글 달기"
+                            onChange={handleInput}
+                            value={inputComment}
                         />
                         <Button variant="outline-secondary" onClick={handleButton} id="button-addon2">
-                        입력
+                            입력
                         </Button>
                     </InputGroup>
                 </div>

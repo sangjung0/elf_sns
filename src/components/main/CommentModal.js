@@ -3,7 +3,16 @@ import { AutoSizer, CellMeasurer, CellMeasurerCache, List, WindowScroller } from
 
 import Comment from './Comment';
 
-const CommentModal = ({commentData, defaultHeight, loadMoreRows}) => {
+const CommentModal = ({ commentData, defaultHeight, loadMoreRows }) => {
+    // const [showMoreFlag, setShowMoreFlag] = useState(true)
+    const handleShowMore = () => {
+        loadMoreRows()
+        // setShowMoreFlag(!showMoreFlag)
+        // setCache(new CellMeasurerCache({
+        //     fixedWidth: true,
+        //     defaultHeight: defaultHeight + commentData.length * 51
+        // }))
+    }
 
     const [cache, setCache] = useState(
         new CellMeasurerCache({
@@ -16,37 +25,37 @@ const CommentModal = ({commentData, defaultHeight, loadMoreRows}) => {
             setCache((prevCache) => {
                 return new CellMeasurerCache({
                     fixedWidth: true,
-                    defaultHeight: prevCache.defaultHeight, 
+                    defaultHeight: prevCache.defaultHeight,
                     defaultWidth: width
                 });
             });
         },
         []
     );
-      
+
     const rowRenderer = useCallback(({ index, key, parent, style }) => {
         const content = commentData[index];
-        
+        console.log('content', content)
         return (
             <CellMeasurer
-            key={key}
-            cache={cache}
-            parent={parent}
-            rowIndex={index}
-          >
-            {({ measure }) => <div onLoad={()=>measure} style={style}> <Comment data={content} /></div>}
-          </CellMeasurer>
+                key={key}
+                cache={cache}
+                parent={parent}
+                rowIndex={index}
+            >
+                {({ measure }) => <div onLoad={() => measure} style={style}> <Comment data={content} /></div>}
+            </CellMeasurer>
         );
-    },[commentData, cache]);
+    }, [commentData, cache]);
 
     return (
         <>
             <AutoSizer onResize={handleResize}>
-                {({width, height}) => (
+                {({ width, height }) => (
                     <List
                         autoHeight={true}
                         height={height}
-                        width= {width}
+                        width={width}
                         deferredMeasurementCache={cache}
                         rowHeight={cache.rowHeight}
                         rowRenderer={rowRenderer}
@@ -55,9 +64,10 @@ const CommentModal = ({commentData, defaultHeight, loadMoreRows}) => {
 
                 )}
             </AutoSizer>
-            <div>
-                <button onClick={loadMoreRows}>더보기</button>
-            </div>
+            {/* {showMoreFlag && <button onClick={loadMoreRows}>더보기1</button>} */}
+            {/* {showMoreFlag && <button onClick={handleShowMore}>더보기2</button>} */}
+            {/* <button onClick={loadMoreRows}>더보기3</button> */}
+            <button onClick={handleShowMore}>더보기4</button>
         </>
     )
 }

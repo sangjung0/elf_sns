@@ -5,24 +5,23 @@ import CommentModal from '../components/main/CommentModal';
 import { getCommentData } from '../lib/modules/commentData';
 import { getSessionId } from '../lib/sessionId';
 
-const CommentContainer = ({id}) => {
+const CommentContainer = ({ id, setHeight }) => {
     const sessionId = getSessionId();
     const commentData = useSelector(state => state.commentData);
     //이전 정보를 불러오는 오류가 있을 듯 함. 추후 수정
     const dispatch = useDispatch();
-    const _getCommentsData = useCallback((sessionId, contentId, currentPage, pageValue)=> dispatch(getCommentData(sessionId, contentId, currentPage, pageValue)), [dispatch]);
+    const _getCommentsData = useCallback((sessionId, contentId, currentPage, pageValue) => dispatch(getCommentData(sessionId, contentId, currentPage, pageValue)), [dispatch]);
 
-    const loadPage = (_,type="BACK") => {
+    const loadPage = (_, type = "BACK") => {
         const [startPoint, loadPageValue] = type === "BACK" ? [commentData.lastLoadPage, 10] : [0, -10];
         console.log(sessionId, id, startPoint, loadPageValue);
         _getCommentsData(sessionId, id, startPoint, loadPageValue);
+        setHeight(30 * 51) // 30을 commentData.data.length로 사용
     }
 
-    console.log(commentData);
-
     return (
-        <CommentModal 
-            commentData={commentData.data} 
+        <CommentModal
+            commentData={commentData.data}
             loadMoreRows={loadPage}
             defaultHeight={30}
         />

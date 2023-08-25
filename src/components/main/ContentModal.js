@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import {Button, Carousel, Col, Container, Form, InputGroup, Modal, Row} from 'react-bootstrap';
+import { Button, Carousel, Col, Container, Form, InputGroup, Modal, Row } from 'react-bootstrap';
 import classNames from 'classnames/bind';
 
 import ProfileImage from './ProfileImage';
@@ -7,12 +7,12 @@ import ProfileImage from './ProfileImage';
 import contentModalStyle from '../../styles/main/contentModal.module.scss';
 import CommentModalContainer from '../../containers/CommentModalContainer';
 const style = classNames.bind(contentModalStyle);
-const ContentModal = ({setModalContent, modalContent}) => {
+const ContentModal = ({ setModalContent, modalContent }) => {
     const contentId = modalContent.id;
-    const src= modalContent.author.imgUrl;
+    const src = modalContent.author.imgUrl;
     const id = modalContent.author.id;
-    const createAt = new Date(modalContent.createAt );
-    const dateString = `${createAt.getFullYear()}-${(createAt.getMonth()+1).toString().padStart(2,"0")}-${createAt.getDate().toString().padStart(2,"0")}`;
+    const createAt = new Date(modalContent.createAt);
+    const dateString = `${createAt.getFullYear()}-${(createAt.getMonth() + 1).toString().padStart(2, "0")}-${createAt.getDate().toString().padStart(2, "0")}`;
     const imgUrl = modalContent.imgUrl ?? [];
     const imgs = imgUrl.map((img) => (
         <Carousel.Item key={img}>
@@ -28,13 +28,12 @@ const ContentModal = ({setModalContent, modalContent}) => {
     const content = modalContent.content ?? "";
 
 
-
-    const [inputComment,setInputComment] = useState("");
-    const handleInput = ({target}) => {
+    const [inputComment, setInputComment] = useState("");
+    const handleInput = ({ target }) => {
         setInputComment(target.value);
     }
     //댓글 입력 처리
-    const handleButton = (e)=>{
+    const handleButton = (e) => {
         console.log(inputComment);
         setInputComment("");
     }
@@ -42,22 +41,31 @@ const ContentModal = ({setModalContent, modalContent}) => {
 
     }
 
+    // const [maxHeight, setMaxHeight] = useState(900)
+    const maxHeightBody = 1000
+    const maxHeightComment = 800
+    const [height, setHeight] = useState(51)
+    const handleClose = () => {
+        setModalContent(null)
+
+    }
+
     //중복된 부분 수정 필요.
     return (
         <Modal
-            show={modalContent? true: false}
-            onHide={() => setModalContent(null)}
+            show={modalContent ? true : false}
+            onHide={handleClose}
             dialogClassName={style("modal-container")}
         >
             <Modal.Header closeButton>
             </Modal.Header>
-            <Modal.Body>
+            <Modal.Body style={{ maxHeight: maxHeightBody, overflowY: 'auto' }}>
                 <Container>
                     <div className={style("container")}>
                         <Row className={style("user-info")}>
                             <Col md={"1"}>
                                 <div className={style("box")}>
-                                    <ProfileImage src={src}/>
+                                    <ProfileImage src={src} />
                                 </div>
                             </Col>
                             <Col md={"8"}>
@@ -88,10 +96,10 @@ const ContentModal = ({setModalContent, modalContent}) => {
                                 </div>
                             </div>
                         </Row>
-                        <Row onClick={handleClick}>
+                        <Row onClick={handleClick} style={{ maxHeight: maxHeightComment, height: height, overflow: 'auto' }}>
                             <div className={style('comments-box')}>
                                 <div className={style('contents')}>
-                                    <CommentModalContainer id={contentId} />
+                                    <CommentModalContainer id={contentId} setHeight={setHeight} />
                                 </div>
                             </div>
                         </Row>
@@ -99,20 +107,20 @@ const ContentModal = ({setModalContent, modalContent}) => {
                             <div className={style('input-box')}>
                                 <InputGroup className="mb-3">
                                     <Form.Control
-                                    placeholder="댓글 달기"
-                                    onChange={handleInput}
-                                    value={inputComment}
+                                        placeholder="댓글 달기"
+                                        onChange={handleInput}
+                                        value={inputComment}
                                     />
                                     <Button variant="outline-secondary" onClick={handleButton} id="button-addon2">
-                                    입력
+                                        입력
                                     </Button>
                                 </InputGroup>
                             </div>
                         </Row>
                     </div>
                 </Container>
-            </Modal.Body>
-        </Modal>
+            </Modal.Body >
+        </Modal >
     )
 }
 

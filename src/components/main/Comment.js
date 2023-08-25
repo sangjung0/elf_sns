@@ -6,36 +6,44 @@ import ProfileImage from './ProfileImage';
 import commentStyle from '../../styles/main/comment.module.scss';
 const style = classNames.bind(commentStyle);
 
-const Comment = ({commentId, userId, comment, createAt}) => {
+const Comment = ({ commentId, userId, comment, createAt, data }) => {
+    console.log('data', data)
+    if (data !== undefined) {
+        commentId = data.commentId
+        userId = data.userId
+        createAt = data.createAt
+        comment = data.comment
+    }
+
     const date = new Date(createAt);
-    const dateString = `${date.getFullYear()}-${(date.getMonth()+1).toString().padStart(2,"0")}-${date.getDate().toString().padStart(2,"0")}`;
-    const handleButton = useCallback(({target})=>{
-        switch(target.name){
+    const dateString = `${date.getFullYear()}-${(date.getMonth() + 1).toString().padStart(2, "0")}-${date.getDate().toString().padStart(2, "0")}`;
+    const handleButton = useCallback(({ target }) => {
+        switch (target.name) {
             case "remove":
                 console.group("Comment");
-                console.log("Removing:",commentId);
+                console.log("Removing:", commentId);
                 console.groupEnd();
                 return;
             case "modify":
                 console.group("Comment");
-                console.log("Modify:",commentId);
+                console.log("Modify:", commentId);
                 console.groupEnd();
                 return;
             case "reply":
                 console.group("Comment");
-                console.log("Reply:",commentId);
+                console.log("Reply:", commentId);
                 console.groupEnd();
                 return;
             default:
                 return;
         }
-    },[commentId])
+    }, [commentId])
 
     return (
         <div className={style('comment-container')}>
             <Col md={1}>
                 <div className={style("box")}>
-                    <ProfileImage/>
+                    <ProfileImage />
                 </div>
             </Col>
             <Col md={11}>
