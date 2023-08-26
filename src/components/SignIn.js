@@ -10,19 +10,10 @@ const SignIn = ({ signInAccountInfo }) => {
     const [accountInfo, setAccountInfo] = useState({ email: "", password: "", rememberChecked: false });
 
     const onChange = (({ target }) => {
-        switch (target.name) {
-            case "email":
-                setAccountInfo({ ...accountInfo, email: target.value })
-                break;
-            case "password":
-                setAccountInfo({ ...accountInfo, password: target.value })
-                break;
-            case "rememberChecked":
-                setAccountInfo({ ...accountInfo, rememberChecked: target.checked })
-                break;
-            default:
-                break;
-        }
+        setAccountInfo((accountInfo) => ({
+            [target.name]: target.value,
+            ...accountInfo,
+        }))
     })
 
     const onSubmit = (e) => {

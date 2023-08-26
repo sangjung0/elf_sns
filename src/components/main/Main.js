@@ -58,7 +58,7 @@ const Main = ({ userInfo, contentsInfo, loadPage }) => {
                     contentsData={contentsInfo.data}
                     totalPage={contentsInfo.totalPage}
                     loadPage={loadPage}
-                    defaultHeight={885}
+                    defaultHeight={700}
                     defaultLoadPage={10}
                 >
                     <Content setModalContent={setModalContent} />

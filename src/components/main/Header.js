@@ -4,7 +4,7 @@ import { SlUserFollow, SlUserFollowing } from 'react-icons/sl';
 import { GiHamburgerMenu } from 'react-icons/gi';
 import { memo } from 'react';
 
-import { OverlayTrigger, Popover, ListGroup, Button } from 'react-bootstrap';
+import { OverlayTrigger, Popover, ListGroup, Button, Navbar, Container, Nav } from 'react-bootstrap';
 
 import headerStyle from '../../styles/main/header.module.scss';
 const style = classNames.bind(headerStyle);
@@ -15,7 +15,6 @@ const Header = ({ onClickHamburger, allam, setAllam }) => {
         <Popover
             id="popover-positioned-bottom"
             title="Popover bottom"
-            placement="right"
         >
             <Popover.Header>
                 Allam List
@@ -51,11 +50,11 @@ const Header = ({ onClickHamburger, allam, setAllam }) => {
                 </div>
                 <div className={style('user-info-container')}>
                     <div className={style('small-info')}>
-                        <OverlayTrigger trigger="click" placement="bottom" overlay={popoverBottom}>
+                        <OverlayTrigger trigger="click" placement='bottom' overlay={popoverBottom}>
                             <span><BsBell /> <span className={style('text')}>{allam.length}</span></span>
                         </OverlayTrigger>
                     </div>
-                    <div className={style('small-info')}>
+                    {/* <div className={style('small-info')}>
                         <span><SlUserFollowing /> <span className={style('text')}>5</span></span>
                     </div>
                     <div className={style('small-info')}>
@@ -63,16 +62,33 @@ const Header = ({ onClickHamburger, allam, setAllam }) => {
                     </div>
                     <div>
                         <span className={style('text')}>마이페이지</span>
-                    </div>
+                    </div> */}
                     <div>
                         <span onClick={onClickHamburger}><GiHamburgerMenu /></span>
                     </div>
                 </div>
             </div>
-            <div className={style('message-container')}>
+            {/* <div className={style('message-container')}>
                 <span className={style('mouse-message')}>마우스 올리셈</span>
-            </div>
+            </div> */}
         </div>
+        // <Navbar fixed="top" className="bg-secondary mb-3" >
+        //     <Container>
+        //         <img width="75" alt="logo" src="../img/logo.png" />
+        //         <Nav>
+        //             <OverlayTrigger trigger="click" placement="bottom" overlay={popoverBottom}>
+        //                 <span>
+        //                     <BsBell />
+        //                     <span >{allam.length}</span>
+        //                 </span>
+        //             </OverlayTrigger>
+
+        //             <div onClick={onClickHamburger}>
+        //                 <GiHamburgerMenu />
+        //             </div>
+        //         </Nav>
+        //     </Container>
+        // </Navbar>
     )
 }
 
