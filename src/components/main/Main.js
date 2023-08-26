@@ -36,7 +36,6 @@ const Main = ({ userInfo }) => {
         const response = await getContentsInfo(contentsInfo.length, LOAD_PAGE_VALUE);
         // 실제 작동할 때는 contentsInfo.length가 아니라 id값으로 할 것.
         // getContentsInfo(contentsInfo[contentsInfo.length-1].id, LOAD_PAGE_VALUE);
-        console.log(response);
         switch (response.state){
             case "SUCCESS":
                 setContentsInfo([...contentsInfo, ...response.data]);
@@ -49,6 +48,12 @@ const Main = ({ userInfo }) => {
                 totalPage.current = 0;
                 setContentsInfo([]);
         }
+    }
+
+    const reloadPage = (contentId) => {
+        const contentIndex = contentsInfo.findIndex(content => content.id === contentId);
+        setContentsInfo(contentsInfo.filter((_,index) => index < contentIndex));
+        loadPage();
     }
 
     useEffect(() => {
@@ -68,7 +73,7 @@ const Main = ({ userInfo }) => {
         <>
             <Header onClickHamburger={onClickHamburger} allam={allam} setAllam={onRemove} follower={userInfo.follower} following={userInfo.following} />
             {showSideMenu && <SideMenu onClickHamburger={onClickHamburger} />}
-            {modalContent && <ContentModal modalContent={modalContent} setModalContent={setModalContent} />}
+            {modalContent && <ContentModal modalContent={modalContent} setModalContent={setModalContent} reloadPage={reloadPage}/>}
             <Container className={style('wrap')}>
                 <WindowInfiniteScroll
                     contentsData={contentsInfo}
@@ -77,7 +82,7 @@ const Main = ({ userInfo }) => {
                     defaultHeight={700}
                     defaultLoadPage={10}
                 >
-                    <Content setModalContent={setModalContent} />
+                    <Content setModalContent={setModalContent} reloadPage={reloadPage} />
                 </WindowInfiniteScroll>
             </Container>
             <ToastContainer

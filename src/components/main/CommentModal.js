@@ -1,18 +1,21 @@
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 
 import Comment from './Comment';
-import getCommentData from '../../lib/getCommentData';
+import { getCommentData } from '../../lib/commentData';
 
 const LOAD_PAGE_VALUE = 10;
 
-const CommentModal = ({ id }) => {
+const CommentModal = ({ id, shouldLoad }) => {
     const [commentsData, setCommentsData] = useState([]);
 
-    const handleShowMore = async() => {
-        const response = await getCommentData(id, LOAD_PAGE_VALUE);
+    const handleShowMore = () => {
+        loadData(LOAD_PAGE_VALUE);
+    }
+
+    const loadData = useCallback(async (loadPageValue) => {
+        const response = await getCommentData(id, loadPageValue);
         // 실제 작동할 때는 contentsInfo.length가 아니라 id값으로 할 것.
         // getContentsInfo(contentsInfo[contentsInfo.length-1].id, LOAD_PAGE_VALUE);
-        console.log(response);
         switch (response.state){
             case "SUCCESS":
                 setCommentsData([...commentsData, ...response.data]);
@@ -23,14 +26,19 @@ const CommentModal = ({ id }) => {
             default:
                 setCommentsData([]);
         }
-    }
+    },[id, commentsData]);
 
     useEffect(()=>{
         handleShowMore();
     // eslint-disable-next-line react-hooks/exhaustive-deps
     },[])
+    useEffect(()=>{
+        console.log("reload");
+        setCommentsData([]);
+        loadData(commentsData.length);
+    },[shouldLoad, commentsData, loadData])
 
-    const Show = () => {
+    const ShowComment = () => {
         return commentsData.map((value, index)=>
             <Comment
                 key={index} //임시
@@ -45,7 +53,7 @@ const CommentModal = ({ id }) => {
 
     return (
         <>  
-            <Show />
+            <ShowComment />
             <button onClick={handleShowMore}>더보기4</button>
         </>
     )

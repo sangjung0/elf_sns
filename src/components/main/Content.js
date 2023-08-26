@@ -4,10 +4,12 @@ import classNames from 'classnames/bind';
 
 import Comment from './Comment';
 import ProfileImage from './ProfileImage';
+import { setComment } from '../../lib/commentData';
+
 import contentStyle from '../../styles/main/content.module.scss';
 const style = classNames.bind(contentStyle);
 
-const Content = ({ data, setModalContent }) => {
+const Content = ({ data, setModalContent, reloadPage }) => {
     const id = data?.author.id ?? null;
     const src = data?.author.imgUrl ?? null;
     const createAt = new Date(data?.createAt ?? 0);
@@ -43,9 +45,17 @@ const Content = ({ data, setModalContent }) => {
     }
 
     //댓글 입력 처리
-    const handleButton = (e) => {
-        console.log(inputComment);
-        setInputComment("");
+    const handleButton = async() => {
+        const response = await setComment(data.id, inputComment);
+        switch (response.state){
+            case "SUCCESS":
+                reloadPage(data.id);
+                setInputComment("");
+                break;
+            default:
+                alert("Error: 댓글 등록 실패");
+        }
+
     }
     const handleClick = (e) => {
         e.stopPropagation();
@@ -137,8 +147,8 @@ const Content = ({ data, setModalContent }) => {
                         </Carousel>
                     </div>
                 </Col>
-                <Col onClick={handleClick}>
-                    <div className={style('contents-box')}>
+                <Col>
+                    <div className={style('contents-box')}  onClick={handleClick}>
                         <div className={style('contents')}>
                             <div className={style('text')}>
                                 <div className={style('tags')}>
