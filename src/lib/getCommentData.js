@@ -1,10 +1,11 @@
 //import axios from 'axios';
+import { getSessionId } from "./sessionId";
 
-const getCommentData = async(sessionId, contentId, currentPage, loadValue) => {
+const getCommentData = async( contentId, loadValue ) => {
     //세션아이디, 현재페이지, 가져오고싶은 페이지 양
     //세션아이디 모두 전달받는거 말고 여기서 받는걸로 하면 될듯
-    console.log(sessionId, contentId, currentPage, loadValue);
     try{
+        const sessionId = getSessionId();
         console.log("get contents by ",sessionId);
         if (!sessionId){
             return {
@@ -48,13 +49,8 @@ const getCommentData = async(sessionId, contentId, currentPage, loadValue) => {
         // }
 
         //test 영역
-        const totalPage = 1000000000000000000000;
-        const requiredPage = currentPage + loadValue <= 0 ? 0: currentPage + loadValue > totalPage ? totalPage:currentPage+loadValue;
-        const loadingValue = Math.abs(requiredPage-currentPage);
-        const additionalValue = requiredPage >= currentPage ? 1: -1;
-        console.log(loadingValue);
-        const data = Array.from({length:loadingValue}).map((_,index)=>({
-            commentId:"commentId_"+(currentPage+(index+1)*additionalValue),
+        const data = Array.from({length:loadValue}).map((_,index)=>({
+            commentId:"commentId_13241",
             userId:"userId_123123",
             createAt:1698469752808,
             comment:"와 진짜 개공감 ㅇㅈ"
@@ -63,16 +59,12 @@ const getCommentData = async(sessionId, contentId, currentPage, loadValue) => {
         if (data === []){
             return {
                 state: "FAILURE",
-                totalPage: totalPage,
-                lastLoadPage: requiredPage,
                 data: null
             }
         }
 
         return {
             state: "SUCCESS",
-            totalPage: totalPage,
-            lastLoadPage: requiredPage, //현재로써는. 중앙부터 불러온다면 검증 필요
             data: data
         }
     }catch(e){

@@ -1,12 +1,37 @@
-import Comment from './Comment';
+import { useEffect, useState } from 'react';
 
-const CommentModal = ({ commentData, loadMoreRows }) => {
-    const handleShowMore = () => {
-        loadMoreRows()
+import Comment from './Comment';
+import getCommentData from '../../lib/getCommentData';
+
+const LOAD_PAGE_VALUE = 10;
+
+const CommentModal = ({ id }) => {
+    const [commentsData, setCommentsData] = useState([]);
+
+    const handleShowMore = async() => {
+        const response = await getCommentData(id, LOAD_PAGE_VALUE);
+        // 실제 작동할 때는 contentsInfo.length가 아니라 id값으로 할 것.
+        // getContentsInfo(contentsInfo[contentsInfo.length-1].id, LOAD_PAGE_VALUE);
+        console.log(response);
+        switch (response.state){
+            case "SUCCESS":
+                setCommentsData([...commentsData, ...response.data]);
+                break;
+            case "ERROR":
+                console.error(response.e);
+            case "FAILURE":
+            default:
+                setCommentsData([]);
+        }
     }
 
+    useEffect(()=>{
+        handleShowMore();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    },[])
+
     const Show = () => {
-        return commentData.map((value, index)=>
+        return commentsData.map((value, index)=>
             <Comment
                 key={index} //임시
                 commentId={value.commentId}

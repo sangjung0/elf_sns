@@ -1,9 +1,11 @@
 // test data
 import randomName from './faker';
+import { getSessionId } from "./sessionId";
 
 // 친구 정보 가져오기
-const getFriendInfo = (sessionId, currentPage, loadValue) => {
+const getFriendInfo = async( currentPage, loadValue) => {
     try {
+        const sessionId = getSessionId();
         console.log("request server by ", sessionId);
 
         if (!sessionId)
@@ -26,7 +28,6 @@ const getFriendInfo = (sessionId, currentPage, loadValue) => {
             state: "SUCCESS",
             data: data,
             totalPage: totalPage,
-            lastLoadPage: requiredPage,
         }
     } catch (e) {
         return {

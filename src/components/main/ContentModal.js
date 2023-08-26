@@ -3,9 +3,9 @@ import { Button, Carousel, Col, Container, Form, InputGroup, Modal, Row } from '
 import classNames from 'classnames/bind';
 
 import ProfileImage from './ProfileImage';
+import CommentModal from './CommentModal';
 
 import contentModalStyle from '../../styles/main/contentModal.module.scss';
-import CommentModalContainer from '../../containers/CommentModalContainer';
 const style = classNames.bind(contentModalStyle);
 const ContentModal = ({ setModalContent, modalContent }) => {
     const contentId = modalContent.id;
@@ -97,7 +97,7 @@ const ContentModal = ({ setModalContent, modalContent }) => {
                         <Row onClick={handleClick}>
                             <div className={style('comments-box')}>
                                 <div className={style('contents')}>
-                                    <CommentModalContainer id={contentId}/>
+                                    <CommentModal id={contentId}/>
                                 </div>
                             </div>
                         </Row>
