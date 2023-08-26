@@ -23,22 +23,16 @@ const Main = ({ userInfo }) => {
     const [modalContent, setModalContent] = useState(null);
     const [contentsInfo, setContentsInfo] = useState([]);
     const totalPage = useRef(1);
-    const [allam, setAllam] = useState([])
 
     const onClickHamburger = () => {
         setShowSideMenu(state => !state);
     }
 
-    const onRemove = (e) => {
-        e.preventDefault()
-        setAllam(allam.filter(i => i !== e.target.classList[0] + " " + e.target.classList[1]))
-    }
 
     const loadPage = async () => {
         const response = await getContentsInfo(contentsInfo.length, LOAD_PAGE_VALUE);
         // 실제 작동할 때는 contentsInfo.length가 아니라 id값으로 할 것.
         // getContentsInfo(contentsInfo[contentsInfo.length-1].id, LOAD_PAGE_VALUE);
-        console.log(response);
         switch (response.state) {
             case "SUCCESS":
                 setContentsInfo([...contentsInfo, ...response.data]);
@@ -53,26 +47,18 @@ const Main = ({ userInfo }) => {
         }
     }
 
-    useEffect(() => {
-        // setTimeout(() => toast("Wow so easy !"), 3000)
-        const recieveAllam = setInterval(() => {
-            const message = `message ${allam.length + 1}`
-            toast(message)
-            if (allam.length < 10)
-                setAllam(allam.concat(message))
-            else
-                setAllam(allam.splice(1, allam.length).concat(message))
-        }, 5000)
-
-        return () => clearInterval(recieveAllam)
-    }, [allam]);
+    const reloadPage = (contentId) => {
+        const contentIndex = contentsInfo.findIndex(content => content.id === contentId);
+        setContentsInfo(contentsInfo.filter((_, index) => index < contentIndex));
+        loadPage();
+    }
 
     return (
         <>
-            <Header onClickHamburger={onClickHamburger} allam={allam} setAllam={onRemove} follower={userInfo.follower} following={userInfo.following} />
-            {showSideMenu && <SideMenu onClickHamburger={onClickHamburger} setModalFlag={setModalFlag} />}
-            {/* {modalFlag && <FriendAdd modalFlag={modalFlag} setModalFlag={setModalFlag} />} */}
-            {modalContent && <ContentModal modalContent={modalContent} setModalContent={setModalContent} />}
+            {/* <Header onClickHamburger={onClickHamburger} allam={allam} setAllam={onRemove} follower={userInfo.follower} following={userInfo.following} /> */}
+            <Header onClickHamburger={onClickHamburger} follower={userInfo.follower} following={userInfo.following} />
+            {showSideMenu && <SideMenu onClickHamburger={onClickHamburger} />}
+            {modalContent && <ContentModal modalContent={modalContent} setModalContent={setModalContent} reloadPage={reloadPage} />}
             <Container className={style('wrap')}>
                 <WindowInfiniteScroll
                     contentsData={contentsInfo}
@@ -81,15 +67,9 @@ const Main = ({ userInfo }) => {
                     defaultHeight={700}
                     defaultLoadPage={10}
                 >
-                    <Content setModalContent={setModalContent} />
+                    <Content setModalContent={setModalContent} reloadPage={reloadPage} />
                 </WindowInfiniteScroll>
             </Container>
-            <ToastContainer
-                position="bottom-left"
-                autoClose="5000"
-                pauseOnHover="false"
-                pauseOnFocusLoss="false"
-            />
         </>
     )
 }

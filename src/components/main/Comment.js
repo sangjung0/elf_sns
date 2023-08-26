@@ -1,25 +1,32 @@
 import classNames from 'classnames/bind';
 import { Col, Row } from 'react-bootstrap';
-import { memo, useCallback } from 'react';
+import { memo, useState } from 'react';
 
 import ProfileImage from './ProfileImage';
+import { modifyComment, removeComment } from '../../lib/commentData';
 import commentStyle from '../../styles/main/comment.module.scss';
 const style = classNames.bind(commentStyle);
 
-const Comment = ({ commentId, userId, comment, createAt, }) => {
+const Comment = ({ commentId, userId, comment, createAt, reloadPage}) => {
+    const [input, setInput] = useState(false);
+    const [text, setText] = useState(comment);
     const date = new Date(createAt);
     const dateString = `${date.getFullYear()}-${(date.getMonth() + 1).toString().padStart(2, "0")}-${date.getDate().toString().padStart(2, "0")}`;
-    const handleButton = useCallback(({ target }) => {
+    const handleButton = async({ target }) => {
         switch (target.name) {
             case "remove":
-                console.group("Comment");
-                console.log("Removing:", commentId);
-                console.groupEnd();
+                const result = window.confirm("진짜 댓글 삭제?");
+                if (result) {
+                    const response = await removeComment(commentId);
+                    if (response.state ==="SUCCESS"){
+                        reloadPage();
+                    }else{
+                        alert("삭제 실패");
+                    }
+                }
                 return;
             case "modify":
-                console.group("Comment");
-                console.log("Modify:", commentId);
-                console.groupEnd();
+                setInput(true);
                 return;
             case "reply":
                 console.group("Comment");
@@ -29,7 +36,36 @@ const Comment = ({ commentId, userId, comment, createAt, }) => {
             default:
                 return;
         }
-    }, [commentId])
+    }
+
+    const handleInput = ({target}) => {
+        setText(target.value);
+    }
+
+    const handleSubmit = async() => {
+        const response = await modifyComment(commentId, text);
+        if (response) {
+            const response = await removeComment(commentId);
+            if (response.state ==="SUCCESS"){
+                reloadPage();
+            }else{
+                alert("수정 실패");
+            }
+        }
+    }
+
+    const showComment = () => {
+        if (input){
+            return (
+                <>
+                    <input type="text" value={text} onChange={handleInput}/>
+                    <button onClick={handleSubmit}>수정</button>
+                </>
+            )
+        }else{
+            return comment
+        }
+    }
 
     return (
         <div className={style('comment-container')}>
@@ -61,7 +97,7 @@ const Comment = ({ commentId, userId, comment, createAt, }) => {
                 </Row>
                 <Row>
                     <div className={style('comment')}>
-                        {comment}
+                        {showComment()}
                     </div>
                 </Row>
                 <Row>
