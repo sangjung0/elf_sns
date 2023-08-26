@@ -48,7 +48,7 @@ const getCommentData = async(sessionId, contentId, currentPage, loadValue) => {
         // }
 
         //test 영역
-        const totalPage = 100;
+        const totalPage = 1000000000000000000000;
         const requiredPage = currentPage + loadValue <= 0 ? 0: currentPage + loadValue > totalPage ? totalPage:currentPage+loadValue;
         const loadingValue = Math.abs(requiredPage-currentPage);
         const additionalValue = requiredPage >= currentPage ? 1: -1;
