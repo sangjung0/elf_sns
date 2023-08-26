@@ -55,7 +55,7 @@ const Content = ({ data, setModalContent }) => {
     //모달과 중복된 부분 합쳐야 함.
     return (
         <div className={style("container")}>
-            <Row className={style("user-info")}>
+            {/* <Row className={style("user-info")}>
                 <Col md={"1"}>
                     <div className={style("box")}>
                         <ProfileImage src={src} />
@@ -111,6 +111,63 @@ const Content = ({ data, setModalContent }) => {
                         </Button>
                     </InputGroup>
                 </div>
+            </Row> */}
+            <Row className={style("user-info")}>
+                <Col md={"1"}>
+                    <div className={style("box")}>
+                        <ProfileImage src={src} />
+                    </div>
+                </Col>
+                <Col md={"8"}>
+                    <div className={style('id-box')}>
+                        <span>{id}</span>
+                    </div>
+                </Col>
+                <Col md={"3"}>
+                    <div className={style('date-box')}>
+                        <span>{dateString}</span>
+                    </div>
+                </Col>
+            </Row>
+            <Row>
+                <Col>
+                    <div className={style('imgs-box')}>
+                        <Carousel interval={null} prevIcon={null} nextIcon={null} >
+                            {imgs}
+                        </Carousel>
+                    </div>
+                </Col>
+                <Col onClick={handleClick}>
+                    <div className={style('contents-box')}>
+                        <div className={style('contents')}>
+                            <div className={style('text')}>
+                                <div className={style('tags')}>
+                                    {tag}
+                                </div>
+                                {content}
+                            </div>
+                        </div>
+                        <div className={style('contents')}>
+                            <div className={style('text')}>
+                                <div className={style('comments')}>
+                                    {comment}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div className={style('input-box')}>
+                        <InputGroup className="mb-3">
+                            <Form.Control
+                                placeholder="댓글 달기"
+                                onChange={handleInput}
+                                value={inputComment}
+                            />
+                            <Button variant="outline-secondary" onClick={handleButton} id="button-addon2">
+                                입력
+                            </Button>
+                        </InputGroup>
+                    </div>
+                </Col>
             </Row>
         </div>
     )

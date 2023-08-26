@@ -33,24 +33,26 @@ const Comment = ({ commentId, userId, comment, createAt, }) => {
 
     return (
         <div className={style('comment-container')}>
-            <Col md={1}>
+            {/* <Col md={1.5}> */}
+            <Col md={2}>
                 <div className={style("box")}>
                     <ProfileImage />
                 </div>
             </Col>
-            <Col md={11}>
+            {/* <Col md={11}> */}
+            <Col md={10}>
                 <Row>
-                    <Col md={2}>
+                    <Col md={3}>
                         <div className={style('user-id')}>
                             <span>{userId}</span>
                         </div>
                     </Col>
-                    <Col md={2}>
+                    <Col md={3}>
                         <div className={style('date')}>
                             <span>{dateString}</span>
                         </div>
                     </Col>
-                    <Col md={8}>
+                    <Col md={6}>
                         <div className={style('setting')}>
                             <button type="button" onClick={handleButton} name="remove">삭제</button>
                             <button type='button' onClick={handleButton} name="modify">수정</button>

@@ -1,64 +1,72 @@
+@media (max-width:767px) {}
 
-@media (max-width:767px){
-}
-@media (min-width:768px) and (max-width:991px){
-    .side-container{
-        width:400px;
-        .item-container{
-            width:381px;
+@media (min-width:768px) and (max-width:991px) {
+    .side-container {
+        width: 400px;
+
+        .item-container {
+            width: 381px;
         }
-        .button-container{
-            width:381px;
+
+        .button-container {
+            width: 381px;
         }
     }
 }
-@media (min-width:992px){
-    .side-container{
-        width:400px;
-        .item-container{
-            width:381px;
+
+@media (min-width:992px) {
+    .side-container {
+        width: 400px;
+
+        .item-container {
+            width: 381px;
         }
-        .button-container{
-            width:381px;
+
+        .button-container {
+            width: 381px;
         }
     }
 }
-@media (min-width:1200px){
-}
-@media (min-width:1400px){
-}
 
-.side-container{
-    z-index: 99999;
+@media (min-width:1200px) {}
+
+@media (min-width:1400px) {}
+
+.side-container {
+    z-index: 1;
     background-color: white;
-    position:fixed;
+    position: fixed;
     border-left: 2px solid rgb(199, 198, 198);
     height: 86vh;
-    top:90px;
-    right:0px;
-    .close-container{
-        font-size:25px;
-        height:2vh;
+    top: 90px;
+    right: 0px;
+
+    .close-container {
+        font-size: 25px;
+        height: 2vh;
         margin-left: 10px;
     }
-    .item-container{
-        margin-left:10px;
-        margin-top:2vh;
+
+    .item-container {
+        margin-left: 10px;
+        margin-top: 2vh;
         //outline: 1px solid black;
-        height:75vh;
+        height: 75vh;
         overflow-y: scroll;
-        overflow-x:hidden;
+        overflow-x: hidden;
     }
-    .button-container{
-        margin-top:2vh;
-        margin-left:10px;
-        .friend-add-button{
-            width:100%;
-            border-radius:10px;
-            border:0px solid black;
-            height:30px;
-            color:white;
-            background-color:rgb(92,225,230);
+
+    .button-container {
+        margin-top: 2vh;
+        margin-left: 10px;
+
+        .friend-add-button {
+            width: 100%;
+            border-radius: 10px;
+            border: 0px solid black;
+            height: 30px;
+            color: white;
+            background-color: rgb(92, 225, 230);
         }
     }
 }
