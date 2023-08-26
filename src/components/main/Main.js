@@ -21,16 +21,11 @@ const Main = ({ userInfo }) => {
     const [modalContent, setModalContent] = useState(null);
     const [contentsInfo, setContentsInfo] = useState([]);
     const totalPage = useRef(1);
-    const [allam, setAllam] = useState([])
 
     const onClickHamburger = () => {
         setShowSideMenu(state => !state);
     }
 
-    const onRemove = (e) => {
-        e.preventDefault()
-        setAllam(allam.filter(i => i !== e.target.classList[0] + " " + e.target.classList[1]))
-    }
 
     const loadPage = async() => {
         const response = await getContentsInfo(contentsInfo.length, LOAD_PAGE_VALUE);
@@ -56,22 +51,10 @@ const Main = ({ userInfo }) => {
         loadPage();
     }
 
-    useEffect(() => {
-        // setTimeout(() => toast("Wow so easy !"), 3000)
-        const recieveAllam = setInterval(() => {
-            const message = `message ${allam.length + 1}`
-            toast(message)
-            if (allam.length < 10)
-                setAllam(allam.concat(message))
-            else
-                setAllam(allam.splice(1, allam.length).concat(message))
-        }, 5000)
-
-        return () => clearInterval(recieveAllam)
-    }, [allam]);
     return (
         <>
-            <Header onClickHamburger={onClickHamburger} allam={allam} setAllam={onRemove} follower={userInfo.follower} following={userInfo.following} />
+            {/* <Header onClickHamburger={onClickHamburger} allam={allam} setAllam={onRemove} follower={userInfo.follower} following={userInfo.following} /> */}
+            <Header onClickHamburger={onClickHamburger} follower={userInfo.follower} following={userInfo.following} />
             {showSideMenu && <SideMenu onClickHamburger={onClickHamburger} />}
             {modalContent && <ContentModal modalContent={modalContent} setModalContent={setModalContent} reloadPage={reloadPage}/>}
             <Container className={style('wrap')}>
@@ -85,12 +68,6 @@ const Main = ({ userInfo }) => {
                     <Content setModalContent={setModalContent} reloadPage={reloadPage} />
                 </WindowInfiniteScroll>
             </Container>
-            <ToastContainer
-                position="bottom-left"
-                autoClose="5000"
-                pauseOnHover="false"
-                pauseOnFocusLoss="false"
-            />
         </>
     )
 }

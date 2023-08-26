@@ -47,6 +47,7 @@ const ContentModal = ({ setModalContent, modalContent, reloadPage }) => {
                 userId ={value.userId}
                 createAt = {value.createAt}
                 comment = {value.comment}
+                reloadPage={()=>{reloadComments(commentsData.length+1);}}
 
             />
         )

@@ -36,6 +36,7 @@ const Content = ({ data, setModalContent, reloadPage }) => {
             userId={comment.userId}
             comment={comment.comment}
             createAt={comment.createAt}
+            reloadPage={()=>{reloadPage(data.id)}}
         />
     ))
 
