@@ -10,9 +10,8 @@ const GET_USER_INFO_FAILURE = 'userInfo/GET_USER_INFO_FAILURE'; //유저 정보 
 
 //액션
 //유저 정보를 가져오기 실행 액션
-export const getUserInfo = (sessionId) => ({
+export const getUserInfo = () => ({
     type: GET_USER_INFO,
-    sessionId
 });
 // //총 페이지 업데이트 함수
 // export const setUserInfoTotalContentsPage = (totalPage) => ({
@@ -24,7 +23,7 @@ export const getUserInfo = (sessionId) => ({
 //유저 정보 가져와서 성공 실패에 따라 디스패치
 const getUserInfoSaga = function* (action) {
     try {
-        const userInfo = yield call(gUI, action.sessionId);
+        const userInfo = yield call(gUI);
         if (userInfo.state === "SUCCESS") {
             yield put({
                 type: GET_USER_INFO_SUCCESS,

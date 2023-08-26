@@ -1,8 +1,10 @@
 //import axios from 'axios';
+import { getSessionId } from "./sessionId";
 
-const getContentsInfo = async(sessionId, currentPage, loadValue) => {
+const getContentsInfo = async(currentPage, loadValue) => {
     //세션아이디, 현재페이지, 가져오고싶은 페이지 양
     try{
+        const sessionId = getSessionId();
         console.log("get contents by ",sessionId);
         if (!sessionId){
             return {
@@ -113,7 +115,6 @@ const getContentsInfo = async(sessionId, currentPage, loadValue) => {
             return {
                 state: "FAILURE",
                 totalPage: totalPage,
-                lastLoadPage: requiredPage,
                 data: null
             }
         }
@@ -121,7 +122,6 @@ const getContentsInfo = async(sessionId, currentPage, loadValue) => {
         return {
             state: "SUCCESS",
             totalPage: totalPage,
-            lastLoadPage: requiredPage, //현재로써는. 중앙부터 불러온다면 검증 필요
             data: data
         }
     }catch(e){

@@ -1,8 +1,10 @@
 // import axios from 'axios';
+import { getSessionId } from "./sessionId";
 
 //유저 정보 가져오기
-const getUserInfo = async (sessionId) => {
+const getUserInfo = async () => {
     try{
+        const sessionId = getSessionId();
         console.log("request server by ",sessionId);
         if (!sessionId){
             return {

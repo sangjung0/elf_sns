@@ -3,17 +3,15 @@ import { useCallback, useEffect } from 'react';
 
 import App from '../App';
 import { getUserInfo } from "../lib/modules/userInfo";
-import { getSessionId } from '../lib/sessionId';
 
 //세션 확인 컨테이너
 const AppContainer = () => {
-    const sessionId = getSessionId();
     const userInfo = useSelector(state => state.userInfo);
     const dispatch = useDispatch();
-    const _getUserInfo = useCallback((sessionId)=> dispatch(getUserInfo(sessionId)), [dispatch]);
+    const _getUserInfo = useCallback(()=> dispatch(getUserInfo()), [dispatch]);
     useEffect(()=>{
-        _getUserInfo(sessionId);
-    },[_getUserInfo,sessionId]);
+        _getUserInfo();
+    },[_getUserInfo]);
     return <App userInfo={userInfo}/>
 }
 
