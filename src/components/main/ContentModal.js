@@ -42,9 +42,7 @@ const ContentModal = ({ setModalContent, modalContent }) => {
     }
 
     // const [maxHeight, setMaxHeight] = useState(900)
-    const maxHeightBody = 1000
-    const maxHeightComment = 800
-    const [height, setHeight] = useState(51)
+
     const handleClose = () => {
         setModalContent(null)
 
@@ -59,7 +57,7 @@ const ContentModal = ({ setModalContent, modalContent }) => {
         >
             <Modal.Header closeButton>
             </Modal.Header>
-            <Modal.Body style={{ maxHeight: maxHeightBody, overflowY: 'auto' }}>
+            <Modal.Body>
                 <Container>
                     <div className={style("container")}>
                         <Row className={style("user-info")}>
@@ -96,10 +94,10 @@ const ContentModal = ({ setModalContent, modalContent }) => {
                                 </div>
                             </div>
                         </Row>
-                        <Row onClick={handleClick} style={{ maxHeight: maxHeightComment, height: height, overflow: 'auto' }}>
+                        <Row onClick={handleClick}>
                             <div className={style('comments-box')}>
                                 <div className={style('contents')}>
-                                    <CommentModalContainer id={contentId} setHeight={setHeight} />
+                                    <CommentModalContainer id={contentId}/>
                                 </div>
                             </div>
                         </Row>

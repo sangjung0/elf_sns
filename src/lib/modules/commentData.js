@@ -6,7 +6,7 @@ import gCD from "../getCommentData";
 const GET_COMMENTS_DATA = 'commentData/GET_COMMENTS_DATA'; //컨텐츠 정보 가져오기 실행
 const GET_COMMENTS_DATA_SUCCESS = 'commentData/GET_COMMENTS_DATA_SUCCESS'; //컨텐츠 정보 가져오기 성공
 const GET_COMMENTS_DATA_FAILURE = 'commentData/GET_COMMENTS_DATA_FAILURE'; //컨텐츠 정보 가져오기 실패
-
+const REMOVE_COMMENTS_DATA="commentData/REMOVE_COMMENTS_DATA"; //
 //액션
 //컨텐츠 정보를 가져오기 실행 액션
 export const getCommentData = (sessionId, contentId, currentPage, pageValue) => ({
@@ -15,6 +15,9 @@ export const getCommentData = (sessionId, contentId, currentPage, pageValue) => 
     contentId,
     currentPage,
     pageValue
+});
+export const removeCommentData = () => ({
+    type: REMOVE_COMMENTS_DATA,
 });
 
 //리덕스 사가 함수
@@ -84,6 +87,16 @@ const commentData = (state= initialState, action) => {
                 draft.payload = action.payload;
                 draft.loading = false;
                 draft.error = action.error;
+            })
+        case REMOVE_COMMENTS_DATA:
+            return produce(state, draft => {
+                draft.loading=false;
+                draft.payload= null;
+                draft.data= [];
+                draft.contentId= null;
+                draft.totalPage= 1;
+                draft.lastLoadPage= 0;
+                draft.error= false;
             })
         default:
             return state;
