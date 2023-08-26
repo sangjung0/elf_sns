@@ -10,6 +10,11 @@ const style = classNames.bind(sideItemStyle);
 
 const SideItem = ({ data, onAllam, onUnfollow, onBlock }) => {
     const name = data?.name ?? null;
+
+    const handleUnFollow = () => {
+        onUnfollow(name)
+    }
+
     return (
         <div className={style('sideitem-container')}>
             <div className={style('allam')}>
@@ -24,8 +29,8 @@ const SideItem = ({ data, onAllam, onUnfollow, onBlock }) => {
                         <span>{name}</span>
                     </div>
                     <div className={style('user-settings')}>
-                        <span onClick={onUnfollow}><SlUserUnfollow /></span>
-                        <span onClick={onBlock}><BiBlock /></span>
+                        <span onClick={handleUnFollow}><SlUserUnfollow /></span>
+                        {/* <span onClick={onBlock}><BiBlock /></span> */}
                     </div>
                 </div>
             </div>

@@ -13,25 +13,39 @@ const style = classNames.bind(sideMenuStyle);
 const LOAD_PAGE_VALUE = 10;
 const SideMenu = ({ onClickHamburger }) => {
     const [friendsInfo, setFriendsInfo] = useState([]);
+    const [friendName, setFriendName] = useState(null);
     const totalPage = useRef(1);
 
-    const loadPage = async() => {
+    const loadPage = async () => {
         const response = await getFriendInfo(friendsInfo.length, LOAD_PAGE_VALUE);
-        
-        switch (response.state){
+
+        switch (response.state) {
             case "SUCCESS":
                 setFriendsInfo([...friendsInfo, ...response.data]);
                 totalPage.current = response.totalPage;
                 break;
             case "ERROR":
                 console.error(response.e);
+                break;
             case "FAILURE":
+                break;
             default:
                 totalPage.current = 0;
                 setFriendsInfo([]);
         }
     }
 
+    const onUnfollow = (name) => {
+        setFriendsInfo(friendsInfo.filter(f => f.name !== name))
+        // console.log(friendsInfo)
+    }
+
+    const handleModal = () => {
+        setFriendsInfo([{
+            id: "userId_" + (Math.random() * 100),
+            name: friendName.target.value
+        }].concat(friendsInfo))
+    }
 
     return (
         <>
@@ -47,11 +61,12 @@ const SideMenu = ({ onClickHamburger }) => {
                         defaultHeight={75}
                         defaultLoadPage={10}
                     >
-                        <SideItem/>
+                        <SideItem onUnfollow={onUnfollow} />
                     </InfiniteScroll>
                 </div>
                 <div className={style('button-container')}>
-                    <button className={style('friend-add-button')} >친구 추가</button>
+                    <input className={style('friend-input')} onChange={setFriendName}></input>
+                    <button className={style('friend-add-button')} onClick={handleModal}>친구 추가</button>
                 </div>
             </div>
         </>

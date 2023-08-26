@@ -5,6 +5,7 @@ import { useState, useEffect, useRef } from 'react';
 
 import Header from './Header';
 import SideMenu from './SideMenu';
+import FriendAdd from './FriendAdd';
 import WindowInfiniteScroll from './WindowInfiniteScroll';
 import Content from './Content';
 import ContentModal from './ContentModal';
@@ -18,6 +19,7 @@ const LOAD_PAGE_VALUE = 20;
 
 const Main = ({ userInfo }) => {
     const [showSideMenu, setShowSideMenu] = useState(false);
+    const [modalFlag, setModalFlag] = useState(false)
     const [modalContent, setModalContent] = useState(null);
     const [contentsInfo, setContentsInfo] = useState([]);
     const totalPage = useRef(1);
@@ -27,11 +29,11 @@ const Main = ({ userInfo }) => {
     }
 
 
-    const loadPage = async() => {
+    const loadPage = async () => {
         const response = await getContentsInfo(contentsInfo.length, LOAD_PAGE_VALUE);
         // 실제 작동할 때는 contentsInfo.length가 아니라 id값으로 할 것.
         // getContentsInfo(contentsInfo[contentsInfo.length-1].id, LOAD_PAGE_VALUE);
-        switch (response.state){
+        switch (response.state) {
             case "SUCCESS":
                 setContentsInfo([...contentsInfo, ...response.data]);
                 totalPage.current = response.totalPage;
@@ -47,7 +49,7 @@ const Main = ({ userInfo }) => {
 
     const reloadPage = (contentId) => {
         const contentIndex = contentsInfo.findIndex(content => content.id === contentId);
-        setContentsInfo(contentsInfo.filter((_,index) => index < contentIndex));
+        setContentsInfo(contentsInfo.filter((_, index) => index < contentIndex));
         loadPage();
     }
 
@@ -56,7 +58,7 @@ const Main = ({ userInfo }) => {
             {/* <Header onClickHamburger={onClickHamburger} allam={allam} setAllam={onRemove} follower={userInfo.follower} following={userInfo.following} /> */}
             <Header onClickHamburger={onClickHamburger} follower={userInfo.follower} following={userInfo.following} />
             {showSideMenu && <SideMenu onClickHamburger={onClickHamburger} />}
-            {modalContent && <ContentModal modalContent={modalContent} setModalContent={setModalContent} reloadPage={reloadPage}/>}
+            {modalContent && <ContentModal modalContent={modalContent} setModalContent={setModalContent} reloadPage={reloadPage} />}
             <Container className={style('wrap')}>
                 <WindowInfiniteScroll
                     contentsData={contentsInfo}

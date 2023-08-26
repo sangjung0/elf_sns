@@ -24,30 +24,30 @@ const ContentModal = ({ setModalContent, modalContent, reloadPage }) => {
     const [inputComment, setInputComment] = useState("");
     const [commentsData, setCommentsData] = useState([]);
 
-    
-    const imgs = imgUrl.map((img) => (
-            <Carousel.Item key={img}>
-                <div className={style('img-box')}>
-                    <img className={style('img')} src={img} alt={img} />
-                </div>
-            </Carousel.Item>
-        ));
 
-    const ShowTags = ()=>{
+    const imgs = imgUrl.map((img) => (
+        <Carousel.Item key={img}>
+            <div className={style('img-box')}>
+                <img className={style('img')} src={img} alt={img} />
+            </div>
+        </Carousel.Item>
+    ));
+
+    const ShowTags = () => {
         return tags.map((tag) => (
             <span key={tag}>#{tag}</span>
         ));
     }
 
     const ShowComment = () => {
-        return commentsData.map((value, index)=>
+        return commentsData.map((value, index) =>
             <Comment
                 key={index} //임시
                 commentId={value.commentId}
-                userId ={value.userId}
-                createAt = {value.createAt}
-                comment = {value.comment}
-                reloadPage={()=>{reloadComments(commentsData.length+1);}}
+                userId={value.userId}
+                createAt={value.createAt}
+                comment={value.comment}
+                reloadPage={() => { reloadComments(commentsData.length + 1); }}
 
             />
         )
@@ -63,7 +63,7 @@ const ContentModal = ({ setModalContent, modalContent, reloadPage }) => {
         const response = await getCommentData(contentId, loadPageValue);
         // 실제 작동할 때는 contentsInfo.length가 아니라 id값으로 할 것.
         // getContentsInfo(contentsInfo[contentsInfo.length-1].id, LOAD_PAGE_VALUE);
-        switch (response.state){
+        switch (response.state) {
             case "SUCCESS":
                 setCommentsData(data => [...data, ...response.data]);
                 break;
@@ -73,18 +73,18 @@ const ContentModal = ({ setModalContent, modalContent, reloadPage }) => {
             default:
                 setCommentsData([]);
         }
-    },[contentId]);
+    }, [contentId]);
 
     const handleInput = ({ target }) => {
         setInputComment(target.value);
     }
     //댓글 입력 처리
-    const handleButton = async() => {
+    const handleButton = async () => {
         const response = await setComment(modalContent.id, inputComment);
-        switch (response.state){
+        switch (response.state) {
             case "SUCCESS":
                 reloadPage(modalContent.id);
-                reloadComments(commentsData.length+1);
+                reloadComments(commentsData.length + 1);
                 setInputComment("");
                 break;
             default:
@@ -100,11 +100,11 @@ const ContentModal = ({ setModalContent, modalContent, reloadPage }) => {
         loadData(LOAD_PAGE_VALUE);
     }
 
-    useEffect(()=>{
-        loadData(LOAD_PAGE_VALUE/2);//스트릭트모드라서
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-    },[])
-    
+    useEffect(() => {
+        loadData(LOAD_PAGE_VALUE / 2);//스트릭트모드라서
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [])
+
 
 
     //중복된 부분 수정 필요.
@@ -147,7 +147,7 @@ const ContentModal = ({ setModalContent, modalContent, reloadPage }) => {
                             <div className={style('contents-box')}>
                                 <div className={style('text')}>
                                     <div className={style('tags')}>
-                                        <ShowTags/>
+                                        <ShowTags />
                                     </div>
                                     {content}
                                 </div>
@@ -156,7 +156,7 @@ const ContentModal = ({ setModalContent, modalContent, reloadPage }) => {
                         <Row>
                             <div className={style('comments-box')}>
                                 <div className={style('contents')}>
-                                    <ShowComment/>
+                                    <ShowComment />
                                     <button onClick={handleShowMore}>더보기</button>
                                 </div>
                             </div>
