@@ -97,7 +97,7 @@ const ContentModal = ({ setModalContent, modalContent }) => {
                         <Row onClick={handleClick}>
                             <div className={style('comments-box')}>
                                 <div className={style('contents')}>
-                                    <CommentModal id={contentId}/>
+                                    <CommentModal id={contentId} />
                                 </div>
                             </div>
                         </Row>

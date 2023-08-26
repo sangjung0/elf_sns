@@ -5,6 +5,7 @@ import { useState, useEffect, useRef } from 'react';
 
 import Header from './Header';
 import SideMenu from './SideMenu';
+import FriendAdd from './FriendAdd';
 import WindowInfiniteScroll from './WindowInfiniteScroll';
 import Content from './Content';
 import ContentModal from './ContentModal';
@@ -18,6 +19,7 @@ const LOAD_PAGE_VALUE = 20;
 
 const Main = ({ userInfo }) => {
     const [showSideMenu, setShowSideMenu] = useState(false);
+    const [modalFlag, setModalFlag] = useState(false)
     const [modalContent, setModalContent] = useState(null);
     const [contentsInfo, setContentsInfo] = useState([]);
     const totalPage = useRef(1);
@@ -32,12 +34,12 @@ const Main = ({ userInfo }) => {
         setAllam(allam.filter(i => i !== e.target.classList[0] + " " + e.target.classList[1]))
     }
 
-    const loadPage = async() => {
+    const loadPage = async () => {
         const response = await getContentsInfo(contentsInfo.length, LOAD_PAGE_VALUE);
         // 실제 작동할 때는 contentsInfo.length가 아니라 id값으로 할 것.
         // getContentsInfo(contentsInfo[contentsInfo.length-1].id, LOAD_PAGE_VALUE);
         console.log(response);
-        switch (response.state){
+        switch (response.state) {
             case "SUCCESS":
                 setContentsInfo([...contentsInfo, ...response.data]);
                 totalPage.current = response.totalPage;
@@ -64,10 +66,12 @@ const Main = ({ userInfo }) => {
 
         return () => clearInterval(recieveAllam)
     }, [allam]);
+
     return (
         <>
             <Header onClickHamburger={onClickHamburger} allam={allam} setAllam={onRemove} follower={userInfo.follower} following={userInfo.following} />
-            {showSideMenu && <SideMenu onClickHamburger={onClickHamburger} />}
+            {showSideMenu && <SideMenu onClickHamburger={onClickHamburger} setModalFlag={setModalFlag} />}
+            {/* {modalFlag && <FriendAdd modalFlag={modalFlag} setModalFlag={setModalFlag} />} */}
             {modalContent && <ContentModal modalContent={modalContent} setModalContent={setModalContent} />}
             <Container className={style('wrap')}>
                 <WindowInfiniteScroll
