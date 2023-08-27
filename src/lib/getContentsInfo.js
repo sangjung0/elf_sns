@@ -1,4 +1,4 @@
-//import axios from 'axios';
+import axios from 'axios';
 import { getSessionId } from "./sessionId";
 
 const getContentsInfo = async(currentPage, loadValue) => {
@@ -13,32 +13,29 @@ const getContentsInfo = async(currentPage, loadValue) => {
             }
         }
         
-        
-
         //axios로 유저 정보 서버에 요청
-        // const response = await axios.post(
-        //     process.env.REACT_APP_SERVER_URL+"/getContents",
-        //     {
-        //         sessionId,
-        //         currentPage,
-        //         loadingPage,
-        //     },{
-        //         headers:{
-        //             "Content-Type": `application/json`,
-        //             'Access-Control-Allow-Origin': '*',
-        //             'Access-Control-Allow-Methods': 'GET,PUT,POST,DELETE,PATCH,OPTIONS',
-        //         }    
-        //     }
-        // )
-        // console.log(response.data.state);
-        // console.log(response.data.payload);
-        // console.log(response.data.payload.userId);
-        // return {
-        //     state: response.data.state,
-        //     data: {
-        //         userId: response.data.payload.userId,
-        //     }
-        // }
+        const response = await axios.post(
+            process.env.REACT_APP_SERVER_URL+"/getContents",
+            {
+                sessionId,
+                currentPage,
+                loadValue,
+            },{
+                withCredentials: true,
+                headers:{
+                    "Content-Type": `application/json`,
+                }    
+            }
+        )
+        console.log(response.data.state);
+        console.log(response.data.payload);
+        console.log(response.data.payload.userId);
+        return {
+            state: response.data.state,
+            data: {
+                userId: response.data.payload.userId,
+            }
+        }
 
         // {
         //     state: "SUCCESS", or "FAILURE", "ERROR"

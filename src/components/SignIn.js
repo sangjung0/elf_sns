@@ -11,8 +11,8 @@ const SignIn = ({ signInAccountInfo }) => {
 
     const onChange = (({ target }) => {
         setAccountInfo((accountInfo) => ({
-            [target.name]: target.value,
             ...accountInfo,
+            [target.name]: target.value,
         }))
     })
 

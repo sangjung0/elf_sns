@@ -1,4 +1,4 @@
-// import axios from 'axios';
+import axios from 'axios';
 import { getSessionId } from "./sessionId";
 
 //유저 정보 가져오기
@@ -13,30 +13,29 @@ const getUserInfo = async () => {
             }
         }
         //axios로 유저 정보 서버에 요청
-        // const response = await axios.post(
-        //     process.env.REACT_APP_SERVER_URL+"/sessionCheck",
-        //     {
-        //         sessionId
-        //     },{
-        //         withCredentials: true,
-        //         headers:{
-        //             "Content-Type": `application/json`,
-        //             'Access-Control-Allow-Origin': '*',
-        //             'Access-Control-Allow-Methods': 'GET,PUT,POST,DELETE,PATCH,OPTIONS',
-        //         }    
-        //     }
-        // )
-        // console.group("getUserInfo");
-        // console.log(response.data.state);
-        // console.log(response.data.payload);
-        // console.log(response.data.payload.userId);
-        // console.groupEnd();
-        // return {
-        //     state: response.data.state,
-        //     data: {
-        //         userId: response.data.payload.userId,
-        //     }
-        // }
+        const response = await axios.post(
+            process.env.REACT_APP_SERVER_URL+"/sessionCheck",
+            {
+                sessionId
+            },{
+                withCredentials: true,
+                headers:{
+                    "Content-Type": `application/json`,
+                }    
+            }
+        )
+        console.group("getUserInfo");
+        console.log(response);
+        console.log(response.data.state);
+        console.log(response.data.payload);
+        console.log(response.data.payload.userId);
+        console.groupEnd();
+        return {
+            state: response.data.state,
+            data: {
+                id: response.data.payload.userId,
+            }
+        }
 
         // // {
         // //     state: "SUCCESS", or "FAILURE", "ERROR"
@@ -45,16 +44,17 @@ const getUserInfo = async () => {
         // //     }
         // // }
         
-        return {
-            state: "SUCCESS",
-            data: { //일단 유저 데이터에 었는데 알람 리덕스하고 친구 리덕스 있으면 괜찮을지도
-                id: "userId_1234",
-                alarm: 12,
-                follwer: 213,
-                following: 123
-            }
-        }
+        // return {
+        //     state: "SUCCESS",
+        //     data: { //일단 유저 데이터에 었는데 알람 리덕스하고 친구 리덕스 있으면 괜찮을지도
+        //         id: "userId_1234",
+        //         alarm: 12,
+        //         follwer: 213,
+        //         following: 123
+        //     }
+        // }
     }catch(e){
+        console.groupEnd();
         return {
             state: "ERROR",
             data: null,

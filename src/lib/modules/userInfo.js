@@ -27,7 +27,7 @@ const getUserInfoSaga = function* (action) {
         if (userInfo.state === "SUCCESS") {
             yield put({
                 type: GET_USER_INFO_SUCCESS,
-                payload: { ...userInfo },
+                payload: userInfo,
                 error: false,
             });
         } else {
