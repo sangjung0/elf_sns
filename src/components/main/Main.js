@@ -30,7 +30,8 @@ const Main = ({ userInfo }) => {
 
 
     const loadPage = async () => {
-        const response = await getContentsInfo(contentsInfo.length, LOAD_PAGE_VALUE);
+        console.log(contentsInfo[contentsInfo.length-1]?.id ?? null);
+        const response = await  getContentsInfo(contentsInfo[contentsInfo.length-1]?.id ?? null, LOAD_PAGE_VALUE);
         // 실제 작동할 때는 contentsInfo.length가 아니라 id값으로 할 것.
         // getContentsInfo(contentsInfo[contentsInfo.length-1].id, LOAD_PAGE_VALUE);
         switch (response.state) {
