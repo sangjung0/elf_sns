@@ -33,7 +33,8 @@ const Content = ({ data, setModalContent, reloadPage }) => {
             //key={comment.commentId}
             key={index} //임시로 index 값 했음.
             commentId={comment.commentId}
-            userId={comment.userId}
+            userId={comment.author.id}
+            src={comment.author.img}
             comment={comment.comment}
             createAt={comment.createAt}
             reloadPage={()=>{reloadPage(data.id)}}
