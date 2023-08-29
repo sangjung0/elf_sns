@@ -1,7 +1,7 @@
 import axios from 'axios';
 import { getSessionId } from "./sessionId";
 
-export const getCommentData = async(postId, contentId, requestValue ) => {
+export const getCommentData = async(postId, commentId, requestValue ) => {
     // 현재페이지, 가져오고싶은 페이지 양
     //세션아이디 모두 전달받는거 말고 여기서 받는걸로 하면 될듯
     try{
@@ -15,11 +15,11 @@ export const getCommentData = async(postId, contentId, requestValue ) => {
         
         //axios로 유저 정보 서버에 요청
         const response = await axios.post(
-            process.env.REACT_APP_SERVER_URL+"/getComments",
+            process.env.REACT_APP_SERVER_URL+"/comment/get",
             {
                 sessionId,
                 postId,
-                contentId,
+                commentId,
                 requestValue,
             },{
                 withCredentials: true,
@@ -28,10 +28,9 @@ export const getCommentData = async(postId, contentId, requestValue ) => {
                 }    
             }
         )
-        console.group("comments");
+        console.group("Comment-Get");
         console.log(response);
         console.log(response.data.state);
-        console.log(response.data.payload.totalPage);
         console.log(response.data.payload);
         console.groupEnd();
         return {
@@ -73,7 +72,7 @@ export const getCommentData = async(postId, contentId, requestValue ) => {
 
 }
 
-export const setComment = async( contentId, text ) => {
+export const setComment = async( postId, content ) => {
     try{
         const sessionId = getSessionId();
         console.log("set comment by ",sessionId);
@@ -84,32 +83,25 @@ export const setComment = async( contentId, text ) => {
             }
         }
         
-        
-
-        //axios로 유저 정보 서버에 요청
-        // const response = await axios.post(
-        //     process.env.REACT_APP_SERVER_URL+"/getContents",
-        //     {
-        //         sessionId,
-        //         currentPage,
-        //         loadingPage,
-        //     },{
-        //         headers:{
-        //             "Content-Type": `application/json`,
-        //             'Access-Control-Allow-Origin': '*',
-        //             'Access-Control-Allow-Methods': 'GET,PUT,POST,DELETE,PATCH,OPTIONS',
-        //         }    
-        //     }
-        // )
-        // console.log(response.data.state);
-        // console.log(response.data.payload);
-        // console.log(response.data.payload.userId);
-        // return {
-        //     state: response.data.state,
-        //     data: {
-        //         userId: response.data.payload.userId,
-        //     }
-        // }
+        const response = await axios.post(
+            process.env.REACT_APP_SERVER_URL+"/comment/set",
+            {
+                sessionId,
+                postId,
+                content,
+            },{
+                withCredentials: true,
+                headers:{
+                    "Content-Type": `application/json`,
+                }    
+            }
+        )
+        console.group("Comment-Set");
+        console.log(response.data.state);
+        console.groupEnd();
+        return {
+            state: response.data.state,
+        }
 
         // {
         //     state: "SUCCESS", or "FAILURE", "ERROR"
@@ -118,16 +110,16 @@ export const setComment = async( contentId, text ) => {
         //     }
         // }
 
-        //test 영역
-        console.group("Comment-Set");
-        console.log("sessionId:", sessionId);
-        console.log("contentId:", contentId);
-        console.log("text:", text);
-        console.groupEnd();
+        // //test 영역
+        // console.group("Comment-Set");
+        // console.log("sessionId:", sessionId);
+        // console.log("contentId:", contentId);
+        // console.log("text:", text);
+        // console.groupEnd();
 
-        return {
-            state: "SUCCESS",
-        }
+        // return {
+        //     state: "SUCCESS",
+        // }
     }catch(e){
         return {
             state: "ERROR",
@@ -148,49 +140,34 @@ export const removeComment = async(commentId) => {
             }
         }
         
-        
-
-        //axios로 유저 정보 서버에 요청
-        // const response = await axios.post(
-        //     process.env.REACT_APP_SERVER_URL+"/getContents",
-        //     {
-        //         sessionId,
-        //         currentPage,
-        //         loadingPage,
-        //     },{
-        //         headers:{
-        //             "Content-Type": `application/json`,
-        //             'Access-Control-Allow-Origin': '*',
-        //             'Access-Control-Allow-Methods': 'GET,PUT,POST,DELETE,PATCH,OPTIONS',
-        //         }    
-        //     }
-        // )
-        // console.log(response.data.state);
-        // console.log(response.data.payload);
-        // console.log(response.data.payload.userId);
-        // return {
-        //     state: response.data.state,
-        //     data: {
-        //         userId: response.data.payload.userId,
-        //     }
-        // }
-
-        // {
-        //     state: "SUCCESS", or "FAILURE", "ERROR"
-        //     payload: {
-        //         userId: "string",
-        //     }
-        // }
+        const response = await axios.post(
+            process.env.REACT_APP_SERVER_URL+"/comment/remove",
+            {
+                sessionId,
+                commentId,
+            },{
+                withCredentials: true,
+                headers:{
+                    "Content-Type": `application/json`,
+                }    
+            }
+        )
+        console.group("Comment-remove");
+        console.log(response.data.state);
+        console.groupEnd();
+        return {
+            state: response.data.state,
+        }
 
         //test 영역
-        console.group("Comment-Set");
-        console.log("sessionId:", sessionId);
-        console.log("commentId:", commentId);
-        console.groupEnd();
+        // console.group("Comment-Set");
+        // console.log("sessionId:", sessionId);
+        // console.log("commentId:", commentId);
+        // console.groupEnd();
 
-        return {
-            state: "SUCCESS",
-        }
+        // return {
+        //     state: "SUCCESS",
+        // }
     }catch(e){
         return {
             state: "ERROR",
@@ -200,10 +177,10 @@ export const removeComment = async(commentId) => {
     }
 }
 
-export const modifyComment = async(commentId, text) => {
+export const modifyComment = async(commentId, content) => {
     try{
         const sessionId = getSessionId();
-        console.log("remove comment by ",sessionId);
+        console.log("modify comment by ",sessionId);
         if (!sessionId){
             return {
                 state: "FAILURE",
@@ -213,47 +190,35 @@ export const modifyComment = async(commentId, text) => {
         
         
 
-        //axios로 유저 정보 서버에 요청
-        // const response = await axios.post(
-        //     process.env.REACT_APP_SERVER_URL+"/getContents",
-        //     {
-        //         sessionId,
-        //         currentPage,
-        //         loadingPage,
-        //     },{
-        //         headers:{
-        //             "Content-Type": `application/json`,
-        //             'Access-Control-Allow-Origin': '*',
-        //             'Access-Control-Allow-Methods': 'GET,PUT,POST,DELETE,PATCH,OPTIONS',
-        //         }    
-        //     }
-        // )
-        // console.log(response.data.state);
-        // console.log(response.data.payload);
-        // console.log(response.data.payload.userId);
-        // return {
-        //     state: response.data.state,
-        //     data: {
-        //         userId: response.data.payload.userId,
-        //     }
-        // }
-
-        // {
-        //     state: "SUCCESS", or "FAILURE", "ERROR"
-        //     payload: {
-        //         userId: "string",
-        //     }
-        // }
-
-        //test 영역
+        const response = await axios.post(
+            process.env.REACT_APP_SERVER_URL+"/comment/modify",
+            {
+                sessionId,
+                commentId,
+                content,
+            },{
+                withCredentials: true,
+                headers:{
+                    "Content-Type": `application/json`,
+                }    
+            }
+        )
         console.group("Comment-Modify");
-        console.log("commentId:", commentId);
-        console.log("text:", text);
+        console.log(response.data.state);
         console.groupEnd();
-
         return {
-            state: "SUCCESS",
+            state: response.data.state,
         }
+
+        // //test 영역
+        // console.group("Comment-Modify");
+        // console.log("commentId:", commentId);
+        // console.log("text:", text);
+        // console.groupEnd();
+
+        // return {
+        //     state: "SUCCESS",
+        // }
     }catch(e){
         return {
             state: "ERROR",

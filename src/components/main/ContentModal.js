@@ -57,17 +57,14 @@ const ContentModal = ({ setModalContent, modalContent, reloadPage }) => {
     }
 
     const reloadComments = (loadValue) => {
-        setCommentsData([]);
-        loadData(loadValue);
-
+        loadData(loadValue, []);
     }
 
-    const loadData = async (loadPageValue) => {
-        const commentId = commentsData[commentsData.length-1]?.commentId ?? null;
-        const response = await getCommentData(contentId, commentId, loadPageValue);
+    const loadData = async (loadPageValue, array=commentsData) => {
+        const response = await getCommentData(contentId, array[array.length - 1]?.commentId ?? null, loadPageValue);
         switch (response.state) {
             case "SUCCESS":
-                setCommentsData(data => [...data, ...response.data]);
+                setCommentsData([...array, ...response.data]);
                 break;
             case "ERROR":
                 console.error(response.e);
@@ -75,7 +72,8 @@ const ContentModal = ({ setModalContent, modalContent, reloadPage }) => {
             default:
                 setCommentsData([]);
         }
-    };
+    }
+    
 
     const handleInput = ({ target }) => {
         setInputComment(target.value);
@@ -103,7 +101,7 @@ const ContentModal = ({ setModalContent, modalContent, reloadPage }) => {
     }
 
     useEffect(() => {
-        loadData(LOAD_PAGE_VALUE / 2);//스트릭트모드라서
+        loadData(LOAD_PAGE_VALUE);//스트릭트모드라서
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
 

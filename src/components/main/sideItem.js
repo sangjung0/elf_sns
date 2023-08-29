@@ -10,9 +10,12 @@ const style = classNames.bind(sideItemStyle);
 
 const SideItem = ({ data, onAllam, onUnfollow, onBlock }) => {
     const name = data?.name ?? null;
+    const src = data?.img ?? null;
+    // const userId = data?.userId ?? null;
+    const id = data?.id ?? null;
 
     const handleUnFollow = () => {
-        onUnfollow(name)
+        onUnfollow( id );
     }
 
     return (
@@ -22,7 +25,7 @@ const SideItem = ({ data, onAllam, onUnfollow, onBlock }) => {
             </div>
             <div className={style('user-card')}>
                 <div className={style('box')}>
-                    <ProfileImage />
+                    <ProfileImage src={src} />
                 </div>
                 <div className={style('user-info')}>
                     <div className={style('user-name')}>
