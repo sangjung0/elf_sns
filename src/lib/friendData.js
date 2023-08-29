@@ -2,7 +2,7 @@ import axios from 'axios';
 import { getSessionId } from "./sessionId";
 
 // 친구 정보 가져오기
-export const getFriendData = async (currentId, requestValue) => {
+export const getFriendData = async (currentId, requestValue, friendName) => {
     try {
         const sessionId = getSessionId();
         console.log("get freinds by ", sessionId);
@@ -18,6 +18,7 @@ export const getFriendData = async (currentId, requestValue) => {
                 sessionId,
                 currentId,
                 requestValue,
+                friendName
             },{
                 withCredentials: true,
                 headers:{

@@ -29,8 +29,8 @@ const Main = ({ userInfo }) => {
     }
 
 
-    const loadPage = async () => {
-        const response = await  getContentsInfo(contentsInfo[contentsInfo.length-1]?.id ?? null, LOAD_PAGE_VALUE);
+    const loadPage = async (defaultLoadPage) => {
+        const response = await  getContentsInfo(contentsInfo[contentsInfo.length-1]?.id ?? null, defaultLoadPage);
         // 실제 작동할 때는 contentsInfo.length가 아니라 id값으로 할 것.
         // getContentsInfo(contentsInfo[contentsInfo.length-1].id, LOAD_PAGE_VALUE);
         switch (response.state) {
@@ -50,7 +50,7 @@ const Main = ({ userInfo }) => {
     const reloadPage = (contentId) => {
         const contentIndex = contentsInfo.findIndex(content => content.id === contentId);
         setContentsInfo(contentsInfo.filter((_, index) => index < contentIndex));
-        loadPage();
+        loadPage(LOAD_PAGE_VALUE);
     }
 
     return (
@@ -65,7 +65,7 @@ const Main = ({ userInfo }) => {
                     totalPage={totalPage.current}
                     loadPage={loadPage}
                     defaultHeight={700}
-                    defaultLoadPage={10}
+                    defaultLoadPage={LOAD_PAGE_VALUE}
                 >
                     <Content setModalContent={setModalContent} reloadPage={reloadPage} />
                 </WindowInfiniteScroll>

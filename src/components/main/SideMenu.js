@@ -14,18 +14,19 @@ const LOAD_PAGE_VALUE = 10;
 
 const SideMenu = ({ onClickHamburger }) => {
     const [friendsInfo, setFriendsInfo] = useState([]);
-    const [friendName, setFriendName] = useState(null);
+    const [friendName, setFriendName] = useState("");
     const totalPage = useRef(1);
 
     const reloadPage = (id) => {
         loadPage(LOAD_PAGE_VALUE, friendsInfo.filter((friend) => friend.id < id));
     }
 
-    const loadPage = async (loadPageValue, array = friendsInfo) => {
-        const response = await getFriendData(array[array.length - 1]?.id ?? null, loadPageValue);
+    const loadPage = async (loadPageValue, array = friendsInfo, string="") => {
+        const response = await getFriendData(array[array.length - 1]?.id ?? null, loadPageValue, string);
 
         switch (response.state) {
             case "SUCCESS":
+                console.log([...array, ...response.data]);
                 setFriendsInfo([...array, ...response.data]);
                 totalPage.current = response.totalPage;
                 break;
@@ -58,11 +59,9 @@ const SideMenu = ({ onClickHamburger }) => {
         }
     }
 
-    const handleModal = () => {
-        setFriendsInfo([{
-            id: "userId_" + (Math.random() * 100),
-            name: friendName.target.value
-        }].concat(friendsInfo))
+    const handleOnChange = ({target}) => {
+        setFriendName(target.value);
+        loadPage(LOAD_PAGE_VALUE, [], target.value);
     }
 
     return (
@@ -77,14 +76,13 @@ const SideMenu = ({ onClickHamburger }) => {
                         totalPage={totalPage.current}
                         loadPage={loadPage}
                         defaultHeight={75}
-                        defaultLoadPage={10}
+                        defaultLoadPage={LOAD_PAGE_VALUE}
                     >
                         <SideItem onUnfollow={onUnfollow} />
                     </InfiniteScroll>
                 </div>
                 <div className={style('button-container')}>
-                    <input className={style('friend-input')} onChange={setFriendName}></input>
-                    <button className={style('friend-add-button')} onClick={handleModal}>친구 추가</button>
+                    <input className={style('friend-input')} onChange={handleOnChange} value={friendName}></input>
                 </div>
             </div>
         </>
