@@ -13,9 +13,10 @@ const LOAD_PAGE_VALUE = 10;
 
 const ContentModal = ({ setModalContent, modalContent, reloadPage }) => {
     const contentId = modalContent.id;
-    const src = modalContent.author.imgUrl;
-    const id = modalContent.author.id;
-    const createAt = new Date(modalContent.createAt);
+    const src = modalContent.author.img;
+    // const id = modalContent.author.id;
+    const name = modalContent.author.name;
+    const createAt = new Date(modalContent.createdAt);
     const dateString = `${createAt.getFullYear()}-${(createAt.getMonth() + 1).toString().padStart(2, "0")}-${createAt.getDate().toString().padStart(2, "0")}`;
     const imgUrl = modalContent.imgUrl;
     const tags = modalContent.tags;
@@ -44,8 +45,10 @@ const ContentModal = ({ setModalContent, modalContent, reloadPage }) => {
             <Comment
                 key={index} //임시
                 commentId={value.commentId}
-                userId={value.userId}
-                createAt={value.createAt}
+                userId={value.author.id}
+                name={value.author.name}
+                src={value.author.img}
+                createAt={value.createdAt}
                 comment={value.comment}
                 reloadPage={() => { reloadComments(commentsData.length + 1); }}
 
@@ -59,10 +62,9 @@ const ContentModal = ({ setModalContent, modalContent, reloadPage }) => {
 
     }
 
-    const loadData = useCallback(async (loadPageValue) => {
-        const response = await getCommentData(contentId, loadPageValue);
-        // 실제 작동할 때는 contentsInfo.length가 아니라 id값으로 할 것.
-        // getContentsInfo(contentsInfo[contentsInfo.length-1].id, LOAD_PAGE_VALUE);
+    const loadData = async (loadPageValue) => {
+        const commentId = commentsData[commentsData.length-1]?.commentId ?? null;
+        const response = await getCommentData(contentId, commentId, loadPageValue);
         switch (response.state) {
             case "SUCCESS":
                 setCommentsData(data => [...data, ...response.data]);
@@ -73,7 +75,7 @@ const ContentModal = ({ setModalContent, modalContent, reloadPage }) => {
             default:
                 setCommentsData([]);
         }
-    }, [contentId]);
+    };
 
     const handleInput = ({ target }) => {
         setInputComment(target.value);
@@ -127,7 +129,7 @@ const ContentModal = ({ setModalContent, modalContent, reloadPage }) => {
                             </Col>
                             <Col md={"8"}>
                                 <div className={style('id-box')}>
-                                    <span>{id}</span>
+                                    <span>{name}</span>
                                 </div>
                             </Col>
                             <Col md={"3"}>

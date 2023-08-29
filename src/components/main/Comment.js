@@ -7,7 +7,7 @@ import { modifyComment, removeComment } from '../../lib/commentData';
 import commentStyle from '../../styles/main/comment.module.scss';
 const style = classNames.bind(commentStyle);
 
-const Comment = ({ commentId, userId, comment, createAt, reloadPage, src}) => {
+const Comment = ({ commentId, userId, comment, createAt, reloadPage, src, name}) => {
     const [input, setInput] = useState(false);
     const [text, setText] = useState(comment);
     const date = new Date(createAt);
@@ -80,7 +80,7 @@ const Comment = ({ commentId, userId, comment, createAt, reloadPage, src}) => {
                 <Row>
                     <Col md={3}>
                         <div className={style('user-id')}>
-                            <span>{userId}</span>
+                            <span>{name}</span>
                         </div>
                     </Col>
                     <Col md={3}>

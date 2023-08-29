@@ -10,13 +10,14 @@ import contentStyle from '../../styles/main/content.module.scss';
 const style = classNames.bind(contentStyle);
 
 const Content = ({ data, setModalContent, reloadPage }) => {
-    const id = data?.author.id ?? null;
-    const src = data?.author.imgUrl ?? null;
-    const createAt = new Date(data?.createAt ?? 0);
+    // const id = data?.author.id ?? null;
+    const name = data?.author.name ?? null;
+    const src = data?.author.img ?? null;
+    const createAt = new Date(data?.createdAt ?? 0);
     const dateString = `${createAt.getFullYear()}-${(createAt.getMonth() + 1).toString().padStart(2, "0")}-${createAt.getDate().toString().padStart(2, "0")}`;
     const imgUrl = data?.imgUrl ?? [];
-    const imgs = imgUrl.map((img) => (
-        <Carousel.Item key={img}>
+    const imgs = imgUrl.map((img,index) => (
+        <Carousel.Item key={img+index}>
             <div className={style('img-box')}>
                 <img className={style('img')} src={img} alt={img} />
             </div>
@@ -28,15 +29,15 @@ const Content = ({ data, setModalContent, reloadPage }) => {
     ))
     const content = data?.content ?? "";
     const comments = data?.comments ?? [];
-    const comment = comments.map((comment, index) => (
+    const comment = comments.map((comment) => (
         <Comment
-            //key={comment.commentId}
-            key={index} //임시로 index 값 했음.
+            key={comment.commentId} 
             commentId={comment.commentId}
             userId={comment.author.id}
+            name={comment.author.name}
             src={comment.author.img}
             comment={comment.comment}
-            createAt={comment.createAt}
+            createAt={comment.createdAt}
             reloadPage={()=>{reloadPage(data.id)}}
         />
     ))
@@ -132,7 +133,7 @@ const Content = ({ data, setModalContent, reloadPage }) => {
                 </Col>
                 <Col md={"8"}>
                     <div className={style('id-box')}>
-                        <span>{id}</span>
+                        <span>{name}</span>
                     </div>
                 </Col>
                 <Col md={"3"}>

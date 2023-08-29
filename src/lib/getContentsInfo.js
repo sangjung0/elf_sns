@@ -1,7 +1,7 @@
 import axios from 'axios';
 import { getSessionId } from "./sessionId";
 
-const getContentsInfo = async(currentPage, loadValue) => {
+const getContentsInfo = async(contentId, requestValue) => {
     //세션아이디, 현재페이지, 가져오고싶은 페이지 양
     try{
         const sessionId = getSessionId();
@@ -18,8 +18,8 @@ const getContentsInfo = async(currentPage, loadValue) => {
             process.env.REACT_APP_SERVER_URL+"/getContents",
             {
                 sessionId,
-                currentPage,
-                loadValue,
+                contentId,
+                requestValue,
             },{
                 withCredentials: true,
                 headers:{
