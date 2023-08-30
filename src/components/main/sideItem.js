@@ -8,7 +8,7 @@ import ProfileImage from './ProfileImage';
 import sideItemStyle from '../../styles/main/sideItem.module.scss';
 const style = classNames.bind(sideItemStyle);
 
-const SideItem = ({ data, onAllam, onUnfollow }) => {
+const SideItem = ({ data, onAllam, onUnfollow, onFollow}) => {
     const name = data?.name ?? null;
     const src = data?.img ?? null;
     // const userId = data?.userId ?? null;
@@ -16,7 +16,11 @@ const SideItem = ({ data, onAllam, onUnfollow }) => {
     const isFriend = data?.isFriend ?? false;
 
     const handleUnFollow = () => {
-        onUnfollow( id );
+        onUnfollow( id, name );
+    }
+
+    const handleFollow = () => {
+        onFollow( id, name);
     }
 
     const ShowMark = () => {
@@ -26,7 +30,7 @@ const SideItem = ({ data, onAllam, onUnfollow }) => {
             )
         }
         return (
-            <span onClick={handleUnFollow}><SlUserFollow /></span>
+            <span onClick={handleFollow}><SlUserFollow /></span>
         )
     }
 

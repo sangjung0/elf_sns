@@ -52,11 +52,15 @@ const Main = ({ userInfo }) => {
         loadPage(LOAD_PAGE_VALUE, contentsInfo.filter((_, index) => index < contentIndex));
     }
 
+    const reloadPageByChangeFriendInfo = () => {
+        loadPage(LOAD_PAGE_VALUE, []);
+    }
+
     return (
         <>
             {/* <Header onClickHamburger={onClickHamburger} allam={allam} setAllam={onRemove} follower={userInfo.follower} following={userInfo.following} /> */}
             <Header onClickHamburger={onClickHamburger} follower={userInfo.follower} following={userInfo.following} />
-            {showSideMenu && <SideMenu onClickHamburger={onClickHamburger} />}
+            {showSideMenu && <SideMenu onClickHamburger={onClickHamburger} reloadPageByChangeFriendInfo={reloadPageByChangeFriendInfo}/>}
             {modalContent && <ContentModal modalContent={modalContent} setModalContent={setModalContent} reloadPage={reloadPage} userInfo={userInfo}/>}
             <Container className={style('wrap')}>
                 <WindowInfiniteScroll
