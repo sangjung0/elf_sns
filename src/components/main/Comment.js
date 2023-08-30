@@ -7,7 +7,7 @@ import { modifyComment, removeComment } from '../../lib/commentData';
 import commentStyle from '../../styles/main/comment.module.scss';
 const style = classNames.bind(commentStyle);
 
-const Comment = ({ commentId, userId, comment, createAt, reloadPage, src, name}) => {
+const Comment = ({ commentId, commentUserId, comment, createAt, reloadPage, src, name, userId}) => {
     const [input, setInput] = useState(false);
     const [text, setText] = useState(comment);
     const date = new Date(createAt);
@@ -67,6 +67,18 @@ const Comment = ({ commentId, userId, comment, createAt, reloadPage, src, name})
         }
     }
 
+    const ShowUD = () => {
+        if(commentUserId === userId){
+            return (
+                <div className={style('setting')}>
+                    <button type="button" onClick={handleButton} name="remove">삭제</button>
+                    <button type='button' onClick={handleButton} name="modify">수정</button>
+                </div>
+            )
+        }
+        return <></>;
+    }
+
     return (
         <div className={style('comment-container')}>
             {/* <Col md={1.5}> */}
@@ -89,10 +101,7 @@ const Comment = ({ commentId, userId, comment, createAt, reloadPage, src, name})
                         </div>
                     </Col>
                     <Col md={6}>
-                        <div className={style('setting')}>
-                            <button type="button" onClick={handleButton} name="remove">삭제</button>
-                            <button type='button' onClick={handleButton} name="modify">수정</button>
-                        </div>
+                        <ShowUD/>
                     </Col>
                 </Row>
                 <Row>

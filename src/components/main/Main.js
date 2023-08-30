@@ -29,13 +29,13 @@ const Main = ({ userInfo }) => {
     }
 
 
-    const loadPage = async (defaultLoadPage) => {
-        const response = await  getContentsInfo(contentsInfo[contentsInfo.length-1]?.id ?? null, defaultLoadPage);
+    const loadPage = async (defaultLoadPage, array=contentsInfo) => {
+        const response = await  getContentsInfo(array[array.length-1]?.id ?? null, defaultLoadPage);
         // 실제 작동할 때는 contentsInfo.length가 아니라 id값으로 할 것.
         // getContentsInfo(contentsInfo[contentsInfo.length-1].id, LOAD_PAGE_VALUE);
         switch (response.state) {
             case "SUCCESS":
-                setContentsInfo([...contentsInfo, ...response.data]);
+                setContentsInfo([...array, ...response.data]);
                 totalPage.current = response.totalPage;
                 break;
             case "ERROR":
@@ -49,8 +49,7 @@ const Main = ({ userInfo }) => {
 
     const reloadPage = (contentId) => {
         const contentIndex = contentsInfo.findIndex(content => content.id === contentId);
-        setContentsInfo(contentsInfo.filter((_, index) => index < contentIndex));
-        loadPage(LOAD_PAGE_VALUE);
+        loadPage(LOAD_PAGE_VALUE, contentsInfo.filter((_, index) => index < contentIndex));
     }
 
     return (
@@ -58,7 +57,7 @@ const Main = ({ userInfo }) => {
             {/* <Header onClickHamburger={onClickHamburger} allam={allam} setAllam={onRemove} follower={userInfo.follower} following={userInfo.following} /> */}
             <Header onClickHamburger={onClickHamburger} follower={userInfo.follower} following={userInfo.following} />
             {showSideMenu && <SideMenu onClickHamburger={onClickHamburger} />}
-            {modalContent && <ContentModal modalContent={modalContent} setModalContent={setModalContent} reloadPage={reloadPage} />}
+            {modalContent && <ContentModal modalContent={modalContent} setModalContent={setModalContent} reloadPage={reloadPage} userInfo={userInfo}/>}
             <Container className={style('wrap')}>
                 <WindowInfiniteScroll
                     contentsData={contentsInfo}
@@ -67,7 +66,7 @@ const Main = ({ userInfo }) => {
                     defaultHeight={700}
                     defaultLoadPage={LOAD_PAGE_VALUE}
                 >
-                    <Content setModalContent={setModalContent} reloadPage={reloadPage} />
+                    <Content setModalContent={setModalContent} reloadPage={reloadPage} userInfo={userInfo}/>
                 </WindowInfiniteScroll>
             </Container>
         </>
