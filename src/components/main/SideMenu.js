@@ -20,7 +20,7 @@ const SideMenu = ({ onClickHamburger, reloadPageByChangeFriendInfo }) => {
     const loadPageTimeout = useRef(null);
 
     const reloadPage = (name) => {
-        loadPage(LOAD_PAGE_VALUE, friendName === "" ? []:friendsInfo.filter((friend) => friend.name < name));
+        loadPage(LOAD_PAGE_VALUE, friendsInfo.filter((friend) => friend.name < name));
     }
 
     const loadPage = async (loadPageValue, array = friendsInfo, string=friendName) => {

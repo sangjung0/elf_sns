@@ -38,7 +38,7 @@ const Content = ({ data, setModalContent, reloadPage, userInfo }) => {
             userId={userId}
             name={comment.author.name}
             src={comment.author.img}
-            comment={comment.comment}
+            comment={comment.content}
             createAt={comment.createdAt}
             reloadPage={()=>{reloadPage(data.id)}}
         />
