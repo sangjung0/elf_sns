@@ -15,6 +15,7 @@ const LOAD_PAGE_VALUE = 10;
 const SideMenu = ({ onClickHamburger }) => {
     const [friendsInfo, setFriendsInfo] = useState([]);
     const [friendName, setFriendName] = useState("");
+    const [_timeout, _setTimeout] = useState(null);
     const totalPage = useRef(1);
 
     const reloadPage = (id) => {
@@ -61,7 +62,13 @@ const SideMenu = ({ onClickHamburger }) => {
 
     const handleOnChange = ({target}) => {
         setFriendName(target.value);
-        loadPage(LOAD_PAGE_VALUE, [], target.value);
+        if (_timeout !== null){
+            clearTimeout(_timeout);
+        }
+        return _setTimeout(setTimeout(()=>{
+            loadPage(LOAD_PAGE_VALUE, [], target.value);
+        },500));
+
     }
 
     return (
