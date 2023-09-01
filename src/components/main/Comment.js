@@ -7,20 +7,20 @@ import { modifyComment, removeComment } from '../../lib/commentData';
 import commentStyle from '../../styles/main/comment.module.scss';
 const style = classNames.bind(commentStyle);
 
-const Comment = ({ commentId, commentUserId, comment, createAt, reloadPage, src, name, userId}) => {
+const Comment = ({ commentId, commentUserId, comment, createAt, reloadPage, src, name, userId }) => {
     const [input, setInput] = useState(false);
     const [text, setText] = useState(comment);
     const date = new Date(createAt);
     const dateString = `${date.getFullYear()}-${(date.getMonth() + 1).toString().padStart(2, "0")}-${date.getDate().toString().padStart(2, "0")}`;
-    const handleButton = async({ target }) => {
+    const handleButton = async ({ target }) => {
         switch (target.name) {
             case "remove":
                 const result = window.confirm("진짜 댓글 삭제?");
                 if (result) {
                     const response = await removeComment(commentId);
-                    if (response.state ==="SUCCESS"){
+                    if (response.state === "SUCCESS") {
                         reloadPage();
-                    }else{
+                    } else {
                         alert("삭제 실패");
                     }
                 }
@@ -38,37 +38,37 @@ const Comment = ({ commentId, commentUserId, comment, createAt, reloadPage, src,
         }
     }
 
-    const handleInput = ({target}) => {
+    const handleInput = ({ target }) => {
         setText(target.value);
     }
 
-    const handleSubmit = async() => {
+    const handleSubmit = async () => {
         //변화 없으면 리턴되는 방법도 좋을 듯.
         const response = await modifyComment(commentId, text);
         if (response) {
-            if (response.state ==="SUCCESS"){
+            if (response.state === "SUCCESS") {
                 reloadPage();
-            }else{
+            } else {
                 alert("수정 실패");
             }
         }
     }
 
     const showComment = () => {
-        if (input){
+        if (input) {
             return (
                 <>
-                    <input type="text" value={text} onChange={handleInput}/>
+                    <input type="text" value={text} onChange={handleInput} />
                     <button onClick={handleSubmit}>수정</button>
                 </>
             )
-        }else{
+        } else {
             return comment
         }
     }
 
     const ShowUD = () => {
-        if(commentUserId === userId){
+        if (commentUserId === userId) {
             return (
                 <div className={style('setting')}>
                     <button type="button" onClick={handleButton} name="remove">삭제</button>
@@ -84,24 +84,24 @@ const Comment = ({ commentId, commentUserId, comment, createAt, reloadPage, src,
             {/* <Col md={1.5}> */}
             <Col md={2}>
                 <div className={style("box")}>
-                    <ProfileImage src={src}/>
+                    <ProfileImage src={src} />
                 </div>
             </Col>
             {/* <Col md={11}> */}
             <Col md={10}>
                 <Row>
-                    <Col md={3}>
+                    <Col md={5}>
                         <div className={style('user-id')}>
                             <span>{name}</span>
                         </div>
+                    </Col>
+                    <Col md={4}>
+                        <ShowUD />
                     </Col>
                     <Col md={3}>
                         <div className={style('date')}>
                             <span>{dateString}</span>
                         </div>
-                    </Col>
-                    <Col md={6}>
-                        <ShowUD/>
                     </Col>
                 </Row>
                 <Row>
