@@ -21,7 +21,6 @@ const SignIn = ({ signInAccountInfo }) => {
         signInAccountInfo(accountInfo);
     }
 
-
     return (
         <div className={style("form-container")}>
             <div className={style("logo")}>

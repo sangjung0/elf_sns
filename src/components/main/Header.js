@@ -26,7 +26,7 @@ const Header = ({ onClickHamburger }) => {
                 setAllam(allam.concat(message))
             else
                 setAllam(allam.splice(1, allam.length).concat(message))
-        }, 5000)
+        }, 50000)
 
         return () => clearInterval(recieveAllam)
     }, [allam]);
@@ -100,23 +100,23 @@ const Header = ({ onClickHamburger }) => {
                 </div> */}
             </div>
         </>
-            // <Navbar fixed="top" className="bg-secondary mb-3" >
-            //     <Container>
-            //         <img width="75" alt="logo" src="../img/logo.png" />
-            //         <Nav>
-            //             <OverlayTrigger trigger="click" placement="bottom" overlay={popoverBottom}>
-            //                 <span>
-            //                     <BsBell />
-            //                     <span >{allam.length}</span>
-            //                 </span>
-            //             </OverlayTrigger>
+        // <Navbar fixed="top" className="bg-secondary mb-3" >
+        //     <Container>
+        //         <img width="75" alt="logo" src="../img/logo.png" />
+        //         <Nav>
+        //             <OverlayTrigger trigger="click" placement="bottom" overlay={popoverBottom}>
+        //                 <span>
+        //                     <BsBell />
+        //                     <span >{allam.length}</span>
+        //                 </span>
+        //             </OverlayTrigger>
 
-            //             <div onClick={onClickHamburger}>
-            //                 <GiHamburgerMenu />
-            //             </div>
-            //         </Nav>
-            //     </Container>
-            // </Navbar>
+        //             <div onClick={onClickHamburger}>
+        //                 <GiHamburgerMenu />
+        //             </div>
+        //         </Nav>
+        //     </Container>
+        // </Navbar>
     )
 }
 

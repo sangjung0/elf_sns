@@ -6,17 +6,17 @@ export const setSessionId = async (email, password) => {
     try {
         console.log("register request server by ", email);
         const response = await axios.post(
-            process.env.REACT_APP_SERVER_URL+"/signIn",
+            process.env.REACT_APP_SERVER_URL + "/signIn",
             {
                 email,
                 password
-            },{
-                headers:{
-                    "Content-Type": `application/json`,
-                    'Access-Control-Allow-Origin': '*',
-                    'Access-Control-Allow-Methods': 'GET,PUT,POST,DELETE,PATCH,OPTIONS',
-                }    
+            }, {
+            headers: {
+                "Content-Type": `application/json`,
+                'Access-Control-Allow-Origin': '*',
+                'Access-Control-Allow-Methods': 'GET,PUT,POST,DELETE,PATCH,OPTIONS',
             }
+        }
         )
         console.group("login");
         console.log(response);
@@ -26,16 +26,16 @@ export const setSessionId = async (email, password) => {
         console.log(response.data.payload.expires);
         console.log(response.data.payload.path);
         console.groupEnd();
-        Cookies.set("SESSION",response.data.payload.sessionId,{ expires: response.data.payload.expires});
+        Cookies.set("SESSION", response.data.payload.sessionId, { expires: response.data.payload.expires });
         console.log(Cookies.get("SESSION"))
-        return {state:response.data.state};
-        // // {
-        //     // state: "SUCCESS", or "FAILURE", "ERROR"
-        //     // payload: {
-        //     //     sessionId: "string",
-        //     //     userId: "string"
-        //     // }
-        // // }
+        return { state: response.data.state };
+        // {
+        // state: "SUCCESS", or "FAILURE", "ERROR"
+        // payload: {
+        //     sessionId: "string",
+        //     userId: "string"
+        // }
+        // }
 
         // const sessionId = "1234";
         // const userId = "userId_1234";

@@ -13,18 +13,19 @@ export const getFriendData = async (currentId, requestValue, friendName) => {
                 data: []
             }
         const response = await axios.post(
-            process.env.REACT_APP_SERVER_URL+"/friend/get",
+            // process.env.REACT_APP_SERVER_URL+"/friend/get",
+            process.env.REACT_APP_SERVER_URL + "/test/makeFriends",
             {
                 sessionId,
                 currentId,
                 requestValue,
                 friendName
-            },{
-                withCredentials: true,
-                headers:{
-                    "Content-Type": `application/json`,
-                }    
+            }, {
+            withCredentials: true,
+            headers: {
+                "Content-Type": `application/json`,
             }
+        }
         )
 
         console.group("Friends-get");
@@ -74,16 +75,16 @@ export const removeFriendData = async (id) => {
                 data: []
             }
         const response = await axios.post(
-            process.env.REACT_APP_SERVER_URL+"/friend/remove",
+            process.env.REACT_APP_SERVER_URL + "/friend/remove",
             {
                 sessionId,
                 id,
-            },{
-                withCredentials: true,
-                headers:{
-                    "Content-Type": `application/json`,
-                }    
+            }, {
+            withCredentials: true,
+            headers: {
+                "Content-Type": `application/json`,
             }
+        }
         )
 
         console.group("Friends-remove");
