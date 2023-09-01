@@ -2,6 +2,7 @@ import classNames from 'classnames/bind';
 import { BsBell } from 'react-icons/bs';
 import { SlUserFollow, SlUserFollowing } from 'react-icons/sl';
 import { GiHamburgerMenu } from 'react-icons/gi';
+import { BsPencil } from "react-icons/bs";
 import { memo, useEffect, useState } from 'react';
 import { ToastContainer, toast } from 'react-toastify';
 import { OverlayTrigger, Popover, ListGroup, Button, Navbar, Container, Nav } from 'react-bootstrap';
@@ -9,7 +10,7 @@ import { OverlayTrigger, Popover, ListGroup, Button, Navbar, Container, Nav } fr
 import headerStyle from '../../styles/main/header.module.scss';
 const style = classNames.bind(headerStyle);
 
-const Header = ({ onClickHamburger }) => {
+const Header = ({ onClickHamburger, onClickWrite }) => {
     const [allam, setAllam] = useState([])
 
     const onRemove = (e) => {
@@ -90,6 +91,9 @@ const Header = ({ onClickHamburger }) => {
                         <div>
                             <span className={style('text')}>마이페이지</span>
                         </div> */}
+                        <div>
+                            <sapn onClick={onClickWrite}><BsPencil /> write</sapn>
+                        </div>
                         <div>
                             <span onClick={onClickHamburger}><GiHamburgerMenu /></span>
                         </div>
