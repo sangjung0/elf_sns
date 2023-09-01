@@ -59,24 +59,33 @@ const getContentsInfo = async (contentId, requestValue) => {
         payload:{
             totalPage: totalPage,
             data: [{
-                id: "contentId_"+(currentPage+(index+1)*additionalValue), //콘텐츠 아이디
+                id: 포스트 ID
                 author: { //저자
-                    id: "userId_12312", //저자 아이디
-                    imgUrl: "../img/test_img/사람_1.jpg" //저자 프로필 사진
+                    id: 유저 ID
+                    img: 프로필 URL
+                    name: 유저 이름
                 },
-                createAt: 1692706863808, //숫자로 
-                imgUrl: ["../img/test_img/사람_5.jpg","../img/test_img/사람_6.jpg","../img/test_img/사람_7.jpg","../img/test_img/사람_8.jpg"], // 이미지 url
-                content: "하루 죙일 버튜얼라이즈 인피니티로드를 만졌다. 메인 컨텐츠 크기를 동적으로 만들었다. 동적으로 안만들었으면 이렇게 고생할 일 없었을 텐데, 하 진짜 너무 짜증난다. 예시로 넣어놓은 저작권 없는 사진 이제 꼴도 보기 싫다. 이게 sns? 하 대학원은 어떻게가고 취직은 어떻게 하냐", //내용
+                createAt: 1692706863808, // 날짜 숫자로 
+                imgUrl: [..., ....], // 이미지 url
+                content: 포스트 내용
                 comments: [{
-                    commentId:"commentId_123412",
-                    userId:"userId_123123",
-                    createAt:1698469752808,
-                    comment:"와 진짜 개공감 ㅇㅈ"
+                    id: 댓글 ID
+                    author:{
+                        id: 댓글 ID
+                        img: 이미지 주소. 배열 X
+                        name: 이름
+                    }
+                    createAt:1698469752808, //날짜 숫자
+                    content: 내용
                 },{
-                    commentId:"commentId_123412",
-                    userId:"userId_123123",
-                    createAt:1698469752808,
-                    comment:"와 진짜 개공감 ㅇㅈ"
+                    id: 댓글 ID
+                    author:{
+                        id: 댓글 ID
+                        img: 이미지 주소. 배열 X
+                        name: 이름
+                    }
+                    createAt:1698469752808, //날짜 숫자
+                    content: 내용
                 }], //댓글 답글 많은것들 중 최근거 두개
                 tags: ["사람","css","뒤져","망할","리액트","버튜얼라이즈","사라져"]
             },{

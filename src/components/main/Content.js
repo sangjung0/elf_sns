@@ -9,8 +9,9 @@ import { setComment } from '../../lib/commentData';
 import contentStyle from '../../styles/main/content.module.scss';
 const style = classNames.bind(contentStyle);
 
-const Content = ({ data, setModalContent, reloadPage }) => {
-    // const id = data?.author.id ?? null;
+const Content = ({ data, setModalContent, reloadPage, userInfo }) => {
+    //const id = data?.author.id ?? null;
+    const userId = userInfo.id;
     const name = data?.author.name ?? null;
     const src = data?.author.img ?? null;
     const createAt = new Date(data?.createdAt ?? 0);
@@ -33,10 +34,11 @@ const Content = ({ data, setModalContent, reloadPage }) => {
         <Comment
             key={comment.commentId} 
             commentId={comment.commentId}
-            userId={comment.author.id}
+            commentUserId={comment.author.id}
+            userId={userId}
             name={comment.author.name}
             src={comment.author.img}
-            comment={comment.comment}
+            comment={comment.content}
             createAt={comment.createdAt}
             reloadPage={()=>{reloadPage(data.id)}}
         />
@@ -175,7 +177,7 @@ const Content = ({ data, setModalContent, reloadPage }) => {
                                 onChange={handleInput}
                                 value={inputComment}
                             />
-                            <Button variant="outline-secondary" onClick={handleButton} id="button-addon2">
+                            <Button variant="outline-secondary" type="submit" onClick={handleButton} id="button-addon2">
                                 입력
                             </Button>
                         </InputGroup>

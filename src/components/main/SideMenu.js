@@ -5,24 +5,26 @@ import { memo, useRef, useState } from 'react';
 import SideItem from './SideItem';
 import Loading from '../Loading';
 import InfiniteScroll from './InfiniteScroll';
-import {getFriendData, removeFriendData} from '../../lib/friendData';
+import {getFriendData, removeFriendData, addFriendData} from '../../lib/friendData';
 
 import sideMenuStyle from '../../styles/main/sideMenu.module.scss';
 const style = classNames.bind(sideMenuStyle);
 
 const LOAD_PAGE_VALUE = 10;
 
-const SideMenu = ({ onClickHamburger }) => {
+const SideMenu = ({ onClickHamburger, reloadPageByChangeFriendInfo }) => {
     const [friendsInfo, setFriendsInfo] = useState([]);
     const [friendName, setFriendName] = useState("");
+    const timeout = useRef(null);
     const totalPage = useRef(1);
+    const loadPageTimeout = useRef(null);
 
-    const reloadPage = (id) => {
-        loadPage(LOAD_PAGE_VALUE, friendsInfo.filter((friend) => friend.id < id));
+    const reloadPage = (name) => {
+        loadPage(LOAD_PAGE_VALUE, friendsInfo.filter((friend) => friend.name < name));
     }
 
-    const loadPage = async (loadPageValue, array = friendsInfo, string="") => {
-        const response = await getFriendData(array[array.length - 1]?.id ?? null, loadPageValue, string);
+    const loadPage = async (loadPageValue, array = friendsInfo, string=friendName) => {
+        const response = await getFriendData(array[array.length - 1]?.name ?? null, loadPageValue, string);
 
         switch (response.state) {
             case "SUCCESS":
@@ -41,12 +43,20 @@ const SideMenu = ({ onClickHamburger }) => {
         }
     }
 
-    const onUnfollow = async(id) => {
+    const infiniteLoadFunc = (loadPageValue) => {
+        if(loadPageTimeout.current === null){
+            loadPage(loadPageValue);
+            loadPageTimeout.current = setTimeout(()=>{},[100]);
+        }
+    }
+
+    const onUnfollow = async(id, name) => {
         const response = await removeFriendData(id);
 
         switch (response.state) {
             case "SUCCESS":
-                reloadPage(id);
+                reloadPageByChangeFriendInfo();
+                reloadPage(name);
                 break;
             case "ERROR":
                 console.error(response.e);
@@ -59,9 +69,36 @@ const SideMenu = ({ onClickHamburger }) => {
         }
     }
 
+    //위의 함수와 동일함. 최적화 필요.
+    const onFollow = async(id, name) => {
+        const response = await addFriendData(id);
+
+        switch (response.state) {
+            case "SUCCESS":
+                reloadPageByChangeFriendInfo();
+                reloadPage(name);
+                break;
+            case "ERROR":
+                console.error(response.e);
+                break;
+            case "FAILURE":
+                break;
+            default:
+                totalPage.current = 0;
+                setFriendsInfo([]);
+        }
+
+    }
+
     const handleOnChange = ({target}) => {
         setFriendName(target.value);
-        loadPage(LOAD_PAGE_VALUE, [], target.value);
+        if (timeout.current !== null){
+            clearTimeout(timeout.current);
+        }
+        return timeout.current = setTimeout(()=>{
+            loadPage(LOAD_PAGE_VALUE, [], target.value);
+        },500);
+
     }
 
     return (
@@ -74,11 +111,11 @@ const SideMenu = ({ onClickHamburger }) => {
                     <InfiniteScroll
                         contentsData={friendsInfo}
                         totalPage={totalPage.current}
-                        loadPage={loadPage}
+                        loadPage={infiniteLoadFunc}
                         defaultHeight={75}
                         defaultLoadPage={LOAD_PAGE_VALUE}
                     >
-                        <SideItem onUnfollow={onUnfollow} />
+                        <SideItem onUnfollow={onUnfollow} onFollow={onFollow}/>
                     </InfiniteScroll>
                 </div>
                 <div className={style('button-container')}>

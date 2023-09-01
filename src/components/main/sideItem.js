@@ -1,21 +1,37 @@
 import classNames from 'classnames/bind';
 import { BsBell } from 'react-icons/bs';
-import { BiBlock } from 'react-icons/bi';
 import { SlUserUnfollow } from 'react-icons/sl';
+import { SlUserFollow } from 'react-icons/sl';
 import { memo } from 'react';
 
 import ProfileImage from './ProfileImage';
 import sideItemStyle from '../../styles/main/sideItem.module.scss';
 const style = classNames.bind(sideItemStyle);
 
-const SideItem = ({ data, onAllam, onUnfollow, onBlock }) => {
+const SideItem = ({ data, onAllam, onUnfollow, onFollow}) => {
     const name = data?.name ?? null;
     const src = data?.img ?? null;
     // const userId = data?.userId ?? null;
     const id = data?.id ?? null;
+    const isFriend = data?.isFriend ?? false;
 
     const handleUnFollow = () => {
-        onUnfollow( id );
+        onUnfollow( id, name );
+    }
+
+    const handleFollow = () => {
+        onFollow( id, name);
+    }
+
+    const ShowMark = () => {
+        if(isFriend) {
+            return (
+                <span onClick={handleUnFollow}><SlUserUnfollow /></span>
+            )
+        }
+        return (
+            <span onClick={handleFollow}><SlUserFollow /></span>
+        )
     }
 
     return (
@@ -32,7 +48,7 @@ const SideItem = ({ data, onAllam, onUnfollow, onBlock }) => {
                         <span>{name}</span>
                     </div>
                     <div className={style('user-settings')}>
-                        <span onClick={handleUnFollow}><SlUserUnfollow /></span>
+                        <ShowMark/>
                         {/* <span onClick={onBlock}><BiBlock /></span> */}
                     </div>
                 </div>

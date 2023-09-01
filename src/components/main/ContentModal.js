@@ -11,10 +11,11 @@ import { getCommentData } from '../../lib/commentData';
 const style = classNames.bind(contentModalStyle);
 const LOAD_PAGE_VALUE = 10;
 
-const ContentModal = ({ setModalContent, modalContent, reloadPage }) => {
+const ContentModal = ({ setModalContent, modalContent, reloadPage, userInfo }) => {
+    const userId = userInfo.id;
     const contentId = modalContent.id;
     const src = modalContent.author.img;
-    // const id = modalContent.author.id;
+    //const id = modalContent.author.id;
     const name = modalContent.author.name;
     const createAt = new Date(modalContent.createdAt);
     const dateString = `${createAt.getFullYear()}-${(createAt.getMonth() + 1).toString().padStart(2, "0")}-${createAt.getDate().toString().padStart(2, "0")}`;
@@ -45,7 +46,8 @@ const ContentModal = ({ setModalContent, modalContent, reloadPage }) => {
             <Comment
                 key={index} //임시
                 commentId={value.commentId}
-                userId={value.author.id}
+                userId={userId}
+                commentUserId={value.author.id}
                 name={value.author.name}
                 src={value.author.img}
                 createAt={value.createdAt}
@@ -169,7 +171,7 @@ const ContentModal = ({ setModalContent, modalContent, reloadPage }) => {
                                         onChange={handleInput}
                                         value={inputComment}
                                     />
-                                    <Button variant="outline-secondary" onClick={handleButton} id="button-addon2">
+                                    <Button variant="outline-secondary" type="submit" onClick={handleButton} id="button-addon2">
                                         입력
                                     </Button>
                                 </InputGroup>
