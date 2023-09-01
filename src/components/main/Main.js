@@ -8,6 +8,7 @@ import SideMenu from './SideMenu';
 import FriendAdd from './FriendAdd';
 import WindowInfiniteScroll from './WindowInfiniteScroll';
 import Content from './Content';
+import WriteModal from './WriteModal';
 import ContentModal from './ContentModal';
 import getContentsInfo from '../../lib/getContentsInfo';
 
@@ -28,9 +29,12 @@ const Main = ({ userInfo }) => {
         setShowSideMenu(state => !state);
     }
 
+    const onClickWrite = () => {
+        setModalFlag(state => !state);
+    }
 
-    const loadPage = async (defaultLoadPage, array=contentsInfo) => {
-        const response = await  getContentsInfo(array[array.length-1]?.id ?? null, defaultLoadPage);
+    const loadPage = async (defaultLoadPage, array = contentsInfo) => {
+        const response = await getContentsInfo(array[array.length - 1]?.id ?? null, defaultLoadPage);
         // 실제 작동할 때는 contentsInfo.length가 아니라 id값으로 할 것.
         // getContentsInfo(contentsInfo[contentsInfo.length-1].id, LOAD_PAGE_VALUE);
         switch (response.state) {
@@ -59,9 +63,10 @@ const Main = ({ userInfo }) => {
     return (
         <>
             {/* <Header onClickHamburger={onClickHamburger} allam={allam} setAllam={onRemove} follower={userInfo.follower} following={userInfo.following} /> */}
-            <Header onClickHamburger={onClickHamburger} follower={userInfo.follower} following={userInfo.following} />
-            {showSideMenu && <SideMenu onClickHamburger={onClickHamburger} reloadPageByChangeFriendInfo={reloadPageByChangeFriendInfo}/>}
-            {modalContent && <ContentModal modalContent={modalContent} setModalContent={setModalContent} reloadPage={reloadPage} userInfo={userInfo}/>}
+            <Header onClickHamburger={onClickHamburger} onClickWrite={onClickWrite} follower={userInfo.follower} following={userInfo.following} />
+            {showSideMenu && <SideMenu onClickHamburger={onClickHamburger} reloadPageByChangeFriendInfo={reloadPageByChangeFriendInfo} />}
+            {modalFlag && <WriteModal modalFlag={modalFlag} setModalFlag={setModalFlag} userInfo={userInfo} />}
+            {modalContent && <ContentModal modalContent={modalContent} setModalContent={setModalContent} reloadPage={reloadPage} userInfo={userInfo} />}
             <Container className={style('wrap')}>
                 <WindowInfiniteScroll
                     contentsData={contentsInfo}
@@ -70,7 +75,7 @@ const Main = ({ userInfo }) => {
                     defaultHeight={700}
                     defaultLoadPage={LOAD_PAGE_VALUE}
                 >
-                    <Content setModalContent={setModalContent} reloadPage={reloadPage} userInfo={userInfo}/>
+                    <Content setModalContent={setModalContent} reloadPage={reloadPage} userInfo={userInfo} />
                 </WindowInfiniteScroll>
             </Container>
         </>

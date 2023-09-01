@@ -62,7 +62,7 @@ const ContentModal = ({ setModalContent, modalContent, reloadPage, userInfo }) =
         loadData(loadValue, []);
     }
 
-    const loadData = async (loadPageValue, array=commentsData) => {
+    const loadData = async (loadPageValue, array = commentsData) => {
         const response = await getCommentData(contentId, array[array.length - 1]?.commentId ?? null, loadPageValue);
         switch (response.state) {
             case "SUCCESS":
@@ -75,7 +75,7 @@ const ContentModal = ({ setModalContent, modalContent, reloadPage, userInfo }) =
                 setCommentsData([]);
         }
     }
-    
+
 
     const handleInput = ({ target }) => {
         setInputComment(target.value);
@@ -112,11 +112,18 @@ const ContentModal = ({ setModalContent, modalContent, reloadPage, userInfo }) =
     //중복된 부분 수정 필요.
     return (
         <Modal
-            show={modalContent ? true : false}
+            show={modalContent}
             onHide={handleClose}
             dialogClassName={style("modal-container")}
         >
             <Modal.Header closeButton>
+                {
+                    contentId === userId &&
+                    <div>
+                        <Button>modify</Button>
+                        <Button>delete</Button>
+                    </div>
+                }
             </Modal.Header>
             <Modal.Body>
                 <Container>
