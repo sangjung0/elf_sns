@@ -8,7 +8,6 @@ import SignUp from "../components/SignUp";
 const SignUpContainer = () => {
     const navigate = useNavigate();
 
-
     const registerAccountInfo = async (accountInfo) => {
         setRedirect(<Loading />);
         const result = await register(

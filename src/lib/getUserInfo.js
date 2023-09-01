@@ -3,10 +3,10 @@ import { getSessionId } from "./sessionId";
 
 //유저 정보 가져오기
 const getUserInfo = async () => {
-    try{
+    try {
         const sessionId = getSessionId();
-        console.log("request server by ",sessionId);
-        if (!sessionId){
+        console.log("request server by ", sessionId);
+        if (!sessionId) {
             return {
                 state: "FAILURE",
                 data: null
@@ -14,15 +14,15 @@ const getUserInfo = async () => {
         }
         //axios로 유저 정보 서버에 요청
         const response = await axios.post(
-            process.env.REACT_APP_SERVER_URL+"/sessionCheck",
+            process.env.REACT_APP_SERVER_URL + "/sessionCheck",
             {
                 sessionId
-            },{
-                withCredentials: true,
-                headers:{
-                    "Content-Type": `application/json`,
-                }    
+            }, {
+            withCredentials: true,
+            headers: {
+                "Content-Type": `application/json`,
             }
+        }
         )
         console.group("getUserInfo");
         console.log(response);
@@ -40,7 +40,7 @@ const getUserInfo = async () => {
         // //         userId: "string",
         // //     }
         // // }
-        
+
         // return {
         //     state: "SUCCESS",
         //     data: { //일단 유저 데이터에 었는데 알람 리덕스하고 친구 리덕스 있으면 괜찮을지도
@@ -50,7 +50,7 @@ const getUserInfo = async () => {
         //         following: 123
         //     }
         // }
-    }catch(e){
+    } catch (e) {
         console.groupEnd();
         return {
             state: "ERROR",
