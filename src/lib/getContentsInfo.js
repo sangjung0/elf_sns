@@ -15,7 +15,7 @@ const getContentsInfo = async (contentId, requestValue) => {
 
         //axios로 유저 정보 서버에 요청
         const response = await axios.post(
-            process.env.REACT_APP_SERVER_URL + "/test/makePosts",
+            process.env.REACT_APP_SERVER_URL + "/getContents",
             {
                 sessionId,
                 contentId,
