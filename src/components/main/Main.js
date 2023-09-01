@@ -15,7 +15,7 @@ import mainStyle from '../../styles/main/main.module.scss';
 import 'react-toastify/dist/ReactToastify.css';
 const style = classNames.bind(mainStyle);
 
-const LOAD_PAGE_VALUE = 20;
+const LOAD_PAGE_VALUE = 40;
 
 const Main = ({ userInfo }) => {
     const [showSideMenu, setShowSideMenu] = useState(false);

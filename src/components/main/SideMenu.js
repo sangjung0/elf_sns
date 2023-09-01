@@ -10,17 +10,16 @@ import {getFriendData, removeFriendData, addFriendData} from '../../lib/friendDa
 import sideMenuStyle from '../../styles/main/sideMenu.module.scss';
 const style = classNames.bind(sideMenuStyle);
 
-const LOAD_PAGE_VALUE = 10;
+const LOAD_PAGE_VALUE = 40;
 
 const SideMenu = ({ onClickHamburger, reloadPageByChangeFriendInfo }) => {
     const [friendsInfo, setFriendsInfo] = useState([]);
     const [friendName, setFriendName] = useState("");
     const timeout = useRef(null);
     const totalPage = useRef(1);
-    const loadPageTimeout = useRef(null);
 
     const reloadPage = (name) => {
-        loadPage(LOAD_PAGE_VALUE, friendsInfo.filter((friend) => friend.name < name));
+        loadPage(LOAD_PAGE_VALUE, friendsInfo.filter((friend) => name.localeCompare(friend.name) > 0));
     }
 
     const loadPage = async (loadPageValue, array = friendsInfo, string=friendName) => {
@@ -28,7 +27,6 @@ const SideMenu = ({ onClickHamburger, reloadPageByChangeFriendInfo }) => {
 
         switch (response.state) {
             case "SUCCESS":
-                console.log([...array, ...response.data]);
                 setFriendsInfo([...array, ...response.data]);
                 totalPage.current = response.totalPage;
                 break;
@@ -40,13 +38,6 @@ const SideMenu = ({ onClickHamburger, reloadPageByChangeFriendInfo }) => {
             default:
                 totalPage.current = 0;
                 setFriendsInfo([]);
-        }
-    }
-
-    const infiniteLoadFunc = (loadPageValue) => {
-        if(loadPageTimeout.current === null){
-            loadPage(loadPageValue);
-            loadPageTimeout.current = setTimeout(()=>{},[100]);
         }
     }
 
@@ -111,7 +102,7 @@ const SideMenu = ({ onClickHamburger, reloadPageByChangeFriendInfo }) => {
                     <InfiniteScroll
                         contentsData={friendsInfo}
                         totalPage={totalPage.current}
-                        loadPage={infiniteLoadFunc}
+                        loadPage={loadPage}
                         defaultHeight={75}
                         defaultLoadPage={LOAD_PAGE_VALUE}
                     >

@@ -52,7 +52,7 @@ const ContentModal = ({ setModalContent, modalContent, reloadPage, userInfo }) =
                 src={value.author.img}
                 createAt={value.createdAt}
                 comment={value.comment}
-                reloadPage={() => { reloadComments(commentsData.length + 1); }}
+                reloadPage={() => { reloadComments(commentsData.length); }}
 
             />
         )

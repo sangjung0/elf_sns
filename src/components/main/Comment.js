@@ -43,9 +43,9 @@ const Comment = ({ commentId, commentUserId, comment, createAt, reloadPage, src,
     }
 
     const handleSubmit = async() => {
+        //변화 없으면 리턴되는 방법도 좋을 듯.
         const response = await modifyComment(commentId, text);
         if (response) {
-            const response = await removeComment(commentId);
             if (response.state ==="SUCCESS"){
                 reloadPage();
             }else{
