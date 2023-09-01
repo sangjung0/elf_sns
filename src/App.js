@@ -2,7 +2,8 @@ import { Route, Routes, Navigate } from 'react-router-dom';
 
 import SignUpContainer from './containers/SignUpContainer';
 import SignInContainer from './containers/SignInContainer';
-import MainContainer from './containers/MainContainer';
+import Main from './components/main/Main';
+import Mypage from './components/mypage/Mypage';
 import Layout from './components/Layout';
 import Loading from './components/Loading';
 
@@ -14,8 +15,10 @@ const App = ({userInfo}) => {
     //해당 명령문을 지우면 로딩화면 생략 가능
     return (<Loading/>);
   }
+
+  const userData = userInfo.payload?.data;
   
-  const [navigate, navigateByPost] = data.data? [`/post/${encodeURI(data.data.id)}`, <MainContainer/>]: ["signIn", <Navigate to={`/signIn`}/>];
+  const [navigate, navigateByPost, navigateByMypage] = data.data? [`/post/${encodeURI(data.data.id)}`, <Main userInfo={userData}/>, <Mypage userInfo={userData} />]: ["signIn", <Navigate to={`/signIn`}/>, <Navigate to={`/signIn`}/>];
   
   return (
       <Routes>
@@ -23,6 +26,7 @@ const App = ({userInfo}) => {
         <Route path="/signUp" element={<Layout><SignUpContainer/></Layout>} />
         <Route path="/signIn" element={<Layout><SignInContainer/></Layout>} />
         <Route path="/post/*" element={navigateByPost} />
+        <Route path="/mypage/*" element={navigateByMypage} />
       </Routes>
   );
 }

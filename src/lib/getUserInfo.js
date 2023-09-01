@@ -28,13 +28,10 @@ const getUserInfo = async () => {
         console.log(response);
         console.log(response.data.state);
         console.log(response.data.payload);
-        console.log(response.data.payload.userId);
         console.groupEnd();
         return {
             state: response.data.state,
-            data: {
-                id: response.data.payload.userId,
-            }
+            data: response.data.payload
         }
 
         // // {
