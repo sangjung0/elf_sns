@@ -3,7 +3,6 @@ import { AiOutlineCloseCircle } from 'react-icons/ai';
 import { memo, useRef, useState } from 'react';
 
 import SideItem from './SideItem';
-import Loading from '../Loading';
 import InfiniteScroll from './InfiniteScroll';
 import {getFriendData, removeFriendData, addFriendData} from '../../lib/friendData';
 

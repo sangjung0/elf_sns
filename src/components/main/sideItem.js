@@ -49,7 +49,6 @@ const SideItem = ({ data, onAllam, onUnfollow, onFollow}) => {
                     </div>
                     <div className={style('user-settings')}>
                         <ShowMark/>
-                        {/* <span onClick={onBlock}><BiBlock /></span> */}
                     </div>
                 </div>
             </div>

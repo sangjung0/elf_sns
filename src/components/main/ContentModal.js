@@ -1,4 +1,4 @@
-import { memo, useCallback, useEffect, useRef, useState } from 'react';
+import { memo, useEffect, useState } from 'react';
 import { Button, Carousel, Col, Container, Form, InputGroup, Modal, Row } from 'react-bootstrap';
 import classNames from 'classnames/bind';
 

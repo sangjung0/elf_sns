@@ -1,12 +1,11 @@
 import classNames from 'classnames/bind';
 import { BsBell } from 'react-icons/bs';
-import { SlUserFollow, SlUserFollowing } from 'react-icons/sl';
 import { GiHamburgerMenu } from 'react-icons/gi';
 import { BsPencil } from "react-icons/bs";
 import {CgProfile} from "react-icons/cg";
 import { memo, useEffect, useState } from 'react';
 import { ToastContainer, toast } from 'react-toastify';
-import { OverlayTrigger, Popover, ListGroup, Button, Navbar, Container, Nav } from 'react-bootstrap';
+import { OverlayTrigger, Popover, ListGroup, Button } from 'react-bootstrap';
 import { useNavigate } from 'react-router-dom';
 
 import headerStyle from '../../styles/main/header.module.scss';
@@ -29,7 +28,6 @@ const Header = ({ onClickHamburger, onClickWrite }) => {
     }
 
     useEffect(() => {
-        // setTimeout(() => toast("Wow so easy !"), 3000)
         const recieveAllam = setInterval(() => {
             const message = `message ${allam.length + 1}`
             toast(message)
@@ -92,15 +90,6 @@ const Header = ({ onClickHamburger, onClickWrite }) => {
                                 <span><BsBell /> <span className={style('text')}>{allam.length}</span></span>
                             </OverlayTrigger>
                         </div>
-                        {/* <div className={style('small-info')}>
-                            <span><SlUserFollowing /> <span className={style('text')}>5</span></span>
-                        </div>
-                        <div className={style('small-info')}>
-                            <span><SlUserFollow /> <span className={style('text')}>5</span></span>
-                        </div>
-                        <div>
-                            <span className={style('text')}>마이페이지</span>
-                        </div> */}
                         <div>
                             <sapn onClick={onClickWrite}><BsPencil /> write</sapn>
                         </div>
@@ -112,28 +101,8 @@ const Header = ({ onClickHamburger, onClickWrite }) => {
                         </div>
                     </div>
                 </div>
-                {/* <div className={style('message-container')}>
-                    <span className={style('mouse-message')}>마우스 올리셈</span>
-                </div> */}
             </div>
         </>
-        // <Navbar fixed="top" className="bg-secondary mb-3" >
-        //     <Container>
-        //         <img width="75" alt="logo" src="../img/logo.png" />
-        //         <Nav>
-        //             <OverlayTrigger trigger="click" placement="bottom" overlay={popoverBottom}>
-        //                 <span>
-        //                     <BsBell />
-        //                     <span >{allam.length}</span>
-        //                 </span>
-        //             </OverlayTrigger>
-
-        //             <div onClick={onClickHamburger}>
-        //                 <GiHamburgerMenu />
-        //             </div>
-        //         </Nav>
-        //     </Container>
-        // </Navbar>
     )
 }
 

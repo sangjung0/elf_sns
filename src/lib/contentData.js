@@ -192,5 +192,43 @@ export const getMyContents = async (contentId, requestValue) => {
             error: e
         }
     }
+}
 
+export const uploadContent = async (formData) => {
+    try {
+        const sessionId = getSessionId();
+        console.log("get contents by ", sessionId);
+        if (!sessionId) {
+            return {
+                state: "FAILURE",
+                data: null
+            }
+        }
+
+        //axios로 유저 정보 서버에 요청
+        const response = await axios.post(
+            process.env.REACT_APP_SERVER_URL + "/post/upload", formData,
+            {
+                withCredentials: true,
+                headers: {
+                    "Content-Type": `multipart/form-data`,
+                }
+            }
+        )
+
+        console.group("contents");
+        console.log(response);
+        console.log(response.data.state);
+        console.groupEnd();
+        return {
+            state: response.data.state,
+        }
+
+    } catch (e) {
+        return {
+            state: "ERROR",
+            data: null,
+            error: e
+        }
+    }
 }

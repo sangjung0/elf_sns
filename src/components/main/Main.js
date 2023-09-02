@@ -1,11 +1,9 @@
 import classNames from 'classnames/bind';
 import { Container } from 'react-bootstrap';
-import { ToastContainer, toast } from 'react-toastify';
-import { useState, useEffect, useRef } from 'react';
+import { useState, useRef } from 'react';
 
 import Header from './Header';
 import SideMenu from './SideMenu';
-import FriendAdd from './FriendAdd';
 import WindowInfiniteScroll from './WindowInfiniteScroll';
 import Content from './Content';
 import WriteModal from './WriteModal';
