@@ -7,8 +7,9 @@ import SideMenu from '../main/SideMenu';
 import WindowInfiniteScroll from '../main/WindowInfiniteScroll';
 import Content from './Content';
 import ContentModal from '../main/ContentModal';
-import getContentsInfo from '../../lib/getContentsInfo';
+import {getMyContents} from '../../lib/contentData';
 import ProfileImage from '../main/ProfileImage';
+import {upload} from '../../lib/file';
 
 import mypageStyle from '../../styles/mypage/mypage.module.scss';
 import 'react-toastify/dist/ReactToastify.css';
@@ -17,20 +18,37 @@ const style = classNames.bind(mypageStyle);
 const LOAD_PAGE_VALUE = 120;
 const COL_VALUE = 3;
 
-const Main = ({ userInfo }) => {
-    console.log(userInfo);
+const Main = ({ userInfo, getUserInfo }) => {
     const [showSideMenu, setShowSideMenu] = useState(false);
     const [modalContent, setModalContent] = useState(null);
     const [contentsInfo, setContentsInfo] = useState([]);
     const totalPage = useRef(1);
+    const fileInputRef = useRef(null);
 
     const onClickHamburger = () => {
         setShowSideMenu(state => !state);
     }
 
+    const handleButtonClick = () => {
+        fileInputRef.current.click(); // 파일 선택 화면 열기
+    };  
+
+    const handleFileChange = async (e) => {
+        const selectedFile = e.target.files[0];
+        if (selectedFile) {
+            const formData = new FormData();
+            formData.append('file', selectedFile);
+            const response = await upload(formData);
+            if(response.state !== 'SUCCESS') {
+                alert("업로드 실패");
+                return;
+            }
+            getUserInfo();
+        }
+    };
 
     const loadPage = async (defaultLoadPage, array=contentsInfo) => {
-        const response = await  getContentsInfo(array[array.length-1]?.id ?? null, defaultLoadPage);
+        const response = await  getMyContents(array[array.length-1]?.id ?? null, defaultLoadPage);
         switch (response.state) {
             case "SUCCESS":
                 setContentsInfo([...array, ...response.data]);
@@ -68,20 +86,25 @@ const Main = ({ userInfo }) => {
                     <Row>
                         <Col md={"6"}>
                             <div className={style('box')}> 
-                                <div className={style('image-box')}>
                                     <ProfileImage src={userInfo.img}/>
-                                </div>
                             </div>
                         </Col>
                         <Col md={"6"}>
                             <div className={style('info')}>
-                                <h1>친구</h1>
-                                <h2>
-                                    <span>113명</span>   
-                                </h2>
+                                <h1>{userInfo.name}</h1>
+                                <h2>친구</h2>
+                                <h3>
+                                    <span>{userInfo.friendNumber}명</span>   
+                                </h3>
                                 <br></br>
-                                <h2>프로필 사진 업로드</h2>
-                                <h2>비밀번호 변경</h2>x  
+                                <input
+                                    type="file"
+                                    ref={fileInputRef}
+                                    style={{ display: 'none' }}
+                                    onChange={handleFileChange}
+                                />
+                                <button onClick={handleButtonClick}>프로필 사진 업로드</button>
+                                <h2>비밀번호 변경</h2>  
                             </div>
                         </Col>
                     </Row>

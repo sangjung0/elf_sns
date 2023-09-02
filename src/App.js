@@ -7,7 +7,7 @@ import Mypage from './components/mypage/Mypage';
 import Layout from './components/Layout';
 import Loading from './components/Loading';
 
-const App = ({userInfo}) => {
+const App = ({userInfo, getUserInfo}) => {
 
   const data = userInfo.payload;
 
@@ -18,7 +18,7 @@ const App = ({userInfo}) => {
 
   const userData = userInfo.payload?.data;
   
-  const [navigate, navigateByPost, navigateByMypage] = data.data? [`/post/${encodeURI(data.data.id)}`, <Main userInfo={userData}/>, <Mypage userInfo={userData} />]: ["signIn", <Navigate to={`/signIn`}/>, <Navigate to={`/signIn`}/>];
+  const [navigate, navigateByPost, navigateByMypage] = data.data? [`/post/${encodeURI(data.data.id)}`, <Main userInfo={userData}/>, <Mypage userInfo={userData} getUserInfo={getUserInfo} />]: ["signIn", <Navigate to={`/signIn`}/>, <Navigate to={`/signIn`}/>];
   
   return (
       <Routes>

@@ -10,7 +10,7 @@ import WindowInfiniteScroll from './WindowInfiniteScroll';
 import Content from './Content';
 import WriteModal from './WriteModal';
 import ContentModal from './ContentModal';
-import getContentsInfo from '../../lib/getContentsInfo';
+import {getContents} from '../../lib/contentData';
 
 import mainStyle from '../../styles/main/main.module.scss';
 import 'react-toastify/dist/ReactToastify.css';
@@ -34,7 +34,7 @@ const Main = ({ userInfo }) => {
     }
 
     const loadPage = async (defaultLoadPage, array = contentsInfo) => {
-        const response = await getContentsInfo(array[array.length - 1]?.id ?? null, defaultLoadPage);
+        const response = await getContents(array[array.length - 1]?.id ?? null, defaultLoadPage);
         // 실제 작동할 때는 contentsInfo.length가 아니라 id값으로 할 것.
         // getContentsInfo(contentsInfo[contentsInfo.length-1].id, LOAD_PAGE_VALUE);
         switch (response.state) {

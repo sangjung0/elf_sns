@@ -1,7 +1,7 @@
 import axios from 'axios';
 import { getSessionId } from "./sessionId";
 
-const getContentsInfo = async (contentId, requestValue) => {
+export const getContents = async (contentId, requestValue) => {
     //세션아이디, 현재페이지, 가져오고싶은 페이지 양
     try {
         const sessionId = getSessionId();
@@ -15,7 +15,7 @@ const getContentsInfo = async (contentId, requestValue) => {
 
         //axios로 유저 정보 서버에 요청
         const response = await axios.post(
-            process.env.REACT_APP_SERVER_URL + "/getContents",
+            process.env.REACT_APP_SERVER_URL + "/post/get",
             {
                 sessionId,
                 contentId,
@@ -145,4 +145,52 @@ const getContentsInfo = async (contentId, requestValue) => {
 
 }
 
-export default getContentsInfo;
+export const getMyContents = async (contentId, requestValue) => {
+    //세션아이디, 현재페이지, 가져오고싶은 페이지 양
+    try {
+        const sessionId = getSessionId();
+        console.log("get contents by ", sessionId);
+        if (!sessionId) {
+            return {
+                state: "FAILURE",
+                data: null
+            }
+        }
+
+        //axios로 유저 정보 서버에 요청
+        const response = await axios.post(
+            process.env.REACT_APP_SERVER_URL + "/post/getMy",
+            {
+                sessionId,
+                contentId,
+                requestValue,
+            },
+            {
+                withCredentials: true,
+                headers: {
+                    "Content-Type": `application/json`,
+                }
+            }
+        )
+
+        console.group("contents");
+        console.log(response);
+        console.log(response.data.state);
+        console.log(response.data.payload.totalPage);
+        console.log(response.data.payload);
+        console.groupEnd();
+        return {
+            state: response.data.state,
+            totalPage: response.data.payload.totalPage,
+            data: response.data.payload.data
+        }
+
+    } catch (e) {
+        return {
+            state: "ERROR",
+            data: null,
+            error: e
+        }
+    }
+
+}

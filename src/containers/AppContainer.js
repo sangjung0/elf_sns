@@ -12,7 +12,7 @@ const AppContainer = () => {
     useEffect(()=>{
         _getUserInfo();
     },[_getUserInfo]);
-    return <App userInfo={userInfo}/>
+    return <App userInfo={userInfo} getUserInfo={_getUserInfo}/>
 }
 
 export default AppContainer;
