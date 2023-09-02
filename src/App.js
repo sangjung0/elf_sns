@@ -18,15 +18,15 @@ const App = ({userInfo, getUserInfo}) => {
 
   const userData = userInfo.payload?.data;
   
-  const [navigate, navigateByPost, navigateByMypage] = data.data? [`/post/${encodeURI(data.data.id)}`, <Main userInfo={userData}/>, <Mypage userInfo={userData} getUserInfo={getUserInfo} />]: ["signIn", <Navigate to={`/signIn`}/>, <Navigate to={`/signIn`}/>];
+  const [navigate, navigateByPost, navigateByMypage] = data.data? [`/post`, <Main userInfo={userData}/>, <Mypage userInfo={userData} getUserInfo={getUserInfo} />]: ["signIn", <Navigate to={`/signIn`}/>, <Navigate to={`/signIn`}/>];
   
   return (
       <Routes>
         <Route path="/" element={<Navigate to={navigate}/>} />
         <Route path="/signUp" element={<Layout><SignUpContainer/></Layout>} />
         <Route path="/signIn" element={<Layout><SignInContainer/></Layout>} />
-        <Route path="/post/*" element={navigateByPost} />
-        <Route path="/mypage/*" element={navigateByMypage} />
+        <Route path="/post" element={navigateByPost} />
+        <Route path="/mypage" element={navigateByMypage} />
       </Routes>
   );
 }

@@ -3,19 +3,29 @@ import { BsBell } from 'react-icons/bs';
 import { SlUserFollow, SlUserFollowing } from 'react-icons/sl';
 import { GiHamburgerMenu } from 'react-icons/gi';
 import { BsPencil } from "react-icons/bs";
+import {CgProfile} from "react-icons/cg";
 import { memo, useEffect, useState } from 'react';
 import { ToastContainer, toast } from 'react-toastify';
 import { OverlayTrigger, Popover, ListGroup, Button, Navbar, Container, Nav } from 'react-bootstrap';
+import { useNavigate } from 'react-router-dom';
 
 import headerStyle from '../../styles/main/header.module.scss';
 const style = classNames.bind(headerStyle);
 
 const Header = ({ onClickHamburger, onClickWrite }) => {
     const [allam, setAllam] = useState([])
+    const navigate = useNavigate();
 
     const onRemove = (e) => {
         e.preventDefault()
         setAllam(allam.filter(i => i !== e.target.classList[0] + " " + e.target.classList[1]))
+    }
+
+    const onClickMypage = () => {
+        navigate('/mypage');
+    }
+    const onClickMain = () => {
+        navigate('/post');
     }
 
     useEffect(() => {
@@ -74,7 +84,7 @@ const Header = ({ onClickHamburger, onClickWrite }) => {
             <div className={style('nav-container')}>
                 <div className={style('item-container')}>
                     <div className={style("logo-container")}>
-                        <img className={style("logo-img")} alt="logo" src="../img/logo.png" />
+                        <img className={style("logo-img")} onClick={onClickMain} alt="logo" src="../img/logo.png" />
                     </div>
                     <div className={style('user-info-container')}>
                         <div className={style('small-info')}>
@@ -93,6 +103,9 @@ const Header = ({ onClickHamburger, onClickWrite }) => {
                         </div> */}
                         <div>
                             <sapn onClick={onClickWrite}><BsPencil /> write</sapn>
+                        </div>
+                        <div>
+                            <sapn onClick={onClickMypage}><CgProfile /></sapn>
                         </div>
                         <div>
                             <span onClick={onClickHamburger}><GiHamburgerMenu /></span>
